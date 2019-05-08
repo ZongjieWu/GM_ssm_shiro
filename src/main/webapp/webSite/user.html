@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+<meta name="CreativeLayers" content="ATFN">
+<!-- css file -->
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="css/responsive.css">
+<!-- Title -->
+<title>个人中心 - 华顿教师人才</title>
+<!-- Favicon -->
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<style>
+		.header_user_notif li:first-child span:last-child {
+			background-color:transparent;
+		}
+		.footer_social_widget ul {
+			text-align: left;
+		}
+	</style>
+</head>
+<body id="aa" onload="changeFrameHeight()">
+<div class="wrapper" id="app">
+	<div class="preloader"></div>
+
+	<script src="login_head.js"></script>
+
+	<!-- Our Dashbord -->
+	<section class="our-dashbord dashbord">
+		<div class="container">
+			<div class="row">
+				<script src="menu.js"></script>
+				<iframe name="toppage" id="user" style="width:100%;height:830px;margin-top: -25%;frameborder:no;border:0;scrolling:none" src="userInfo.html" ></iframe>
+			</div>
+		</div>
+	</section>
+<script src="jumpPage.js"></script>
+
+<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+<!-- Wrapper End -->
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="js/chart.min.js"></script>
+<script type="text/javascript" src="js/chart.custome.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="js/snackbar.min.js"></script>
+<script type="text/javascript" src="js/simplebar.js"></script>
+<script type="text/javascript" src="js/parallax.js"></script>
+<script type="text/javascript" src="js/scrollto.js"></script>
+<script type="text/javascript" src="js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="js/jquery.counterup.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/progressbar.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/timepicker.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            userName:"",
+            userResumeId:0,
+            headImg:''
+        },
+        created: function () {
+            if(localStorage.getItem("user")==null){
+                window.location.href="login.html";
+            }
+            this.userName=JSON.parse(localStorage.getItem("user")).name;
+            this.headImg=JSON.parse(localStorage.getItem("user")).headImg;
+            this.userResumeId=JSON.parse(localStorage.getItem("user")).userResumeId;
+            var code=this.aquireParam("code");
+            if(code!=null&&code!=''&&code!=undefined){
+                var data={};
+                data.code=code;
+                data.id=JSON.parse(localStorage.getItem("user")).id;
+                $.post("/weixin/weChatPublic/aquireUserInfo",data,function(res){
+                    var user=JSON.parse(localStorage.getItem("user"));
+                    user.wechatPublicOpenid=res.data.openid;
+                    localStorage.setItem("user",JSON.stringify(user));
+                })
+            }
+        },
+        methods: {
+            detail: function () {
+
+            },aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+
+        }
+    });
+
+</script>
+</body>
+</html>

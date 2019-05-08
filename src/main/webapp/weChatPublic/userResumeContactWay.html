@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>联系方式</title>
+		<link rel="stylesheet" href="css/commons.css" />
+		<link rel="stylesheet" href="css/lxfs.css" />
+		<link rel="stylesheet" href="css/dbdhys.css" />
+		<link rel="stylesheet" href="css/tanchu-dq.css" />
+
+		<!--三级联动要用到的-->
+		<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+		<link rel="stylesheet" href="level3linkage/css/mpicker.css">
+	</head>
+	<body>
+
+		<div class="outdiv">
+			<div class="head-top" id="app"> <!--表头开始  -->
+				<span class="bt">联系方式</span>
+				<div class="div-1" onclick="goBack();">
+					<img src="img/fanhui-ioc.png" />
+					<span>返回</span>
+				</div>
+				<template v-if="userName==''||userName==null">
+					<span class="dl-button" onclick="jumpLogin()">登录</span>
+				</template>
+				<template v-else>
+					<span class="dl-button" onclick="jumpUser()">{{userName}}</span>
+				</template>
+			</div> <!--表头结束  -->
+			<div class="body-conter" style="bottom:42px; overflow:auto;"><!--页面详情开始  -->
+				<div class="fgx"></div>
+				<div class="zw-div">
+					<ul>
+						<li class="lx-bt">
+							<span>联系方式</span>
+							<i>l 必填  l</i>
+						</li>
+					</ul>
+					<ul class="jtnr">
+						<li id="diqu-1">
+							<span class="lie">目前所在地</span>
+							<span class="dqs">
+								<input id="nowPlace" type="text" class="select-value form-control" style="width: 100%;" value="广东省-东莞市">
+							</span>
+						</li>
+						<li>
+							<span class="lie">联系电话</span>
+							<input id="phone" name="" type="text" placeholder="请输入电话号码"/>
+						</li>
+						<li>
+							<span class="lie">电子邮箱</span>
+							<input id="email" name="" type="text" placeholder="请输入电子邮箱"/>
+						</li>
+						<li>
+							<span class="lie">QQ</span>
+							<input id="qq" name="" type="text" placeholder="请输入qq号码"/>
+						</li>
+					</ul>
+				</div>
+				<!--底部菜单开始                                                                                                      -->
+				<div style="clear: both;"></div>
+
+				<!--底部菜单结束                                                                                                      -->
+			</div> <!--页面详情结束  -->
+		</div>
+		<div class="dbxq" onclick="next();"><!--底部开始  -->
+				下一步
+	    </div><!--底部结束  -->
+	    <div>
+
+	    </div>
+	</body>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<!--三级联动要用到的-->
+	<script src="level3linkage/js/json.js"></script>
+	<script src="level3linkage/js/jsonExchange.js"></script>
+	<script src="level3linkage/js/mPicker.min.js"></script>
+	<script>
+	var app;
+    function next() {
+        var data={};
+        data.userId=app.userId;
+        var nowPlace=$("#nowPlace").val();
+        var nowPlaceArr=nowPlace.split('-');
+        data.nowProvince=nowPlaceArr[0];
+        data.nowCity=nowPlaceArr[1];
+        data.nowArea=nowPlaceArr[2];
+        data.phone=$("#phone").val();
+        data.email=$("#email").val();
+        data.qq=$("#qq").val();
+        $.ajaxSettings.async = false;
+        $.post('/api/userResume/update',data,function (res) {
+            if(res.code==0){
+                alert("保存"+res.msg);
+                var user=JSON.parse(localStorage.getItem("user"));
+                user.userResumeId=res.data;
+                localStorage.setItem("user",JSON.stringify(user));
+                setTimeout(function(res){
+                    window.location.href="userResumefindJobPurpose.html"
+
+                },300);
+            }else{
+                alert(res.msg);
+            }
+        });
+        $.ajaxSettings.async = true;
+
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+
+    /**
+     * 联动的picker
+     * 三级
+     */
+    $('.select-value').mPicker({
+        level:3,
+        dataJson: city3,
+        Linkage:true,
+        rows:6,
+        idDefault:true,
+        splitStr:'-',
+        header:'<div class="mPicker-header">当前所在地</div>',
+        confirm:function(json){
+            console.info('当前选中json：',json);
+            console.info('【json里有不带value时】');
+            console.info('选中的id序号为：', json.ids);
+            console.info('选中的value为：', json.values);
+            // var id1= $('.select-value').data('id1');
+            // var id2 = $('.select-value').data('id2');
+            // var id3 = $('.select-value').data('id3');
+            // console.info('第一列json：',city3[id1]);
+            // console.info('第二列json：', city3[id1].child[id2]);
+            // console.info('第三列json：', city3[id1].child[id2].child[id3]);
+        },
+        cancel:function(json){
+            console.info('当前选中json：',json);
+        }
+    })
+    //获取mpicker实例
+    var method= $('.select-value').data('mPicker');
+    console.info('第一个mpicker的实例为：',method);
+    //mpicker方法
+    // method.showPicker();
+    // method.hidePicker(function(){
+    //     console.info(this)
+    // });
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            userName:"sdfasdf",
+        },
+        created: function () {
+            this.userId=JSON.parse(localStorage.getItem("user")).id;
+            this.userName=JSON.parse(localStorage.getItem("user")).name;
+            var data={};
+            data.userId=this.userId;
+            $.post('/api/userResume/detailByUserId',data,function (res) {
+                if(res.code==0){
+                    var userResume=res.data;
+                    var province=userResume.nowProvince;
+                    var city=userResume.nowCity;
+                    var area=userResume.nowArea;
+                    var nowPlace=province+"-"+city+"-"+area;
+                    if(province==null||city==null||area==null){
+                        $("#nowPlace").val("江西省-赣州市-章贡区");
+                    }else{
+                        $("#nowPlace").val(nowPlace);
+					}
+                    $("#phone").val(userResume.phone);
+                    $("#email").val(userResume.email);
+                    $("#qq").val(userResume.qq);
+
+                }else{
+                }
+            });
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+
+            },
+
+        }
+    });
+    function jumpUser() {
+        window.location.href="user.html";
+    }
+    function jumpLogin() {
+		window.location.href="login.html";
+    }
+	</script>
+</html>

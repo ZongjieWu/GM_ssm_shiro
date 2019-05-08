@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzj.dao.mapper.WorkExperienceMapper">
+  <resultMap id="BaseResultMap" type="com.wzj.model.WorkExperience">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_resume_id" jdbcType="BIGINT" property="userResumeId" />
+    <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="enterprise_type_id" jdbcType="BIGINT" property="enterpriseTypeId" />
+    <result column="start_time" jdbcType="VARCHAR" property="startTime" />
+    <result column="end_time" jdbcType="VARCHAR" property="endTime" />
+    <result column="job_type" jdbcType="BIGINT" property="jobType" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="work_content" jdbcType="VARCHAR" property="workContent" />
+    <result column="performance" jdbcType="VARCHAR" property="performance" />
+    <result column="skill" jdbcType="VARCHAR" property="skill" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+  </resultMap>
+</mapper>

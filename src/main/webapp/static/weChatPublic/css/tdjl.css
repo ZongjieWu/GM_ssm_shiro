@@ -1,0 +1,110 @@
+.head-top .cd-button{
+	float: right;
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	right: 0.5em;
+	margin-top: 1px;
+}
+body{
+	background-color: #f2f2f2;
+}
+.body-conter ul{
+	width: 100%;
+	margin: 0px;
+}
+.body-conter ul li{
+	width: 95%;
+	margin: 0px auto;
+}
+.body-conter ul li .sjtb{
+	
+	width: inherit;
+	width:auto;
+	float: right;
+	  padding:4px 0px;
+	
+	
+}
+.body-conter ul li .sjtb img{
+	width: 20px;
+	height: 20px;
+	position: relative;
+	top:5px;
+}
+
+.body-conter ul li .sjtb span{
+	color: #999999;
+	font-size: 0.8em;
+}
+.body-conter ul li .zwmc{
+	width: 70%;
+	font-weight: bold;
+	font-size: 1.2em;
+	overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+margin: 0px 0px;
+	  float: left;
+	    padding: 4px 0px;
+	
+}
+.body-conter ul li .gsm{
+	width: 70%;
+	overflow: hidden;
+white-space: nowrap;
+text-overflow: ellipsis;
+float: left;
+font-size: 1em;
+color: #343434;
+padding: 4px 0px;
+}
+
+.body-conter ul li .scioc{
+	width: 20px;
+	height: 20px;
+	float: right;
+	padding: 4px 0px;
+}
+
+.body-conter ul li .dq{
+	width: 70%;
+	float: left;
+font-size: 1em;
+color: #8d8d8d;
+padding: 4px 0px 4px  0px;
+}
+
+.body-conter ul li .xz{
+	width: inherit;
+	width:auto;
+	color: #60b42b;
+	font-size: 1em;
+	float: right;
+	padding: 4px 0px;
+	
+}
+
+.body-conter ul li .fgx{
+	float: left;
+	width: 100%; border-bottom: 1px  solid #e3e3e3;
+		padding: 9px 0px 9px 0px;
+}
+
+
+
+ .body-conter ul li .fgxs{
+ 	float: left;
+	width: 100%;
+ 	 padding-top: 9px;
+ }
+ 
+
+
+
+
+
+
+
+
+

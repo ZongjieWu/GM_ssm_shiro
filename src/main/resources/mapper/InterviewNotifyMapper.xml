@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzj.dao.mapper.InterviewNotifyMapper">
+  <resultMap id="BaseResultMap" type="com.wzj.model.InterviewNotify">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="issue_job_id" jdbcType="BIGINT" property="issueJobId" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="concat_phone" jdbcType="VARCHAR" property="concatPhone" />
+    <result column="interview_time" jdbcType="VARCHAR" property="interviewTime" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+  </resultMap>
+  <select id="paging" resultType="java.util.HashMap">
+    select itvnty.*,u.name as userName,u.phone as userPhone,e.logo
+    from interview_notify itvnty
+    join user u on itvnty.user_id=u.id
+    join issue_job ij on itvnty.issue_job_id=ij.id
+    join enterprise e on ij.enterprise_id=e.id
+    <where>
+      <if test="uid!=null">
+        and itvnty.user_id=#{uid}
+      </if>
+      <if test="keywords!=null and !keywords.equals('')">
+        and (u.name like concat('%',#{keywords},'%') or u.phone like concat('%',#{keywords},'%') or itvnty.job_name like concat('%',#{keywords},'%') or itvnty.enterprise_name like concat('%',#{keywords},'%'))
+      </if>
+    </where>
+  </select>
+  <select id="pagingByEnterpriseId" resultType="java.util.HashMap">
+    select itvnty.*,u.name as userName,u.phone as userPhone,e.logo
+    from interview_notify itvnty
+    join user u on itvnty.user_id=u.id
+    join issue_job ij on itvnty.issue_job_id=ij.id
+    join enterprise e on ij.enterprise_id=e.id
+    <where>
+      <if test="enterpriseId!=null">
+        and ij.enterprise_id=#{enterpriseId}
+      </if>
+      <if test="keywords!=null and !keywords.equals('')">
+        and (u.name like concat('%',#{keywords},'%') or u.phone like concat('%',#{keywords},'%') or itvnty.job_name like concat('%',#{keywords},'%') or itvnty.enterprise_name like concat('%',#{keywords},'%'))
+      </if>
+    </where>
+  </select>
+  <select id="detail" resultType="java.util.HashMap">
+    select itvnty.*,u.name as userName,u.phone as userPhone from interview_notify itvnty
+    join user u on itvnty.user_id=u.id where itvnty.id=#{id}
+  </select>
+</mapper>

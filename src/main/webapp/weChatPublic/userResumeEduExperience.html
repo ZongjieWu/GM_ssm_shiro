@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>教育经历</title>
+		<link rel="stylesheet" href="css/commons.css" />
+		<link rel="stylesheet" href="css/lxfs.css" />
+		<link rel="stylesheet" href="css/dbdhys.css" />
+
+
+		<link rel="stylesheet" href="jqueryWeUI/css/weui.min.css">
+		<link rel="stylesheet" href="jqueryWeUI/css/jquery-weui.min.css">
+	</head>
+	<body>
+		<div class="outdiv">
+			<div class="head-top"  id="app"> <!--表头开始  -->
+				<span class="bt">教育经历</span>
+				<div class="div-1"  onclick="goBack();">
+					<img src="img/fanhui-ioc.png" />
+					<span>返回</span>
+				</div>
+				<span class="dl-button" onclick="addEdu();">+添加</span>
+			</div> <!--表头结束  -->
+			<div class="body-conter" style="bottom:42px; overflow:auto;"><!--页面详情开始  -->
+				<div class="fgx"></div>
+				<div class="zw-div">
+
+				</div>
+
+				<!--底部菜单开始                                                                                                      -->
+				<div style="clear: both;"></div>
+				<!--<div class="dbcd let" style="width: 100%;" >-->
+					<!--<div id="dbcd">-->
+						<!--<a href="#" class="bro">首页</a>-->
+						<!--<a href="#" class="bro">关于</a>-->
+						<!--<a href="#" class="bro">联系 </a>-->
+						<!--<a  href="#"style="border: none;" class="bro">反馈</a>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--底部菜单结束                                                                                                      -->
+			</div><!--页面详情结束   -->
+		</div>
+		<div class="dbxq" onclick="next();"><!--底部开始  -->
+				下一步
+	    </div><!--底部结束  -->
+	</body>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script src="jqueryWeUI/js/jquery-weui.min.js"></script>
+<script>
+    $(".time").calendar({dateFormat:'yyyy-mm-dd'});
+
+    function next() {
+        var eduArr=[];
+        var count=$(".zw-div>div").length;
+        var elesArr=$(".zw-div").children();
+        var userResumeId=app.userResumeId;
+        console.log(count);
+		for(var i=0;i<count;i++){
+		    var edu={};
+		   if(elesArr[i].getElementsByClassName("id")[0].value!=''){
+               edu.id=elesArr[i].getElementsByClassName("id")[0].value;
+			};
+            edu.name=elesArr[i].getElementsByClassName("name")[0].value;
+            edu.major=elesArr[i].getElementsByClassName("major")[0].value;
+            edu.startTime=elesArr[i].getElementsByClassName("startTime")[0].value;
+            edu.endTime=elesArr[i].getElementsByClassName("endTime")[0].value;
+            edu.userResumeId=userResumeId;
+            eduArr.push(edu);
+		}
+		var data={};
+		data.eduStrList=JSON.stringify(eduArr);
+		$.post("/api/eduExperience/update",data,function(res){
+		    if(res.code==0){
+		        alert("保存"+res.msg);
+                window.location.href="userResumeSkill.html";
+            }else{
+                alert(res.msg);
+			}
+		});
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            userName:"sdfasdf",
+            count:1,
+            userResumeId:0,
+            eduList:[],
+        },
+        created: function () {
+            this.userId=JSON.parse(localStorage.getItem("user")).id;
+            this.userName=JSON.parse(localStorage.getItem("user")).name;
+            this.userResumeId=JSON.parse(localStorage.getItem("user")).userResumeId;
+            var data={};
+            data.userResumeId=this.userResumeId;
+            $.post('/api/eduExperience/detailByUserResumeId',data,function (res) {
+                if(res.code==0){
+                    var eduList=res.data;
+                    console.log("111111111111");
+                    console.log(eduList);
+                   	if(eduList==null||eduList.length==0){
+                        addEdu();
+					}else{
+                        showEdu(eduList);
+					}
+                }else{
+                }
+            });
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+
+            },
+
+        }
+    });
+
+	function addEdu() {
+        var count=$(".zw-div>div").length;
+	    var tag='';
+       tag+='<div>';
+        tag+='<ul>';
+        tag+='<li class="lx-bt" style="display:inline;width: 80%;">';
+        tag+='<span>基本信息</span>';
+        tag+='<i>l 必填  l</i>';
+        tag+='</li>';
+        tag+='<span style="width: 20%;float: right;color: red" sindex="'+count+'"  class="delEdu">删除</span>';
+        tag+='</ul>';
+        tag+='<ul class="jtnr">';
+        tag+='<li>';
+        tag+='<span class="lie">学校名称</span>';
+        tag+='<input name="name" class="name" type="text"  placeholder="请输入名称"/>';
+        tag+='<input name="id" class="id" type="hidden"/>';
+        tag+='</li>';
+        tag+='<li>';
+        tag+='<span class="lie">专       业</span>';
+        tag+='<input name="major" class="major" type="text"   placeholder="请输入专 业"/>';
+        tag+='</li>';
+        tag+='<li style="padding-bottom: 0px; border: none;">';
+        tag+='<span class="lie">';
+        tag+='<img src="img/dian.png" />';
+        tag+='开始时间';
+        tag+='</span>';
+        tag+='<span class="dqs">';
+        tag+='<input id="startTime" class="startTime time" name="startTime"  style="width: 100%;" type="text" placeholder="开始时间"/>';
+        tag+='</span>';
+        tag+='</li>';
+        tag+='<li style="border: none; padding: 0px;">';
+        tag+='<img class="lianxian" src="img/xian.png" />';
+        tag+='<div class="xian"></div>';
+        tag+='</li>';
+        tag+='<li style="padding-top: 0px;">';
+        tag+='<span class="lie">';
+        tag+='<img src="img/dian-huangse.png" />';
+        tag+='结束时间';
+        tag+='</span>';
+        tag+='<span class="dqs">';
+        tag+='<input id="endTime" class="endTime time" name="endTime"  style="width: 100%;" type="text" placeholder="结束时间"/>';
+        tag+='</span>';
+        tag+='</li>';
+        tag+='</ul>';
+       tag+='</div>';
+        $(".zw-div").append(tag);
+//        $(".zw-div").index(0).remove();
+        $(".time").calendar({dateFormat:'yyyy-mm-dd'});
+    }
+
+    function showEdu(eduList) {
+	    for(var i=0,count=eduList.length;i<count;i++){
+            var tag='';
+            tag+='<div>';
+            tag+='<ul>';
+            tag+='<li class="lx-bt" style="display:inline;width: 80%;">';
+            tag+='<span>基本信息</span>';
+            tag+='<i>l 必填  l</i>';
+            tag+='</li>';
+            tag+='<span style="width: 20%;float: right;color: red" class="delEdu" sindex="'+i+'" >删除</span>';
+            tag+='</ul>';
+            tag+='<ul class="jtnr">';
+            tag+='<li>';
+            tag+='<span class="lie">学校名称</span>';
+            tag+='<input name="name" class="name" value="'+eduList[i].name+'" type="text"  placeholder="请输入名称"/>';
+            tag+='<input name="id" class="id" value="'+eduList[i].id+'" type="hidden"/>';
+            tag+='</li>';
+            tag+='<li>';
+            tag+='<span class="lie">专       业</span>';
+            tag+='<input name="major" class="major" value="'+eduList[i].major+'" type="text"   placeholder="请输入专 业"/>';
+            tag+='</li>';
+            tag+='<li style="padding-bottom: 0px; border: none;">';
+            tag+='<span class="lie">';
+            tag+='<img src="img/dian.png" />';
+            tag+='开始时间';
+            tag+='</span>';
+            tag+='<span class="dqs">';
+            tag+='<input id="startTime" class="startTime time" value="'+eduList[i].startTime+'" name="startTime"  style="width: 100%;" type="text" placeholder="开始时间"/>';
+            tag+='</span>';
+            tag+='</li>';
+            tag+='<li style="border: none; padding: 0px;">';
+            tag+='<img class="lianxian" src="img/xian.png" />';
+            tag+='<div class="xian"></div>';
+            tag+='</li>';
+            tag+='<li style="padding-top: 0px;">';
+            tag+='<span class="lie">';
+            tag+='<img src="img/dian-huangse.png" />';
+            tag+='结束时间';
+            tag+='</span>';
+            tag+='<span class="dqs">';
+            tag+='<input id="endTime" class="endTime time" value="'+eduList[i].endTime+'" name="endTime"  style="width: 100%;" type="text" placeholder="结束时间"/>';
+            tag+='</span>';
+            tag+='</li>';
+            tag+='</ul>';
+            tag+='</div>';
+            $(".zw-div").append(tag);
+		}
+
+//        $(".zw-div").index(0).remove();
+        $(".time").calendar({dateFormat:'yyyy-mm-dd'});
+    }
+	$(document).on("click",'.delEdu',function(res){
+        var index=$(this).context.attributes.sindex.value;
+        var id=$(".zw-div").children()[index].getElementsByClassName("id")[0].value;
+        if(id==""){
+            $(this).parent().parent().remove();
+		}else{
+            var flag=confirm("确定要删除吗?");
+            if(flag){
+              var data={};
+                data.id=id;
+                $.post("/api/eduExperience/delete",data,function (res) {
+                    if(res.code==0){
+                        window.location.reload();
+                    }else{
+                        alert(res.msg);
+                    }
+                })
+			}
+
+        }
+    });
+    function jumpUser() {
+        window.location.href="user.html";
+    }
+    function jumpLogin() {
+        window.location.href="login.html";
+    }
+</script>
+</html>

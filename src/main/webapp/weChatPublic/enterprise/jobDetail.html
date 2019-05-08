@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>职位详情</title>
+    <link rel="stylesheet" href="../css/commons.css"/>
+</head>
+<body style="background-color:#f2f2f2 ;">
+<div class="outdiv" id="app">
+    <div class="head-top"> <!--表头开始  -->
+        <span class="bt">职位详情</span>
+        <div class="div-1"  onclick="goBack();">
+            <img src="../img/fanhui-ioc.png" />
+            <span>返回</span>
+        </div>
+        <template v-if="enterpriseName==null||enterpriseName==''">
+            <span class="dl-button" onclick="jumpLogin();">登入</span>
+        </template>
+        <template v-else>
+            <span class="dl-button" onclick="jumpEnterprise();">{{enterpriseName}}</span>
+        </template>
+    </div> <!--表头结束  -->
+    <div class="body-conter"  style="bottom:40px;"  v-for="jobDtail in jobDtailList"><!--页面详情开始  -->
+        <div class="iebnxinxi">
+
+            <div class="jibenxinxi"><!--基本信息开始  -->
+                <ul>
+                    <li>
+                        <h2>{{jobDtail.jobName}}</h2>
+                    </li>
+                    <li>
+                        <span style="color:#333333;">地区:</span>
+                        <span>{{jobDtail.workPlace}}</span>
+                    </li>
+                    <li>
+                        <span style="color:#333333;">时间:</span>
+                        <span>{{jobDtail.addTime}} </span>
+                    </li>
+                    <li>
+                        <span style="color:#333333;">薪资:</span>
+                        <span style="color: #5fb52c;">{{jobDtail.jobMoney}}</span>
+                    </li>
+                </ul>
+            </div><!--基本信息结束  -->
+        </div>
+        <!--职位开始                                                                                              -->
+        <div class="zhiweiyaoqiu-lest">
+            <div class="zhiweiyaoqiu"><!--职位开始  -->
+                <div class="lset">
+			<span>
+			<div style="  margin:inherit;width: 275px;font-size: 0.9em;">
+			<span style="padding-right: 0.5em; font-size: 0.9em;" class="gsmc"></span>
+			{{jobDtail.enterpriseName}}
+			<img src="../img/qianjinlv-ioc.png"/>
+			</div>
+			</span>
+                </div>
+            </div><!--职位结束  -->
+        </div>
+        <!--职位结束                                                                                                      -->
+        <div class="xiahuaxian"></div>
+        <!--职位内容开始                                                                                                      -->
+        <div class="zhiwei-neirong">
+            <ul>
+                <li>发布时间：<span>{{jobDtail.addTime}}</span></li>
+                <li>薪酬待遇：<span>{{jobDtail.jobMoney}}</span></li>
+                <li>工作地点：<span>{{jobDtail.workPlace}}</span></li>
+                <li>发学历要求：<span>
+                    <template v-if="jobDtail.edu==0">
+                        高中
+                    </template>
+                    <template v-if="jobDtail.edu==1">
+                        专科
+                    </template>
+                    <template v-if="jobDtail.edu==2">
+                        本科
+                    </template>
+                    <template v-if="jobDtail.edu==3">
+                        研究生
+                    </template>
+                    <template v-if="jobDtail.edu==4">
+                        博士
+                    </template>
+                </span></li>
+                <li>工作经验：<span>{{jobDtail.workAge}}</span></li>
+                <!--<li>性别要求：<span>-->
+                     <!--<template v-if="jobDtail.sex==0">-->
+                        <!--男-->
+                    <!--</template>-->
+                     <!--<template v-if="jobDtail.sex==1">-->
+                        <!--女-->
+                    <!--</template>-->
+                <!--</span></li>-->
+            </ul>
+        </div>
+        <!--职位内容结束                                                                                                      -->
+        <!--职位介绍表头开始                                                                                                      -->
+        <div class="zhiweiyaoqiu-lest">
+            <div class="zhiweiyaoqiu"><!--职位开始  -->
+                <div class="lset">
+							<span>
+								<div style="  margin:inherit;width: 275px;font-size: 0.9em;">
+									<span style="padding-right: 0.5em; font-size: 0.9em;" class="gsmc"></span>
+									职位介绍
+
+								</div>
+							</span>
+                </div>
+            </div><!--职位结束  -->
+        </div>
+        <!--职位介绍表头结束                                                                                                      -->
+        <div class="xiahuaxian"></div>
+        <!--职位介绍内容开始                                                                                                      -->
+        <div class="zhiwei-neirong" style="padding-left: 3%">
+            {{jobDtail.jobDetail}}
+        </div>
+        <!--职位介绍内容结束                                                                                                      -->
+        <!--任职要求表头开始                                                                                                     -->
+        <div class="zhiweiyaoqiu-lest">
+            <div class="zhiweiyaoqiu"><!--职位开始  -->
+                <div class="lset">
+							<span>
+								<div style="  margin:inherit;width: 275px;font-size: 0.9em;">
+									<span style="padding-right: 0.5em; font-size: 0.9em;" class="gsmc"></span>
+									任职要求
+
+								</div>
+							</span>
+                </div>
+            </div><!--职位结束  -->
+        </div>
+        <!--任职要求表头结束                                                                                                      -->
+        <div class="xiahuaxian"></div>
+        <!--任职要求内容开始                                                                                                      -->
+        <div class="zhiwei-neirong" style="padding-left: 3%">
+            {{jobDtail.skill}}
+        </div>
+        <!--任职要求内容结束                                                                                                      -->
+        <!--企业介绍表头开始                                                                                                      -->
+        <div class="zhiweiyaoqiu-lest">
+            <div class="zhiweiyaoqiu"><!--职位开始  -->
+                <div class="lset">
+							<span>
+								<div style="  margin:inherit;width: 275px;font-size: 0.9em;">
+									<span style="padding-right: 0.5em; font-size: 0.9em;" class="gsmc"></span>
+									企业介绍
+									<img src="../img/qianjinlv-ioc.png"/>
+								</div>
+							</span>
+                </div>
+            </div><!--职位结束  -->
+        </div>
+        <!--企业介绍表头结束                                                                                                      -->
+        <div class="xiahuaxian"></div>
+        <!--企业介绍内容开始                                                                                                     -->
+        <div class="zhiwei-neirong">
+            <ul>
+                <li>
+							<span>
+								{{jobDtail.intro}}
+						    </span>
+                </li>
+            </ul>
+        </div>
+        <!--企业介绍内容结束                                                                                                      -->
+        <!--相关职位推荐表头开始                                                                                                      -->
+        <!--<div class="zhiweiyaoqiu-lest">-->
+            <!--<div class="zhiweiyaoqiu">&lt;!&ndash;职位开始  &ndash;&gt;-->
+                <!--<div class="lset">-->
+							<!--<span>-->
+								<!--<div style="  margin:inherit;width: 275px;font-size: 0.9em;">-->
+									<!--<span style="padding-right: 0.5em; font-size: 0.9em;" class="gsmc"></span>-->
+									<!--相关职位推荐-->
+									<!--<img src="../img/dingyue-ioc.png"/>-->
+								<!--</div>-->
+							<!--</span>-->
+                <!--</div>-->
+            <!--</div>&lt;!&ndash;职位结束  &ndash;&gt;-->
+        <!--</div>-->
+        <!--相关职位推荐表头结束                                                                                                      -->
+        <!--<div class="xiahuaxian"></div>-->
+        <!--相关职位推荐内容开始                                                                                                      -->
+        <!--<div class="zhiwei-neirong">-->
+            <!--<ul style="padding-top: 0px; border: none;">-->
+                <!--<li class="border">-->
+                    <!--<span class="tjzw">java软件工程师</span>-->
+                    <!--<span class="xinzix">-->
+						    	<!--30-20万-->
+							<!--<img src="../img/qianjin-ioc.png"/>-->
+							<!--</span>-->
+
+                <!--</li>-->
+
+            <!--</ul>-->
+        <!--</div>-->
+        <!--相关职位推荐内容结束                                                                                                      -->
+        <!--底部菜单开始                                                                                                      -->
+        <!--<div style="clear: both;"></div>-->
+        <!--<div style="width: 100%; background-color: #fff;">-->
+            <!--<div id="dbcd">-->
+                <!--<a href="#" class="bro">首页</a>-->
+                <!--<a href="#" class="bro">关于</a>-->
+                <!--<a href="#" class="bro">联系 </a>-->
+                <!--<a href="#" style="border: none;" class="bro">反馈</a>-->
+
+            <!--</div>-->
+        <!--</div>-->
+        <!--底部菜单结束                                                                                                      -->
+    </div><!--页面详情结束  -->
+    <div style="clear: both;"></div>
+    <div class="dbxq" onclick="sendResume(this)"><!--底部开始  -->
+        编辑职位
+    </div><!--底部结束  -->
+</div>
+</body>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            enterpriseName: '',
+            jobDtailList: []
+        },
+        created: function () {
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+                var data = {};
+                data.id = this.aquireParam("id");
+                $.post('/api/issueJob/detail', data, function (res) {
+                    app.jobDtailList = res.data
+                });
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+
+    function goBack() {
+        window.history.back(-1);
+    }
+    function jumpEnterprise() {
+        window.location.href="enterprise.html"
+    }
+    function jumpLogin() {
+        window.location.href="login.html";
+    }
+    function sendResume(data){
+        var id=app.jobDtailList[0].id;
+       window.location.href="issueJob.html?id="+id;
+    }
+</script>
+</html>

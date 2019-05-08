@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+		<link rel="stylesheet" href="../new_file/new_file.css" />
+        <link rel="stylesheet" href="../css/commons.css" />
+        <link rel="stylesheet" href="../css/lxfs.css" />
+        <link rel="stylesheet" href="../css/zwyx.css" />
+        <link rel="stylesheet" href="../css/dbdhys.css" />
+		<title>企业会员充值</title>
+	</head>
+	<body>
+		<div id="app">
+            <!--头部  star-->
+            <div class="head-top"> <!--表头开始  -->
+                <span class="bt">企业会员充值</span>
+                <div class="div-1"  onclick="goBack();">
+                    <img src="../img/fanhui-ioc.png" />
+                    <span>返回</span>
+                </div>
+                <span class="dl-button" onclick="jumpEnterprise();">{{enterpriseName}}</span>
+            </div> <!--表头结束  -->
+
+            <!--充值列表-->
+            <div class="person_wallet_recharge">
+                <ul class="ul" style="margin-top: 20%;">
+                    <template v-for="enterSet in enterSetList">
+                        <li>
+                            <h2>{{enterSet.money}}/{{enterSet.type}}年</h2>
+                            <div class="sel" style=""></div>
+                        </li>
+                    </template>
+                    <div style="clear: both;"></div>
+                </ul>
+                <p style="color: red;">支付宝扫码支付完后截屏点击提交充值记录上传凭证</p>
+                <img style='width: 100%;height: 100%;text-align: center;' id="gatheringCode"/>
+                <div class="dbxq" style="position:absolute;bottom: 2%;" onclick="jumpRemitRecord();"><!--底部开始  -->
+                    提交打款记录
+                </div><!--底部结束  -->
+            </div>
+        </div>
+	</body>
+</html>
+<script type="text/javascript" src="../new_file/new_file.js" ></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+    var app;
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            status:0,
+            enterpriseName:"",
+            enterpriseLogo:"",
+            enterSetList:[],
+            gatheringCode:'',
+        },
+        created: function () {
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+                this.enterpriseLogo=JSON.parse(localStorage.getItem("enterprise")).logo;
+                $.post("/api/enterSet/all",function(res){
+                    console.log(res);
+                    if(res.code==0){
+                        app.enterSetList=res.data.enterSet;
+                        $("#gatheringCode").attr("src","/"+res.data.gatheringCode);
+                    }else{
+                    }
+                });
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+
+    function jumpRemitRecord(){
+        window.location.href="remitRecord.html";
+    }
+    function jumpEnterprise() {
+        window.location.href="enterprise.html";
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+</script>

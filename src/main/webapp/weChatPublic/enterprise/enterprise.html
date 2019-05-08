@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>企业中心</title>
+		<link rel="stylesheet" href="../css/commons.css" />
+		<link rel="stylesheet" href="../css/grzx.css" />
+	</head>
+	<body>
+		<div class="outdiv" id="app">
+			<div class="head-top"> <!--表头开始  -->
+				<span class="bt">企业中心</span>
+				<div class="div-1">
+					<img src="../img/fanhui-ioc.png" onclick="goBack()"/>
+					<span onclick="goBack()">返回</span>
+				</div>
+				<template v-if="enterpriseName==null||enterpriseName==''">
+					<span class="dl-button" onclick="jumpLogin();">登入</span>
+				</template>
+				<template v-else>
+					<span class="dl-button" onclick="jumpEnterprise();">{{enterpriseName}}</span>
+				</template>
+			</div> <!--表头结束  -->
+			<div class="body-conter" style="bottom:60px;background-color: #fff;"><!--页面详情开始  -->
+
+				<div class="zjdl">
+					<template v-if="enterpriseLogo==null||enterpriseLogo==''">
+						<img src="../img/baitou-ico.png" />
+					</template>
+					<template v-else>
+						<img :src="'/'+enterpriseLogo" />
+					</template>
+
+
+				</div>
+			  	<div class="mz">{{enterpriseName}} 欢迎回来</div>
+			  	<!--<div class="mz" style="font-size: 0.6em;color: #999999;">-->
+			  		<!--最后登录时间：2015.7.30     最后更新时间：2015.7.29-->
+			  	<!--</div>-->
+			  	<img class="beij" src="../img/320.png"></img>
+			  	<div class="grnr">
+			  		<ul style="margin-top: 2em;">
+						<li onclick="enterpriseAuthentication()">
+							<img src="../img/menuIcn/authentication.png" />
+							<span><a href="#">企业认证</a></span>
+							<img class="lie" src="../img/qianjin-ioc.png" />
+							<div style="clear: both;"></div>
+						</li>
+			  			<li onclick="jumpReceiveResume()">
+			  				<img src="../img/menuIcn/receive.png" />
+			  				<span><a href="#">查收简历</a></span>
+			  				<img class="lie" src="../img/qianjin-ioc.png" />
+			  				<div style="clear: both;"></div>
+			  			</li>
+			  			<li onclick="jumpFindResume();">
+			  				<img src="../img/menuIcn/search.png" />
+			  				<span><a href="#">搜索简历</a></span>
+			  				<img class="lie" src="../img/qianjin-ioc.png" />
+			  				<div style="clear: both;"></div>
+			  			</li>
+			  			<li onclick="jumpIssueJob();">
+			  				<img src="../img/menuIcn/send.png" />
+			  				<span><a href="#">发布职位</a></span>
+			  				<img class="lie" src="../img/qianjin-ioc.png" />
+			  				<div style="clear: both;"></div>
+			  			</li>
+						<li onclick="jumpInterViewNotify();">
+							<img src="../img/menuIcn/notify.png" />
+							<span><a href="#">面试通知</a></span>
+							<img class="lie" src="../img/qianjin-ioc.png" />
+							<div style="clear: both;"></div>
+						</li>
+			  			<!--<li>-->
+			  				<!--<img src="../img/gr-ioc/shouc.png"/>-->
+			  				<!--<span><a href="../zwsc.html">简历收藏</a></span>-->
+			  				<!--<img class="lie" src="../img/qianjin-ioc.png" />-->
+			  				<!--<div style="clear: both;"></div>-->
+			  			<!--</li>-->
+						<li onclick="jumpAccountInfo();">
+							<img src="../img/menuIcn/info.png" />
+							<span><a href="#">账号信息</a></span>
+							<img class="lie" src="../img/qianjin-ioc.png" />
+							<div style="clear: both;"></div>
+						</li>
+						<li onclick="jumpEnterpriseInfo();">
+							<img src="../img/menuIcn/data.png" />
+							<span><a href="#">企业资料</a></span>
+							<img class="lie" src="../img/qianjin-ioc.png" />
+							<div style="clear: both;"></div>
+						</li>
+						<li onclick="jumpEnterpriseCharge();">
+							<img src="../img/menuIcn/recharge.png" />
+							<span><a href="#">企业充值</a></span>
+							<img class="lie" src="../img/qianjin-ioc.png" />
+							<div style="clear: both;"></div>
+						</li>
+			  			<li onclick="jumpUpdatePwd();">
+			  				<img src="../img/menuIcn/modifyPassword.png" />
+			  				<span><a href="#">修改密码</a></span>
+			  				<img class="lie" src="../img/qianjin-ioc.png" />
+			  				<div style="clear: both;"></div>
+			  			</li>
+			  			<li  onclick="jumpLogin();">
+			  				<img src="../img/menuIcn/logout.png" />
+			  				<span><a href="#">退出登录</a></span>
+			  				<img class="lie" src="../img/qianjin-ioc.png" />
+			  				<div style="clear: both;"></div>
+			  			</li>
+			  		</ul>
+			  	</div>
+			</div><!--页面详情结束  -->
+			<!--底部菜单开始                                                                                                      -->
+
+		</div>
+
+				<!--<div style=" width:100%;border-top: 1px  solid #ccc; position:fixed;bottom: 0px;" >-->
+					<!--<div id="dbcd" style=" margin-top: 1em; background-color: inherit;">-->
+						<!--<a href="#" class="bro" onclick="jumpJobList()">首页</a>-->
+						<!--<a href="#" class="bro">关于</a>-->
+						<!--<a href="#" class="bro">联系 </a>-->
+						<!--<a  href="#"style="border: none;" class="bro">反馈</a>-->
+
+					<!--</div>-->
+				<!--</div>-->
+				<!--底部菜单结束                                                                                                      -->
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            enterpriseName:"",
+            enterpriseLogo:""
+        },
+        created: function () {
+            if(localStorage.getItem("enterprise")==null){
+                window.location.href="login.html";
+			}
+            this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+            this.enterpriseLogo=JSON.parse(localStorage.getItem("enterprise")).logo;
+
+
+            authenticationEnterprise();
+        },
+        methods: {
+            detail: function () {
+            },
+        }
+    });
+	function authenticationEnterprise(){
+	 var data={};
+	 data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+	 $.post("/api/enterprise/detail",data,function(res){
+	     //第一个认证的
+	     if(res.data.authenticationStatus==0){
+             if(confirm("请认证")){
+                 window.location.href="authentication.html";
+             }
+		 }else if(res.data.authenticationStatus==1){
+             alert("请等待认证");
+         }else if(res.data.authenticationStatus==3){
+		     if(confirm("认证失败,请重新认证")){
+                 window.location.href="authentication.html";
+			 }
+         }
+	 });
+	}
+    function goBack() {
+        window.history.back(-1);
+    }
+    function enterpriseAuthentication(){
+	    window.location.href="authentication.html";
+	}
+    function jumpReceiveResume() {
+        var isAuthentication=false;
+        var isRenewMoney=false;
+        var errMsg="";
+        var authenticationStatus=0;
+        var data={};
+        data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+        $.ajaxSettings.async = false;
+        $.post("/api/enterprise/detail",data,function(res){
+            console.log(res.data);
+            authenticationStatus=res.data.authenticationStatus;
+            //第一个认证的
+            if(res.data.authenticationStatus==0){
+                errMsg="请认证";
+                isAuthentication=false;
+            }else if(res.data.authenticationStatus==1){
+                errMsg="请等待认证";
+                isAuthentication=false;
+            }else if(res.data.authenticationStatus==2){
+                Date.prototype.Format = function(fmt)
+                { //author: meizz
+                    var o = {
+                        "M+" : this.getMonth()+1,                 //月份
+                        "d+" : this.getDate(),                    //日
+                        "h+" : this.getHours(),                   //小时
+                        "m+" : this.getMinutes(),                 //分
+                        "s+" : this.getSeconds(),                 //秒
+                        "q+" : Math.floor((this.getMonth()+3)/3), //季度
+                        "S"  : this.getMilliseconds()             //毫秒
+                    };
+                    if(/(y+)/.test(fmt))
+                        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+                    for(var k in o)
+                        if(new RegExp("("+ k +")").test(fmt))
+                            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                    return new Date(fmt);
+                }
+
+                var date=(new Date()).Format("yyyy-MM-dd");
+                if(new Date(res.data.serviceEndTime)<new Date(date)){
+                    isRenewMoney=false;
+                    isAuthentication=true;
+                }else{
+                    isRenewMoney=true;
+                    isAuthentication=true;
+                }
+            }else if(res.data.authenticationStatus==3){
+                errMsg="认证失败,请重新认证";
+                isAuthentication=false;
+            }
+        });
+        $.ajaxSettings.async = true;
+        if(isAuthentication){
+            if(isRenewMoney){
+                window.location.href="receiveResume.html";
+			}else{
+                alert("跳转续费页面");
+                window.location.href="authentication.html";
+			}
+        }else{
+            alert(errMsg);
+            if(authenticationStatus==0||authenticationStatus==3){
+                window.location.href="authentication.html";
+            }
+        }
+
+    }
+    function jumpUserResumeBaseInfo() {
+		window.location.href="../userResumeBaseInfo.html";
+    }
+    function jumpFindResume() {
+        window.location.href="findResume.html";
+    }
+    function jumpIssueJob() {
+        var isAuthentication=false;
+        var isRenewMoney=false;
+        var errMsg="";
+        var authenticationStatus=0;
+        var data={};
+        data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+        $.ajaxSettings.async = false;
+        $.post("/api/enterprise/detail",data,function(res){
+            authenticationStatus=res.data.authenticationStatus;
+            //第一个认证的
+            if(res.data.authenticationStatus==0){
+                errMsg="请认证";
+                isAuthentication=false;
+            }else if(res.data.authenticationStatus==1){
+                errMsg="请等待认证";
+                isAuthentication=false;
+            }else if(res.data.authenticationStatus==2){
+                Date.prototype.Format = function(fmt)
+                { //author: meizz
+                    var o = {
+                        "M+" : this.getMonth()+1,                 //月份
+                        "d+" : this.getDate(),                    //日
+                        "h+" : this.getHours(),                   //小时
+                        "m+" : this.getMinutes(),                 //分
+                        "s+" : this.getSeconds(),                 //秒
+                        "q+" : Math.floor((this.getMonth()+3)/3), //季度
+                        "S"  : this.getMilliseconds()             //毫秒
+                    };
+                    if(/(y+)/.test(fmt))
+                        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+                    for(var k in o)
+                        if(new RegExp("("+ k +")").test(fmt))
+                            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                    return new Date(fmt);
+                }
+
+                var data=(new Date()).Format("yyyy-MM-dd");
+                if(new Date(res.data.serviceEndTime)<new Date(data)){
+                    isRenewMoney=false;
+                    isAuthentication=true;
+                }else{
+                    isRenewMoney=true;
+                    isAuthentication=true;
+                }
+            }else if(res.data.authenticationStatus==3){
+                errMsg="认证失败,请重新认证";
+                isAuthentication=false;
+            }
+        });
+        $.ajaxSettings.async = true;
+        if(isAuthentication){
+            if(isRenewMoney){
+                window.location.href="jobList.html";
+            }else{
+                alert("跳转续费页面");
+                window.location.href="authentication.html";
+			}
+        }else{
+            alert(errMsg);
+            if(authenticationStatus==0||authenticationStatus==3){
+                window.location.href="authentication.html";
+            }
+        }
+    }
+    function jumpUpdatePwd() {
+		window.location.href="xgmm.html";
+    }
+    function jumpLogin() {
+        localStorage.removeItem("enterprise");
+        window.location.href="login.html";
+    }
+    function jumpInterViewNotify() {
+        var isAuthentication=false;
+        var isRenewMoney=false;
+        var errMsg="";
+        var authenticationStatus=0;
+        var data={};
+        data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+        $.ajaxSettings.async = false;
+        $.post("/api/enterprise/detail",data,function(res){
+            console.log(res.data);
+            authenticationStatus=res.data.authenticationStatus;
+            //第一个认证的
+            if(res.data.authenticationStatus==0){
+                errMsg="请认证";
+                isAuthentication=false;
+            }else if(res.data.authenticationStatus==1){
+                errMsg="请等待认证";
+                isAuthentication=false;
+            }else if(res.data.authenticationStatus==2){
+                Date.prototype.Format = function(fmt)
+                { //author: meizz
+                    var o = {
+                        "M+" : this.getMonth()+1,                 //月份
+                        "d+" : this.getDate(),                    //日
+                        "h+" : this.getHours(),                   //小时
+                        "m+" : this.getMinutes(),                 //分
+                        "s+" : this.getSeconds(),                 //秒
+                        "q+" : Math.floor((this.getMonth()+3)/3), //季度
+                        "S"  : this.getMilliseconds()             //毫秒
+                    };
+                    if(/(y+)/.test(fmt))
+                        fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+                    for(var k in o)
+                        if(new RegExp("("+ k +")").test(fmt))
+                            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                    return new Date(fmt);
+                }
+
+                var data=(new Date()).Format("yyyy-MM-dd");
+                if(new Date(res.data.serviceEndTime)<new Date(data)){
+                    isRenewMoney=false;
+                    isAuthentication=true;
+                }else{
+                    isRenewMoney=true;
+                    isAuthentication=true;
+                }
+            }else if(res.data.authenticationStatus==3){
+                errMsg="认证失败,请 重新认证";
+                isAuthentication=false;
+            }
+        });
+        $.ajaxSettings.async = true;
+        if(isAuthentication){
+            if(isRenewMoney){
+                window.location.href="interviewNotify.html";
+			}else{
+                alert("跳转充值页面");
+                window.location.href="authentication.html";
+            }
+        }else{
+            alert(errMsg);
+            if(authenticationStatus==0||authenticationStatus==3){
+                window.location.href="authentication.html";
+            }
+        }
+
+    }
+    function jumpEnterpriseInfo() {
+		window.location.href="enterpriseInfo.html"
+    }
+    function jumpAccountInfo() {
+        window.location.href="accountInfo.html";
+    }
+    function jumpLogin() {
+        window.location.href="login.html";
+    }
+    function jumpEnterpriseCharge(){
+     	window.location.href="charge.html";
+	}
+</script>
+</html>

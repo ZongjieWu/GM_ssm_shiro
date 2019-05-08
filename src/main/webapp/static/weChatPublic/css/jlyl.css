@@ -1,0 +1,134 @@
+.body-conter   .jibenxinxi{
+	width: 95%;
+	margin: 0px  auto;
+	
+}
+.body-conter   .jibenxinxi ul{
+	margin: 0px;
+	width: 100%;
+	
+}
+.body-conter   .jibenxinxi ul li{
+	width: 100%;
+	height: auto;
+}
+.body-conter   .jibenxinxi ul li .jb{
+	font-weight: bold;
+	font-size: 1.2em;
+ padding-left: 0.5em;
+ border-left: 6px solid #5FB52C;
+}
+.body-conter   .jibenxinxi ul li .jb img{
+	width: 23px;
+	height:23px;
+	float: right;
+}
+ .body-conter  .fgx{
+ 	width: 100%;
+ 	height: 0.8em;
+ 	background-color: #f2f2f2;
+ }
+
+.body-conter   .jibenxinxi .zynr{
+	margin: 0px; padding: 0px;border: none;
+}
+.body-conter   .jibenxinxi .zynr  li{
+	color: #666666;
+}
+
+
+.body-conter   .jibenxinxi .zynr  li .xm{
+    padding-left: 1.5em;
+	width: 86%;
+	color: #666666;
+	font-size: 1em;
+	float: left;
+	
+}
+
+
+.body-conter   .jibenxinxi .zynr  li span i{
+	padding-left: 2em;
+}
+
+
+.body-conter   .jibenxinxi .zynr  li span{
+	float: left;
+}
+@media screen and (min-width:640px)and (max-width: 800px) {
+    .body-conter   .jibenxinxi .zynr  li .xm{
+   padding-left: 1.5em;
+	width: 85%;
+	color: #666666;
+	font-size: 1em;
+	float: left;
+    }
+    }
+@media screen and (min-width:480px)and (max-width: 640px) {
+    .body-conter   .jibenxinxi .zynr  li .xm{
+   padding-left: 1.5em;
+	width: 78%;
+	color: #666666;
+	font-size: 1em;
+	float: left;
+    }
+    }
+    @media screen and (min-width:309px)and (max-width: 480px) {
+    .body-conter   .jibenxinxi .zynr  li .xm{
+   padding-left: 1.5em;
+	width: 70%;
+	color: #666666;
+	font-size: 1em;
+	float: left;
+    }
+    }
+
+@media screen and (min-width:250px)and (max-width: 290px) {
+    .body-conter   .jibenxinxi .zynr  li .xm{
+   padding-left: 1.5em;
+	width: 66%;
+	color: #666666;
+	font-size: 1em;
+	float: left;
+    }
+    }
+
+@media screen and (min-width:290px)and (max-width: 309px) {
+    .body-conter   .jibenxinxi .zynr  li .xm{
+   padding-left: 1.5em;
+	width: 68%;
+	color: #666666;
+	font-size: 1em;
+	float: left;
+    }
+    }
+@media screen and (min-width:240px)and (max-width: 290px) {
+    .body-conter   .jibenxinxi .zynr  li .xm{
+   padding-left: 1.5em;
+	width: 60%;
+	color: #666666;
+	font-size: 1em;
+	float: left;
+    }
+    }
+    
+.body-conter   .jibenxinxi .zynr  li .xm div{
+	  width: auto;
+}
+
+
+.sie{
+	text-indent: 1em;
+}
+
+.shanchu,.shanchuj{
+	width: 30px;
+	height: 30px;
+	float: right;
+}
+.body-conter   .jibenxinxi .zynr  li .gsmcv{
+	width:80%;float: left;
+}
+
+
+

@@ -1,0 +1,113 @@
+.body-conter .fgx{
+  width: 100%;
+  height: 0.8em;
+  background-color: #f2f2f2;
+}
+.body-conter .zw-div{
+	width: 100%;
+}
+.body-conter .zw-div ul{
+	margin: 0px;
+	width: 95%;
+	margin: 0px auto;
+	
+	padding-top: 0.6em;
+}
+.body-conter .zw-div ul li{
+	width: 100%;
+}
+.body-conter .zw-div ul .lx-bt span{
+   font-weight: bold;
+  font-size: 1.2em;
+  padding-left: 0.5em;
+  border-left: 6px solid #5FB52C;
+}
+.body-conter .zw-div ul .lx-bt i{
+	font-style: inherit;
+	padding-left: 0.3em;
+	color: #ff0c00;
+}
+ .body-conter .zw-div  .jtnr li .lie{
+ 	line-height:1.8em ;
+ 	color: #333333;
+ }
+
+ .body-conter .zw-div  .jtnr li .dqs{
+ 	
+ 	float: right;
+ }
+
+ .body-conter .zw-div  .jtnr li  .dqs img{
+ 	position: relative;
+ 	top:4px;
+ 	width: 20px;
+ 	height: 20px;
+ }
+
+ .body-conter .zw-div  .jtnr{
+ 	border: none;
+ 	padding: 0px;
+ }
+
+
+ .body-conter .zw-div  .jtnr li {
+ 	padding: 1em 0px ;
+ 	border-bottom: 1px solid #dfdfdf;
+ }
+
+ .body-conter .zw-div  .jtnr li input{
+ 	line-height:1.9em;
+ 	font-size: 1em;
+ 	border: none;
+ 	float: right;
+ 	width: 50%;
+ 	text-align: right;
+ 	
+ }
+ .let{
+	position: relative;
+	top:2em;
+	border-top:1px solid #D9D9D9; padding-top: 0.8em;
+}
+.body-conter  div textarea{
+	width: 99%; resize: none;border: none; height: 10em;
+	font-size: 1.2em; 
+	line-height: 1.8em;
+}
+
+
+.body-conter .zt  div textarea:focus{ outline:none;}
+
+.body-conter  .zt{
+	width: 100%; background-color: #fff;
+}
+.body-conter  .zt div{
+	width: 95%;
+}
+.body-conter  .zt div .zishu{
+  float: right;
+  position: relative;
+  top: -25px;
+  font-size: 0.8em;
+  color: #999999;
+}
+.body-conter .zw-div  .jtnr li .lianxian{
+	padding-top: 0.3em;
+
+}
+
+.body-conter .zw-div  .jtnr li .xian{
+	margin: 0px;
+	height: 2px;
+	float: right;
+	position: relative;
+	top:18px;
+	background-image: url(../img/xian1.png);
+}
+
+
+
+
+
+
+

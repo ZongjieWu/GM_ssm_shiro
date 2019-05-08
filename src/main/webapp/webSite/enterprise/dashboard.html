@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+<meta name="CreativeLayers" content="ATFN">
+<!-- css file -->
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="../css/responsive.css">
+<!-- Title -->
+<title>企业充值 - 华顿教师人才</title>
+<!-- Favicon -->
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<style>
+		.our-dashbord:before {
+			background-color: #ffffff;
+		}
+		.header_user_notif li:first-child span:last-child {
+			background-color:transparent;
+		}
+		.footer_social_widget ul {
+			text-align: left;
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper" id="app">
+	<div class="preloader"></div>
+	<!-- Our Dashbord -->
+	<script src="login_head.js"></script>
+	<section class="dashbord" style="margin-left:20%;">
+		<div class="container" style="text-align:center;">
+			<div class="row">
+				<div class="col-lg-8 col-xl-9">
+					<div class="row">
+						<div class="col-lg-12">
+							<h4 class="mb30">企业充值</h4>
+						</div>
+						<template v-for="enterSet in enterSetList">
+							<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+								<div class="ff_one">
+									<div class="icon"><span class="flaticon-price pl20"></span></div>
+									<div class="detais">
+										<div class="timer">{{enterSet.money}}</div>
+										<p>/{{enterSet.type}}年</p>
+									</div>
+								</div>
+							</div>
+						</template>
+						<p class="col-xl-12" style="color: red;text-align: center;">扫码后支付相应服务的今额后截屏,点击提交充值记录上传打款凭证</p>
+						<div class="col-xl-12" style="text-align: center">
+							<img id="gatheringCode" style="width: 27%;height:92%;">
+						</div>
+					</div>
+				</div>
+			</div>
+			<button type="button" style="width: 75%;" onclick="jumpRemitRecord();" class="btn btn-log btn-block btn-thm">提交充值记录————————>></button>
+		</div>
+	</section>
+	<script src="footer.js"></script>
+	<script src="jumpPage.js"></script>
+<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+<!-- Wrapper End -->
+<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="../js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="../js/chart.min.js"></script>
+<script type="text/javascript" src="../js/chart.custome.js"></script>
+<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../js/snackbar.min.js"></script>
+<script type="text/javascript" src="../js/simplebar.js"></script>
+<script type="text/javascript" src="../js/parallax.js"></script>
+<script type="text/javascript" src="../js/scrollto.js"></script>
+<script type="text/javascript" src="../js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="../js/jquery.counterup.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<script type="text/javascript" src="../js/progressbar.js"></script>
+<script type="text/javascript" src="../js/slider.js"></script>
+<script type="text/javascript" src="../js/timepicker.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="../js/script.js"></script>
+</body>
+</html>
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+    var app;
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            status:0,
+            enterpriseName:"",
+            enterpriseLogo:"",
+            enterSetList:[],
+            gatheringCode:'',
+        },
+        created: function () {
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+                this.enterpriseLogo=JSON.parse(localStorage.getItem("enterprise")).logo;
+                $.post("/api/enterSet/all",function(res){
+                    console.log(res);
+                    if(res.code==0){
+                      app.enterSetList=res.data.enterSet;
+					  $("#gatheringCode").attr("src","/"+res.data.gatheringCode);
+                    }else{
+                    }
+                });
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+</script>

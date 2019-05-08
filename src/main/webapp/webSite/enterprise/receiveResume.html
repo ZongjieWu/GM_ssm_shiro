@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+<meta name="CreativeLayers" content="ATFN">
+<!-- css file -->
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="../css/responsive.css">
+<!-- Title -->
+<title>接收简历 - 华顿教师人才</title>
+<!-- Favicon -->
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+	<style>
+		.mt30 {
+			margin-top: 6px;
+		}
+		 .header_user_notif li:first-child span:last-child {
+			 background-color:transparent;
+		 }
+		.fj_post.style2 a.favorit {
+			position: static !important;
+			display: inline-block;
+			width: 100px;
+		}
+	</style>
+</head>
+<body>
+ <!--#include file = "login_head.js"-->
+<div class="wrapper" style="margin-left: 25%;margin-top:-5%;">
+	<div class="preloader"></div>
+	<!-- Main Header Nav -->
+
+	<!-- Our Candidate List -->
+	<section class="our-faq bgc-fa mt50"  id="app">
+		<div class="container">
+			<div class="row" v-for="sendResume in jobList">
+				<div class="col-lg-12 mt30" style="padding-bottom: 3%">
+					<div class="fj_post style2" style="height: 101%;">
+						<div style="width: 69%;float:left;">
+							<div class="details">
+								<div class="thumb fn-smd" style="margin-top: -3%;">
+									<img class="img-fluid" src="../images/partners/1.jpg" alt="1.jpg">
+								</div>
+								<h4 style="display: inline;">{{sendResume.name}}</h4>
+								<span class="job_chedule text-thm">{{sendResume.jobName}}</span><a style="margin-left: 3%;" class="text-thm" href="#">
+
+							</a>
+								<p><span>性别：
+								<template v-if="sendResume.sex==0">
+									男
+								</template>
+								<template v-if="sendResume.sex==1">
+									女
+								</template>
+							</span><span style="margin-left: 3%;">年龄：{{sendResume.age}}</span>
+									<span style="margin-left: 3%;">学历：
+											<template v-if="sendResume.education==0">
+												高中
+											</template>
+											<template v-else-if="sendResume.education==1">
+												大专
+											</template>
+											<template v-else-if="sendResume.education==2">
+												本科
+											</template>
+											<template v-else-if="sendResume.education==3">
+												研究生
+											</template>
+											<template v-else-if="sendResume.education==4">
+												博士
+											</template>
+										</span>
+									<span></span> </p>
+								<ul class="featurej_post">
+									<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#">{{sendResume.expectMoney}}</a></li>
+									<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#">
+										<template v-if="sendResume.findJobStatus==0">
+											离职-随时到岗
+										</template>
+										<template v-if="sendResume.findJobStatus==1">
+											在职-月内到岗
+										</template>
+										<template v-if="sendResume.findJobStatus==2">
+											在职-考虑机会
+										</template>
+										<template v-if="sendResume.findJobStatus==3">
+											在职-暂不考虑
+										</template>
+									</a></li>
+								</ul>
+							</div>
+						</div>
+						<div style="float:right;width: 29%;margin-top:2.5%;text-align: right;">
+							<a class="favorit" :id="sendResume.userResumeId" onclick="jumpDetail(this);" href="javascript:;" style="margin-left: 3%;"><span class="flaticon-favorites">查看</span></a>
+							<a class="favorit" :id="sendResume.userResumeId" :name="sendResume.userId" onclick="jumpInterview(this);" href="javascript:;"><span class="flaticon-favorites" >邀请</span></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="test1" style="bottom: 0px;text-align: center;"></div>
+		</div>
+	</section>
+	<div ></div>
+	<script src="jumpPage.js"></script>
+
+
+<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+ <!-- Wrapper End -->
+<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="../js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../js/snackbar.min.js"></script>
+<script type="text/javascript" src="../js/simplebar.js"></script>
+<script type="text/javascript" src="../js/tagsinput.js"></script>
+<script type="text/javascript" src="../js/parallax.js"></script>
+<script type="text/javascript" src="../js/scrollto.js"></script>
+<script type="text/javascript" src="../js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="../js/jquery.counterup.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<script type="text/javascript" src="../js/progressbar.js"></script>
+<script type="text/javascript" src="../js/slider.js"></script>
+<script type="text/javascript" src="../js/timepicker.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="../js/script.js"></script>
+
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+</body>
+
+</html>
+<script>
+    var pageFindJob,laypage,layer,popBox;
+    layui.use('layer', function () {
+        layer=layui.layer;
+	});
+    var app = new Vue({
+        el: '#app',
+        data: {
+            jobList: [],
+            jobListCount: 0,
+            enterpriseName: '',
+            issueJobId: 0,
+        },
+        created: function () {
+            if(JSON.parse((localStorage.getItem("enterprise")))==null){
+                window.location.href="login.html";
+            }else{
+                this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+
+            }
+            this.findJobList();
+        },
+        methods: {
+            findJobList: function () {
+                var data={};
+                data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+                data.page=1;
+                data.limit=10;
+                var keywords=$("#txtKeyWord").val();
+                data.keywords=keywords;
+                var that=this;
+                $.post('/api/sendResume/pagingByEnterpriseId',data,function(res){
+                    if(res.code==-1){
+                        alert(res.msg);
+                        if(res.data!=null&&res.data==-1){
+                            window.location.href="login.html";
+                        }
+                    }
+                    that.jobListCount=res.count;
+                });
+            }
+        }
+    });
+    search();
+    $("#search").click(function(){
+        search();
+    })
+    function search() {
+        app.findJobList();
+        setTimeout(function(){
+            console.log("search=="+app.jobListCount);
+            layui.use('laypage', function () {
+                laypage = layui.laypage;
+                //执行一个laypage实例
+                pageFindJob = laypage.render({
+                    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+                    , limit: 10
+                    , groups: 1
+                    , count: app.jobListCount
+                    , layout: ['prev','page', 'next']
+                    , jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        console.log(obj.limit); //得到每页显示的条数
+
+                        //首次不执行
+                        if (!first) {
+                            //do something
+                        }
+
+                        var data = {};
+                        data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+                        data.page = obj.curr;
+                        data.limit = obj.limit;
+                        var keywords=$("#txtKeyWord").val();
+                        data.keywords=keywords;
+                        $.post('/api/sendResume/pagingByEnterpriseId', data, function (res) {
+                            obj.count = res.count;
+                            app.jobList = res.data;
+                            app.issueJobId = res.data[0].issueJobId;
+                            console.log(app.jobList);
+                        });
+                    }
+                });
+            });
+        },300);
+    }
+
+    function jumpInterview(data) {
+        console.log("用户id" +
+			"")
+        console.log(data)
+        console.log(data.name)
+        var issuejobList=acquireIssueByEnterpriseId();
+        var htm='';
+        htm+='<div class="candidate_contact_form bgc-fa">';
+        htm+='<form>';
+        htm+='<input type="hidden" id="userId" value="'+data.name+'">';
+        htm+='<div class="form-group">';
+        htm+='<select id="issueJobId" class="form-control">';
+        for(var i=0,count=issuejobList.length;i<count;i++){
+            htm+='<option value="'+issuejobList[i].id+'">'+issuejobList[i].jobName+'</option>';
+        }
+        htm+='</select>';
+        htm+='</div>';
+        htm+='<div class="form-group">';
+        htm+='<input type="text" id="contactPhone" class="form-control" placeholder="联系方式">';
+        htm+='</div>';
+        htm+='<div class="form-group">';
+        htm+='<input type="text" id="interviewTime" class="layui-input" placeholder="面试时间">';
+        htm+='</div>';
+        htm+='<div class="form-group">';
+        htm+='<textarea class="form-control" id="content" rows="5" placeholder="邀请内容"></textarea>';
+        htm+='</div>';
+        htm+='<button type="button" onclick="interview();" class="btn btn-block btn-thm">邀请 <span class="flaticon-right-arrow"></span></button>';
+        htm+='</form>';
+        htm+='</div>';
+        popBox=layer.open({
+            type:1,
+            title:"发送邀请",
+            area:["30%","55%"],
+            content:htm
+        });
+        layui.use(['laydate'], function(){
+            laydate =layui.laydate;
+            //日期时间选择器
+            laydate.render({
+                elem: '#interviewTime'
+                ,type: 'datetime'
+            });
+
+        });
+    }
+    function acquireIssueByEnterpriseId() {
+        var returnData=[];
+        var data={};
+        data.id=JSON.parse(localStorage.getItem("enterprise")).id;;
+        $.ajaxSettings.async = false;
+        $.post("/api/issueJob/allByEnterpriseId",data,function (res) {
+            returnData=res.data;
+        });
+        $.ajaxSettings.async = true;
+        return returnData;
+    }
+    function interview() {
+        var data={};
+        data.userId=$("#userId").val();
+        data.issueJobId=$("#issueJobId").val();
+        data.jobName=$("#issueJobId").find("option:selected").text();
+        data.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+        data.interviewTime=$("#interviewTime").val();
+        data.concatPhone=$("#contactPhone").val();
+        if(data.jobName==null||data.jobName==''){
+            alert("名称不能为空");
+            return false;
+		}
+		if(data.interviewTime==null||data.interviewTime==''){
+            alert("面试时间不能为空");
+            return false;
+		}
+		if(data.concatPhone==null||data.concatPhone==''){
+		    alert("联系电话不能为空");
+		    return false;
+		}
+        data.content=$("#content").val();
+        console.log(data);
+        $.post("/api/interviewNotify/add",data,function (res) {
+            if(res.code==0){
+                alert(res.msg);
+                layer.close(popBox);
+            }else{
+                alert(res.msg);
+            }
+        });
+    }
+
+    function jumpDetail(data) {
+		$("#enterprise",parent.document).attr("src","previewResume.html?id="+data.id);
+    }
+</script>

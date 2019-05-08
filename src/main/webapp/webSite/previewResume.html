@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+	<meta name="CreativeLayers" content="ATFN">
+	<!-- css file -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Responsive stylesheet -->
+	<link rel="stylesheet" href="css/responsive.css">
+	<!-- Title -->
+	<title>预览简历 - 华顿教师人才</title>
+	<!-- Favicon -->
+	<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+	<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+		.our-dashbord:before {
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper" id="app" style="margin-left: 25%;margin-top:-10%;">
+	<div class="preloader"></div>
+
+
+	<!-- Our Dashbord -->
+	<section class="our-dashbord dashbord">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h4 class="fz20 mb20">我的简历</h4>
+				</div>
+
+				<div class="col-lg-12">
+					<div class="my_resume_skill mt20">
+						<h4 class="title">基本信息</h4>
+						<div class="form-group">
+							<div style="display: inline">
+								<label>姓名:</label>
+								<span>{{userResume.name}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>性别:</label>
+								<span>
+									<template v-if="userResume.sex==0">
+									男
+									</template>
+									<template v-if="userResume.sex==1">
+									女
+									</template>
+								</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>年龄:</label>
+								<span>{{userResume.age}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>民族:</label>
+								<span>{{userResume.nation}}</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div style="display: inline;">
+								<label>专业:</label>
+								<span>{{userResume.major}}</span>
+							</div>
+							<div  style="display: inline;margin-left: 3%;">
+								<label>婚姻状况:</label>
+								<span>
+									<template v-if="userResume.marriageStatus==0">
+									未婚
+									</template>
+									<template v-if="userResume.marriageStatus==1">
+									已婚
+									</template>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div style="display: inline;">
+								<label>籍贯:</label>
+								<span>{{userResume.nativePlace}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>最高学历:</label>
+								<span>
+									<template v-if="userResume.education==0">
+										高中
+									</template>
+									<template v-if="userResume.education==1">
+										大专
+									</template>
+									<template v-if="userResume.education==2">
+										本科
+									</template>
+									<template v-if="userResume.education==3">
+										研究生
+									</template>
+									<template v-if="userResume.education==4">
+										博士
+									</template>
+								</span>
+							</div>
+
+							<div style="display: inline;margin-left: 3%;">
+								<label>毕业学校:</label>
+								<span>{{userResume.graduateSchool}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-lg-12">
+					<div class="my_resume_skill mt20">
+						<h3 class="title">联系方式</h3>
+						<div class="form-group">
+							<label>所在地址:</label>
+							<span>{{userResume.nowProvince}}</span>
+							<span style="margin-left: 3%;">{{userResume.nowCity}}</span>
+							<span style="margin-left: 3%;">{{userResume.nowArea}}</span>
+						</div>
+						<div class="form-group">
+							<div style="display: inline;">
+								<label>联系电话:</label>
+								<span>{{userResume.phone}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>电子邮箱:</label>
+								<span>{{userResume.email}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>QQ:</label>
+								<span>{{userResume.qq}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="my_resume_skill mt20">
+						<h4 class="title">职业意向</h4>
+						<div class="form-group">
+							<div style="display: inline;">
+								<label>求职状态:</label>
+								<span>
+									<template v-if="userResume.findJobStatus==0">
+									离职-随时到岗
+									</template>
+									<template v-if="userResume.findJobStatus==1">
+										在职-月内到岗
+									</template>
+									<template v-if="userResume.findJobStatus==2">
+										在职-考虑机会
+									</template>
+									<template v-if="userResume.findJobStatus==3">
+										在职-暂不考虑
+									</template>
+								</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>目标职位:</label>
+								<span>{{userResume.jobType}}</span>
+							</div>
+							<div style="display:inline;margin-left: 3%;">
+								<label>期望工资:</label>
+								<!--<input id="expectMoney" type="text" style="width: 20%;display: inline;" class="form-control">-->
+								<span>{{userResume.expectMoney}}</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>目标工作地:</label>
+							<!--<input id="province" type="text" style="width: 20%;display: inline;" class="form-control">-->
+							<!--<input id="city" type="text" style="width: 20%;display: inline;" class="form-control">-->
+							<!--<input id="area" type="text" style="width: 20%;display: inline;" class="form-control">-->
+							<span>{{userResume.province}}</span><span style="margin-left: 3%;">{{userResume.city}}</span><span style="margin-left: 3%;">{{userResume.area}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="my_resume_skill">
+						<h4 class="title">自我评价</h4>
+						<!--<input type="text" data-role="tagsinput" value="" placeholder="Add Skills">-->
+						<!--<textarea id="selfAppraise"  placeholder="请输入职业技能" style="width: 100%;" rows="5"></textarea>-->
+						<p>{{userResume.selfAppraise}}</p>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="my_resume_skill">
+						<h4 class="title">职业技能</h4>
+						<!--<input type="text" data-role="tagsinput" value="" placeholder="Add Skills">-->
+						<!--<textarea id="jobSkill"  placeholder="请输入职业技能" style="width: 100%;" rows="5"></textarea>-->
+						<p>{{userResume.jobSkill}}</p>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<h4 class="title">工作经验</h4>
+					<div id="workExperience" class="my_resume_eduarea">
+
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<h4 class="title">教育经历 </h4>
+					<div id="eduExperience" class="my_resume_eduarea">
+
+					</div>
+				</div>
+				<!--<div class="col-lg-12">-->
+					<!--<button type="submit" style="width: 70%;letter-spacing: 20px;" onclick="next();" class="btn btn-success">保存</button>-->
+				<!--</div>-->
+
+			</div>
+		</div>
+	</section>
+
+	<script src="jumpPage.js"></script>
+	<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+<!-- Wrapper End -->
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="js/snackbar.min.js"></script>
+<script type="text/javascript" src="js/simplebar.js"></script>
+<script type="text/javascript" src="js/tagsinput.js"></script>
+<script type="text/javascript" src="js/parallax.js"></script>
+<script type="text/javascript" src="js/scrollto.js"></script>
+<script type="text/javascript" src="js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="js/jquery.counterup.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/progressbar.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/timepicker.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="js/script.js"></script>
+
+
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+
+<script src="js/cityPicker/address.js" type="text/javascript"></script>
+<script>
+
+</script>
+<script type="text/javascript">
+
+    var app;
+    function next() {
+        var data={};
+        //基本信息
+        data.userId=app.userId;
+        data.name=$("#name").val();
+        data.age=$("#age").val();
+        data.sex=$("#sex").val();
+        data.marriageStatus=$("#marriageStatus").val();
+        data.major=$("#major").val();
+        data.nation=$("#nation").val();
+        data.education=$("#education").val();
+        data.graduateSchool=$("#graduateSchool").val();
+
+        //联系方式
+        data.nowProvince=$("#nowProvince").val();
+        data.nowCity=$("#nowCity").val();
+        data.nowArea=$("#nowArea").val();
+        data.phone=$("#phone").val();
+        data.email=$("#email").val();
+        data.qq=$("#qq").val();
+
+        //求职意向
+        data.findJobStatus=$("#findJobStatus").val();
+        data.province=$("#province").val();
+        data.city=$("#city").val();
+        data.area=$("#area").val();
+        data.jobType=$("#jobType").val();
+        data.expectMoney=$("#expectMoney").val();
+
+        //自我评价
+        data.selfAppraise=$("#selfAppraise").val();
+        //职业技能
+        data.jobSkill=$("#jobSkill").val();
+
+
+        console.log(data);
+        $.ajaxSettings.async = false;
+        $.post('/api/userResume/update',data,function (res) {
+            if(res.code==0){
+                alert(res.msg);
+            }else{
+                alert(res.msg);
+            }
+        });
+        $.ajaxSettings.async = true;
+
+        saveEdu();
+        saveWork();
+        setTimeout(function(res){
+            window.location.href="previewResume.html"
+
+        },300);
+    }
+    function saveEdu() {
+        var eduArr=[];
+        var count=$("#eduExperience>div").length;
+        var elesArr=$("#eduExperience").children();
+        var userResumeId=app.userResumeId;
+        console.log(count);
+        for(var i=0;i<count;i++){
+            var edu={};
+            if(elesArr[i].getElementsByClassName("id")[0].value!=''){
+                edu.id=elesArr[i].getElementsByClassName("id")[0].value;
+            };
+            edu.name=elesArr[i].getElementsByClassName("name")[0].value;
+            edu.major=elesArr[i].getElementsByClassName("major")[0].value;
+            edu.startTime=elesArr[i].getElementsByClassName("startTime")[0].value;
+            edu.endTime=elesArr[i].getElementsByClassName("endTime")[0].value;
+            edu.userResumeId=userResumeId;
+            eduArr.push(edu);
+        }
+        var data={};
+        data.eduStrList=JSON.stringify(eduArr);
+        $.post("/api/eduExperience/update",data,function(res){
+            if(res.code==0){
+            }else{
+                alert(res.msg);
+            }
+        });
+    }
+    function saveWork(){
+        var workArr=[];
+        var count=$("#workExperience>div").length;
+        var elesArr=$("#workExperience").children();
+        var userResumeId=app.userResumeId;
+        console.log(count);
+        for(var i=0;i<count;i++){
+            var edu={};
+            if(elesArr[i].getElementsByClassName("id")[0].value!=''){
+                edu.id=elesArr[i].getElementsByClassName("id")[0].value;
+            };
+            edu.enterpriseName=elesArr[i].getElementsByClassName("enterpriseName")[0].value;
+            edu.jobName=elesArr[i].getElementsByClassName("jobName")[0].value;
+            edu.startTime=elesArr[i].getElementsByClassName("startTime")[0].value;
+            edu.endTime=elesArr[i].getElementsByClassName("endTime")[0].value;
+            edu.workContent=elesArr[i].getElementsByClassName("workContent")[0].value;
+            edu.userResumeId=userResumeId;
+            workArr.push(edu);
+        }
+        var data={};
+        data.workStrList=JSON.stringify(workArr);
+        $.post("/api/workExperience/update",data,function (res) {
+            if(res.code==0){
+
+            }else{
+                alert(res.msg);
+            }
+        });
+    }
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            userName:"sdfasdf",
+            userResumeId:0,
+            userResume:{},
+        },
+        created: function () {
+            this.userId=JSON.parse(localStorage.getItem("user")).id;
+            this.userName=JSON.parse(localStorage.getItem("user")).name;
+            this.userResumeId=JSON.parse(localStorage.getItem("user")).userResumeId;
+            var data={};
+            data.userId=this.userId;
+            $.post('/api/userResume/detailByUserId',data,function (res) {
+                if(res.code==0){
+                    app.userResume=res.data;
+                    console.log("12121212121");
+                    console.log(res.data);
+                    console.log(app.userResume);
+                    //基本信息
+//                    $("#name").val(userResume.name);
+//                    $("#age").val(userResume.age);
+//                    $("#sex").val(userResume.sex);
+//                    $("#marriageStatus").val(userResume.marriageStatus);
+//                    $("#major").val(userResume.major);
+//                    $("#nation").val(userResume.nation);
+//                    $("#education").val(userResume.education);
+//                    $("#graduateSchool").val(userResume.graduateSchool);
+//                    $("#nativePlace").val(userResume.nativePlace);
+//                    //联系方式
+//                    $("#nowProvince").val(userResume.nowProvince);
+//                    $("#nowCity").val(userResume.nowCity);
+//                    $("#nowArea").val(userResume.nowArea);
+//                    var nowPlace=province+"-"+city+"-"+area;
+//                    if(province==null||city==null||area==null){
+//                        $("#nowPlace").val("江西省-赣州市-章贡区");
+//                    }else{
+//                        $("#nowPlace").val(nowPlace);
+//                    }
+//                    $("#phone").val(userResume.phone);
+//                    $("#email").val(userResume.email);
+//                    $("#qq").val(userResume.qq);
+//
+//                    //求职意向
+//                    $("#findJobStatus").val(userResume.findJobStatus);
+//                    $("#province").val(userResume.province);
+//                    $("#city").val(userResume.city);
+//                    $("#area").val(userResume.area);
+//                    $("#jobType").val(userResume.jobType);
+//                    $("#expectMoney").val(userResume.expectMoney);
+//
+//
+//                    //自我评价
+//                    $("#selfAppraise").val(userResume.selfAppraise);
+//                    //职业技能
+//                    $("#jobSkill").val(userResume.jobSkill);
+                }else{
+                }
+            });
+            //教育经历
+            data.userResumeId=JSON.parse(localStorage.getItem("user")).userResumeId;
+            $.post('/api/eduExperience/detailByUserResumeId',data,function (res) {
+                if(res.code==0){
+                    var eduList=res.data;
+                    console.log("111111111111");
+                    console.log(eduList);
+                    if(eduList==null||eduList.length==0){
+                        addEdu();
+                    }else{
+                        showEdu(eduList);
+                    }
+                }else{
+                }
+            });
+            //工作经历
+            $.post('/api/workExperience/detailByUserResumeId',data,function (res) {
+                if(res.code==0){
+                    if(res.data==null||res.data.length==0){
+                        addWork();
+                    }else{
+                        showWork(res.data);
+                    }
+                }else{
+                }
+            });
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+
+            },
+
+        }
+    });
+    function addEdu() {
+        var ccount=$("#eduExperience>div").length;
+        var htm='';
+        htm+='<div class="content">';
+        htm+='<div class="circle"></div>';
+        htm+='<ul class="edu_stats_list float-right">';
+//        htm+='<li class="delEdu list-inline-item" sindex="'+ccount+'"><a href="javascript:;" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>';
+        htm+='</ul>';
+        htm+='<input  type="hidden" style="width: 20%;display: inline;" class="id form-control">';
+        htm+='<p class="edu_center">学校名称:<input id="name"  type="text" style="width: 20%;display: inline;" class="name form-control"></p>';
+        htm+='<h4 class="edu_stats">专业:<input id="major"  type="text" style="width: 20%;display: inline;" class="major form-control">';
+        htm+='<h4 class="edu_stats">开始时间:<input id="startTime"  type="text" style="width: 20%;display: inline;" class="startTime form-control">';
+        htm+='<h4 class="edu_stats">结束时间:<input id="endTime" type="text" style="width: 20%;display: inline;" class="endTime form-control">';
+        htm+='</h4>';
+        htm+='</div>';
+        $("#eduExperience").append(htm);
+    }
+    function showEdu(eduList) {
+        var ccount=$("#eduExperience>div").length;
+        for(var i=0,count=eduList.length;i<count;i++){
+            var htm='';
+            htm+='<div class="content">';
+            htm+='<div class="circle"></div>';
+            htm+='<ul class="edu_stats_list float-right">';
+//            htm+='<li class="delEdu list-inline-item" sindex="'+ccount+'"><a href="javascript:;" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>';
+            htm+='</ul>';
+            htm+='<input value="'+eduList[i].id+'" type="hidden" style="width: 20%;display: inline;" class="id form-control">';
+            htm+='<p class="edu_center">学校名称:'+eduList[i].name+'</p>';
+            htm+='<h4 class="edu_stats">专业:'+eduList[i].major;
+            htm+='<h4 class="edu_stats">开始时间:'+eduList[i].startTime;
+            htm+='<h4 class="edu_stats">结束时间:'+eduList[i].endTime;
+            htm+='</h4>';
+            htm+='</div>';
+            $("#eduExperience").append(htm);
+        }
+    }
+
+    function addWork() {
+        var ccount=$("#workExperience>div").length;
+        console.log("sindex"+ccount);
+        var htm='';
+        htm+='<div class="content">';
+        htm+='<div class="circle"></div>';
+        htm+='<ul class="edu_stats_list float-right">';
+//        htm+='<li class="list-inline-item delWork" sindex="'+ccount+'"><a href="javascript:;" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>';
+        htm+='</ul>';
+        htm+='<input    type="hidden" style="width: 20%;display: inline;" class="id form-control">';
+        htm+='<p class="edu_center">公司名称:<input id="enterpriseName"  type="text" style="width: 20%;display: inline;" class="enterpriseName form-control"></p>';
+        htm+='<h4 class="edu_stats">担任职位:<input id="jobName"  type="text" style="width: 20%;display: inline;" class="jobName form-control">';
+        htm+='<h4 class="edu_stats">开始时间:<input id="startTime"  type="text" style="width: 20%;display: inline;" class="startTime form-control">';
+        htm+='<h4 class="edu_stats">结束时间:<input id="endTime"  type="text" style="width: 20%;display: inline;" class="endTime form-control">';
+        htm+='</h4>';
+        htm+='<h4>工作描述</h4>';
+        htm+='<textarea id="workContent" class="workContent form-control" style="width: 100%;" rows="5"></textarea>';
+        htm+='</div>';
+        $("#workExperience").append(htm);
+
+    }
+    function showWork(workList) {
+        var ccount=$("#workExperience>div").length;
+        console.log("sindex"+ccount);
+        for(var i=0,count=workList.length;i<count;i++){
+            var htm='';
+            htm+='<div class="content">';
+            htm+='<div class="circle"></div>';
+            htm+='<ul class="edu_stats_list float-right">';
+//            htm+='<li class="list-inline-item delWork" sindex="'+ccount+'"><a href="javascript:;" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>';
+            htm+='</ul>';
+            htm+='<input  value="'+workList[i].id+'" type="hidden" style="width: 20%;display: inline;" class="id form-control">';
+            htm+='<p class="edu_center">公司名称:'+workList[i].enterpriseName+'</p>';
+            htm+='<h4 class="edu_stats">担任职位:'+workList[i].jobName;
+            htm+='<h4 class="edu_stats">开始时间:'+workList[i].startTime;
+            htm+='<h4 class="edu_stats">结束时间:'+workList[i].endTime;
+            htm+='</h4>';
+            htm+='<h4>工作描述</h4>';
+            htm+=workList[i].workContent;
+            htm+='</div>';
+            $("#workExperience").append(htm);
+        }
+
+
+    }
+    $(document).on("click",'.delEdu',function(res){
+        console.log("delEdu click");
+        var index=$(this)[0].attributes.sindex.value;
+        console.log("sindex="+index);
+        var id=$("#eduExperience").children()[index].getElementsByClassName("id")[0].value;
+        console.log(index);
+        console.log(id);
+        if (id == "") {
+            $(this).parent().parent().remove();
+        } else {
+            var flag = confirm("确定要删除吗?");
+            if (flag) {
+                var data = {};
+                data.id = id;
+                $.post("/api/eduExperience/delete", data, function (res) {
+                    if (res.code == 0) {
+                        alert(res.msg);
+                        window.location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                })
+            }
+
+        }
+    });
+    $(document).on("click",'.delWork',function(res){
+        var index=$(this)[0].attributes.sindex.value;
+        console.log(index);
+        var id=$("#workExperience").children()[index].getElementsByClassName("id")[0].value;
+        console.log("id=="+id);
+        if (id == "") {
+            $(this).parent().parent().remove();
+        } else {
+            var flag = confirm("确定要删除吗?");
+            if (flag) {
+                var data = {};
+                data.id = id;
+                $.post("/api/workExperience/delete", data, function (res) {
+                    if (res.code == 0) {
+                        alert(res.msg);
+                        window.location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                })
+            }
+
+        }
+    });
+    function edu(edu){
+        if(edu==0){
+            return "高中";
+        }else if(edu==1){
+            return "大专";
+        }else if(edu==2){
+            return "本科";
+        }else if(edu==3){
+            return "研究生";
+        }else if(edu==4) {
+            return "博士";
+        }
+    }
+    function sex(sex){
+        if(sex==0){
+            return "男";
+        }else if(sex==1){
+            return "女";
+        }
+    }
+    function marriageStatus(marriageStatus){
+        if(marriageStatus==0){
+            return "未婚";
+        }else if(marriageStatus==1){
+            return "已婚";
+        }
+    }
+</script>
+
+
+</body>
+</html>

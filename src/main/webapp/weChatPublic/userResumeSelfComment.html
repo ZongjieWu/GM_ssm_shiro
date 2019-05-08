@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>自我评价</title>
+		<link rel="stylesheet" href="css/commons.css" />
+		<link rel="stylesheet" href="css/lxfs.css" />
+		<link rel="stylesheet" href="css/zwpj-dbdhys.css" />
+	</head>
+	<body style=" background-color: #f2f2f2;">
+		<div class="outdiv">
+			<div class="head-top" id="app"> <!--表头开始  -->
+				<span class="bt">自我评价</span>
+				<div class="div-1"  onclick="goBack();">
+					<img src="img/fanhui-ioc.png" />
+					<span>返回</span>
+				</div>
+				<template v-if="userName==''||userName==null">
+					<span class="dl-button" onclick="jumpLogin()">登录</span>
+				</template>
+				<template v-else>
+					<span class="dl-button" onclick="jumpUser()">{{userName}}</span>
+				</template>
+			</div> <!--表头结束  -->
+			<div class="body-conter" style="bottom:42px;overflow:auto;"><!--页面详情开始  -->
+				<div class="fgx"></div>
+				<div class="zt">
+					<div>
+				    	<textarea id="selfAppraise" placeholder="15个字以上，否则将无法投递设置了简历完整性过滤的职位。"  name="" rows="" cols=""></textarea>
+				        <span class="zishu">0/1000</span>
+					</div>
+				</div>
+				<!--底部菜单开始                                                                                                      -->
+
+				<!--底部菜单结束                                                                                                      -->
+			</div> <!--页面详情结束  -->
+		</div>
+		<div class="dbxq" onclick="next();"><!--底部开始  -->
+				下一步
+	    </div><!--底部结束  -->
+	</body>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+<script>
+	var app;
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            userName:"sdfasdf",
+        },
+        created: function () {
+            this.userId=JSON.parse(localStorage.getItem("user")).id;
+            this.userName=JSON.parse(localStorage.getItem("user")).name;
+            var data={};
+            data.userId=this.userId;
+            $.post('/api/userResume/detailByUserId',data,function (res) {
+                if(res.code==0){
+                    var userResume=res.data;
+                    $("#selfAppraise").val(userResume.selfAppraise);
+
+                }else{
+                }
+            });
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+
+            },
+
+        }
+    });
+
+    function next() {
+        var data={};
+        data.userId=app.userId;
+        data.selfAppraise=$("#selfAppraise").val();
+        $.post('/api/userResume/update',data,function (res) {
+            if(res.code==0){
+                alert("保存"+res.msg);
+                var user=JSON.parse(localStorage.getItem("user"));
+                user.userResumeId=res.data;
+                localStorage.setItem("user",JSON.stringify(user));
+                setTimeout(function (res) {
+                    window.location.href="userResumeWorkExperience.html";
+                },300);
+            }else{
+                alert(res.msg);
+            }
+        });
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+    function jumpUser() {
+        window.location.href="user.html";
+    }
+    function jumpLogin() {
+        window.location.href="login.html";
+    }
+</script>
+</html>

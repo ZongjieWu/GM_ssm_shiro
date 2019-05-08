@@ -1,0 +1,66 @@
+.body-conter div .zhuangtai{
+	padding: 0.7em 0px;
+	color: #333333;
+	font-size: 0.9em;
+	
+}
+.body-conter div .fenlei{
+	width: 100%;
+	height: auto;
+}
+
+ .body-conter .fenlei-nr{
+ 	width: 100%;
+ 	background-color: #fff;
+ 	padding-top: 1em;
+ 	border-bottom: 10px solid #f2f2f2;
+ } 
+ .body-conter .fenlei-nr  .fenlei{
+ 	width: 95%;
+ 	margin: 0px auto;
+ 	padding-bottom: 0.7em;
+ 	border-bottom: 1px solid #d9d9d9;
+ }
+.body-conter .fenlei-nr  .fenlei .baitou{
+   padding-left: 0.7em;
+   border-left:5px solid #5FB52C ;
+   font-size: 1.25em;
+   color: #333333;
+}
+.body-conter .fenlei-nr  .fenlei .baitou span{
+	float: right;
+	font-size: 0.7em;
+	color:#adadad;
+}
+.body-conter .fenlei-nr  .fenlei .baitou span img{
+	width: 20px;
+	position: relative;
+	top:5px
+}
+
+.body-conter .fenlei-nr ul{
+	margin: 0px;
+	width: 95%;
+	margin: 0px auto;
+	
+}
+.body-conter .fenlei-nr ul li{
+	color: #505050;
+	font-size: 0.9em;
+	padding-bottom: 0.5em;
+	
+	
+}
+
+.body-conter .fenlei-nr ul li i{
+  color: #D9D9D9;
+  font-size: 0.2em;
+  padding-right: 1em;
+  position: relative;
+  top:-1px;  
+ 
+}
+
+.body-conter .dbcd{
+	width: 100%; padding-top: 1em; border-top: 1px solid #d9d9d9; background-color: #fff;
+}

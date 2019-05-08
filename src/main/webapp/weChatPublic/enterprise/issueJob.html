@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>发布职位</title>
+    <link rel="stylesheet" href="../css/commons.css" />
+    <link rel="stylesheet" href="../css/lxfs.css" />
+    <link rel="stylesheet" href="../css/zwyx.css" />
+    <link rel="stylesheet" href="../css/dbdhys.css" />
+
+    <!--下拉选择框-->
+    <link rel="stylesheet" href="../jqueryWeUI/css/weui.min.css">
+    <link rel="stylesheet" href="../jqueryWeUI/css/jquery-weui.min.css">
+    <!--三级联动要用到的-->
+    <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+    <link rel="stylesheet" href="../level3linkage/css/mpicker.css">
+    <style>
+        textarea:focus{
+            outline: none;
+        }
+    </style>
+</head>
+<body ontouchstart>
+<div class="outdiv">
+    <div class="head-top" id="app"> <!--表头开始  -->
+        <span class="bt">发布职位</span>
+        <div class="div-1"  onclick="goBack();">
+            <img src="../img/fanhui-ioc.png" />
+            <span>返回</span>
+        </div>
+        <template v-if="enterpriseName==null||enterpriseName==''">
+            <span class="dl-button" onclick="jumpLogin();">登入</span>
+        </template>
+        <template v-else>
+            <span class="dl-button" onclick="jumpEnterprise();">{{enterpriseName}}</span>
+        </template>
+    </div> <!--表头结束  -->
+    <div class="body-conter" style="bottom:42px; overflow:auto;"><!--页面详情开始  -->
+        <div class="fgx"></div>
+        <div class="zw-div">
+            <ul>
+                <li class="lx-bt">
+                    <span>发布职位</span>
+                    <i>l 必填  l</i>
+                </li>
+            </ul>
+            <ul class="jtnr">
+                <li>
+                    <span class="lie">联系人</span>
+                    <span class="dqs">
+								<input id="contactName" placeholder="联系人" style="width:100%;"   name="" type="text" />
+								<input id="id" placeholder="id" type="hidden" />
+							</span>
+                </li>
+                <li>
+                    <span class="lie">联系电话</span>
+                    <span class="dqs">
+								<input id="contactPhone" class="jobType" placeholder="联系电话" style="width:100%;" value=""  name="" type="text" />
+							</span>
+
+                </li>
+                <li>
+                    <span class="lie">职位名称</span>
+                    <span class="dqs">
+								<input  id="jobName" type="text" placeholder="职位名称" style="width: 100%;" value="">
+							</span>
+                </li>
+                <li>
+                    <span class="lie">职位工资</span>
+                    <span class="dqs">
+								<input id="jobMoney" type="text" placeholder="职位工资" style="width: 100%;">
+							</span>
+                </li>
+                <li>
+                    <span class="lie">工作地点</span>
+                    <span class="dqs">
+								<input id="workPlace" class="select-value  form-control" type="text" placeholder="工作地点" style="width: 100%;">
+							</span>
+                </li>
+                <li>
+                    <span class="lie">年龄</span>
+                    <span class="dqs">
+								<input id="age" type="text" placeholder="年龄" style="width: 100%;">
+							</span>
+                </li>
+                <li>
+                    <span class="lie">工龄</span>
+                    <span class="dqs">
+								<input id="workAge" type="text" placeholder="工龄" style="width: 100%;">
+							</span>
+                </li>
+                <li>
+                    <span class="lie">学历</span>
+                    <span class="dqs">
+								<input  id="edu" class="edu" type="text" placeholder="学历" style="width: 100%;">
+							</span>
+                </li>
+                <li>
+                    <span class="lie">招聘状态</span>
+                    <span class="dqs">
+								<input id="status" type="text" placeholder="招聘状态" style="width: 100%;">
+							</span>
+                </li>
+                <li>
+                    <span class="lie">职业详情</span>
+                    <textarea id="jobDetail" type="text" placeholder="职业详情"  style="width: 100%;"></textarea>
+                </li>
+                <li>
+                    <span class="lie">技能要求</span>
+                    <textarea id="skill" type="text" placeholder="技能要求"  style="width: 100%;"></textarea>
+                </li>
+
+
+            </li>
+
+            </ul>
+        </div>
+    </div><!--页面详情结束  -->
+</div>
+<div class="dbxq" onclick="next();"><!--底部开始  -->
+    发布
+</div><!--底部结束  -->
+
+<div class="select_box select_box3"></div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<!--下拉选择框-->
+<script src="../jqueryWeUI/js/jquery-weui.min.js"></script>
+<script src="../jqueryWeUI/js/fastclick.js"></script>
+<!--三级联动-->
+<!--三级联动要用到的-->
+<script src="../level3linkage/js/json.js"></script>
+<script src="../level3linkage/js/jsonExchange.js"></script>
+<script src="../level3linkage/js/mPicker.min.js"></script>
+<script>
+    var app;
+    function next() {
+        var data={};
+        data.id=$("#id").val();
+        data.enterpriseId=JSON.parse(localStorage.getItem("enterprise")).id;
+        data.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+        data.contactName=$("#contactName").val();
+        data.contactPhone=$("#contactPhone").val();
+        data.jobName=$("#jobName").val();
+        data.jobMoney=$("#jobMoney").val();
+        data.workPlace=$("#workPlace").val();
+        data.age=$("#age").val();
+        data.workAge=$("#workAge").val();
+        data.edu=app.edu;
+        data.jobDetail=$("#jobDetail").val();
+        data.skill=$("#skill").val();
+        data.status=app.status;
+        if(data.contactName==null||data.contactName==''){
+            alert("联系人不能为空");
+            return false;
+        }
+        if(data.contactPhone==null||data.contactPhone==''){
+            alert("联系电话不能为空");
+            return false;
+        }
+        if(data.jobName==null||data.jobName==''){
+            alert("职位名称不能为空");
+            return false;
+        }
+        if(data.jobMoney==null||data.jobMoney==''){
+            alert("职位工资不能为空");
+            return false;
+        }
+        if(data.workPlace==null||data.workPlace==''){
+            alert("工作地点不能为空");
+            return false;
+        }
+        if(data.age==null||data.age==''){
+            alert("年龄不能为空");
+            return false;
+        }
+        if(data.workAge==null||data.workAge==''){
+            alert("工龄不能为空");
+            return false;
+        }
+        if(data.edu==null||data.edu==''){
+            alert("学历不能为空");
+            return false;
+        }
+        if(data.status==null||data.status==''){
+            alert("招聘状态不能为空");
+            return false;
+        }
+        if(data.jobDetail==null||data.jobDetail==''){
+            alert("职位详情不能为空");
+            return false;
+        }
+        if(data.skill==null||data.skill==''){
+            alert("技能要求不能为空");
+            return false;
+        }
+        $.post('/api/issueJob/update',data,function (res) {
+            if(res.code==0){
+                alert(res.msg);
+                setTimeout(function (res) {
+                    window.location.href="jobList.html"
+                },300);
+            }else{
+                alert(res.msg);
+            }
+        });
+
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            status:0,
+            enterpriseName:"",
+        },
+        created: function () {
+            this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name
+            var data={};
+            data.id=this.aquireParam("id");
+            $.post('/api/issueJob/detail',data,function (res) {
+                if(res.code==0){
+                    var issueJob=res.data[0];
+                    $("#id").val(issueJob.id);
+                    $("#contactName").val(issueJob.contactName);
+                    $("#contactPhone").val(issueJob.contactPhone);
+                    $("#jobName").val(issueJob.jobName);
+                    $("#jobMoney").val(issueJob.jobMoney);
+                    $("#workPlace").val(issueJob.workPlace);
+                    $("#age").val(issueJob.age);
+                    $("#workAge").val(issueJob.workAge);
+                    $("#jobDetail").val(issueJob.jobDetail);
+                    $("#skill").val(issueJob.skill);
+                    $("#status").attr("data-value",issueJob.status);
+                    $("#status").val(status(issueJob.status));
+                    $("#edu").attr("data-value",issueJob.edu);
+                    $("#edu").val(edu(issueJob.edu));
+                }
+            });
+            this.detail();
+
+
+
+            var isAuthentication=false;
+            var isRenewMoney=false;
+            var errMsg="";
+            var authenticationStatus=0;
+            var data={};
+            data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+            $.ajaxSettings.async = false;
+            $.post("/api/enterprise/detail",data,function(res){
+                console.log(res.data);
+                authenticationStatus=res.data.authenticationStatus;
+                //第一个认证的
+                if(res.data.authenticationStatus==0){
+                    errMsg="请认证";
+                    isAuthentication=false;
+                }else if(res.data.authenticationStatus==1){
+                    errMsg="请等待认证";
+                    isAuthentication=false;
+                }else if(res.data.authenticationStatus==2){
+                    Date.prototype.Format = function(fmt)
+                    { //author: meizz
+                        var o = {
+                            "M+" : this.getMonth()+1,                 //月份
+                            "d+" : this.getDate(),                    //日
+                            "h+" : this.getHours(),                   //小时
+                            "m+" : this.getMinutes(),                 //分
+                            "s+" : this.getSeconds(),                 //秒
+                            "q+" : Math.floor((this.getMonth()+3)/3), //季度
+                            "S"  : this.getMilliseconds()             //毫秒
+                        };
+                        if(/(y+)/.test(fmt))
+                            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+                        for(var k in o)
+                            if(new RegExp("("+ k +")").test(fmt))
+                                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                        return new Date(fmt);
+                    }
+
+                    var data=(new Date()).Format("yyyy-MM-dd");
+                    if(new Date(res.data.serviceEndTime)<new Date(data)){
+                        isRenewMoney=false;
+                        isAuthentication=true;
+                    }else{
+                        isRenewMoney=true;
+                        isAuthentication=true;
+                    }
+                }else if(res.data.authenticationStatus==3){
+                    errMsg="认证失败,请 重新认证";
+                    isAuthentication=false;
+                }
+            });
+            $.ajaxSettings.async = true;
+            if(isAuthentication){
+                if(isRenewMoney){
+//                    window.location.href="interviewNotify.html";
+                }else{
+                    alert("跳转充值页面");
+                    window.location.href="authentication.html";
+                }
+            }else{
+                alert(errMsg);
+                if(authenticationStatus==0||authenticationStatus==3){
+                    window.location.href="authentication.html";
+                }
+            }
+
+        },
+        methods: {
+            detail: function () {
+
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+
+    $("#edu").select({
+        title: "选择学历",
+        items: [
+            {
+                title: "高中",
+                value: "0",
+            },
+            {
+                title: "专科",
+                value: "1",
+            },
+            {
+                title: "本科",
+                value: "2",
+            },  {
+                title: "研究生",
+                value: "3",
+            },  {
+                title: "博士",
+                value: "4",
+            }
+        ],
+        onChange: function(d) {
+            app.edu=d.values;
+            $("#edu").attr("data-value",d.values);
+            console.log(this, d);
+        },
+        onClose: function(d) {
+            console.log("close");
+        },
+        onOpen: function(d) {
+            console.log("open");
+            console.log(d);
+
+        },
+    });
+    $("#status").select({
+        title: "选择招聘状态",
+        items: [
+            {
+                title: "在招",
+                value: "0",
+            },
+            {
+                title: "急招",
+                value: "1",
+            },
+            {
+                title: "停招",
+                value: "2",
+            }
+        ],
+        onChange: function(d) {
+            app.edu=d.values;
+            console.log(this, d);
+        },
+        onClose: function() {
+            console.log("close");
+        },
+        onOpen: function() {
+            console.log("open");
+        },
+    });
+
+    function edu(data) {
+        if(data==0){
+            return "高中";
+        }else if(data==1){
+            return "专科";
+        }else if(data==2){
+            return "本科";
+        }else if(data==3){
+            return "研究生";
+        }else if(data==4){
+            return "博士";
+        }
+    }
+    function status(data) {
+        if(data==0){
+            return "在招";
+        }else if(data==1){
+            return "急招";
+        }else if(data==2){
+            return "停招";
+        }
+    }
+    function jumpEnterprise() {
+        window.location.href="enterprise.html"
+    }
+    function jumpLogin() {
+        window.location.href="login.html";
+    }
+</script>
+</html>

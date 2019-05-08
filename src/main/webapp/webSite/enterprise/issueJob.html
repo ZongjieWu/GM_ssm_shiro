@@ -1,0 +1,335 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+	<meta name="CreativeLayers" content="ATFN">
+	<!-- css file -->
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<!-- Responsive stylesheet -->
+	<link rel="stylesheet" href="../css/responsive.css">
+	<!-- Title -->
+	<title>发布工作 - 华顿教师人才</title>
+	<!-- Favicon -->
+	<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+	<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+	<link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+	<![endif]-->
+	<style>
+		.our-dashbord:before {
+			background-color: #ffffff;
+		}
+		.layui-upload-file {
+			width: 150px;
+			height: 89px;
+			margin-left: -155px;
+			margin-top: 36px;
+			z-index: 111;
+			opacity: -1.5;
+		}
+	</style>
+
+</head>
+<body>
+<div class="wrapper"  id="app" style="margin-left: 25%;margin-top:-5%;">
+	<div class="preloader"></div>
+
+	<!-- Our Dashbord -->
+	<section class="our-dashbord dashbord">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-8 col-xl-9">
+					<div class="my_profile_form_area">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="fz20 mb20" style="text-align: center">发布职位</h4>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_thumb_edit"></div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>联系人</label>
+									<input type="text" class="form-control" placeholder="联系人" id="contactName">
+									<input type="hidden" class="form-control" id="id">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>联系电话</label>
+									<input type="text" class="form-control" id="contactPhone" aria-describedby="phoneNumber" placeholder="联系电话">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>职位名称</label>
+									<input type="text" class="form-control" placeholder="职位名称" id="jobName">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>职位工资</label>
+									<input type="text" class="form-control" id="jobMoney"  placeholder="职位工资">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>工作地点</label>
+									<!--<input type="text" class="form-control" aria-describedby="phoneNumber" placeholder="工作地点">-->
+									<div id="distpicker">
+										<input  id="nowProvince" style="display:inline;width:32%;" class="form-control"/>
+										<input  id="nowCity" style="display:inline;width:32%;" class="form-control"/>
+										<input  id="nowArea" style="display:inline;width:32%;" class="form-control"/>
+										<!--<select id="nowProvince" style="display:inline;width:32%;" class="form-control"></select>-->
+										<!--<select id="nowCity" style="display:inline;width:32%;" class="form-control"></select>-->
+										<!--<select id="nowArea" style="display:inline;width:32%;" class="form-control"></select>-->
+									</div>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>年龄</label>
+									<input type="text" class="form-control" id="age" aria-describedby="phoneNumber" placeholder="年龄">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>工龄</label>
+									<input type="text" class="form-control" id="workAge" aria-describedby="phoneNumber" placeholder="工龄">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>学历</label>
+									<select id="edu" class="form-control">
+										<option value="0">高中</option>
+										<option value="1">大专</option>
+										<option value="2">本科</option>
+										<option value="3">研究生</option>
+										<option value="4">博士</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>招聘状态</label>
+									<select id="status" class="form-control">
+										<option value="0">在招</option>
+										<option value="1">急招</option>
+										<option value="2">停招</option>
+									</select>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-12" >
+								<div class="my_profile_textarea form-group" style="height: 300px;">
+									<label>职业详情</label>
+									<textarea class="form-control" id="jobDetail" style="height:100%;"  placeholder="职业详情"></textarea>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-12" >
+								<div class="my_profile_textarea form-group" style="height: 300px;margin-top: 20px;">
+									<label>技能要求</label>
+									<textarea class="form-control" id="skill" style="height:100%;"  placeholder="技能要求"></textarea>
+								</div>
+							</div>
+
+							<div class="offset-4 col-lg-4">
+								<div class="my_profile_input" onclick="next();">
+									<a class="btn btn-lg btn-thm" href="javascript:;">确定</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="jumpPage.js"></script>
+
+	<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+<!-- Wrapper End -->
+<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="../js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../js/snackbar.min.js"></script>
+<script type="text/javascript" src="../js/simplebar.js"></script>
+<script type="text/javascript" src="../js/tagsinput.js"></script>
+<script type="text/javascript" src="../js/parallax.js"></script>
+<script type="text/javascript" src="../js/scrollto.js"></script>
+<script type="text/javascript" src="../js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="../js/jquery.counterup.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<script type="text/javascript" src="../js/progressbar.js"></script>
+<script type="text/javascript" src="../js/slider.js"></script>
+<script type="text/javascript" src="../js/timepicker.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="../js/script.js"></script>
+
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+
+<script src="../js/distPicker/distpicker.data.js"></script>
+<script src="../js/distPicker/distpicker.js"></script>
+<script>
+    layui.use(['form','layer','upload'], function() {
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+    });
+
+    function next() {
+        var data={};
+        data.id=$("#id").val();
+        data.enterpriseId=JSON.parse(localStorage.getItem("enterprise")).id;
+        data.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+        data.contactName=$("#contactName").val();
+        data.contactPhone=$("#contactPhone").val();
+        data.jobName=$("#jobName").val();
+        data.jobMoney=$("#jobMoney").val();
+        data.nowProvince=$("#nowProvince").val();
+        data.nowCity=$("#nowCity").val();
+        data.nowArea=$("#nowArea").val();
+        data.workPlace=data.nowProvince +"-"+data.nowCity+"-"+data.nowArea;
+        data.age=$("#age").val();
+        data.workAge=$("#workAge").val();
+        data.edu=$("#edu").val();
+        data.status=$("#status").val();
+        data.jobDetail=$("#jobDetail").val();
+        data.skill=$("#skill").val();
+        if(data.contactName==null||data.contactName==''){
+            alert("联系人不能为空");
+            return false;
+        }
+        if(data.contactPhone==null||data.contactPhone==''){
+            alert("联系电话不能为空");
+            return false;
+        }
+        if(data.jobName==null||data.jobName==''){
+            alert("职位名称不能为空");
+            return false;
+        }
+        if(data.jobMoney==null||data.jobMoney==''){
+            alert("职位工资不能为空");
+            return false;
+        }
+        if(data.workPlace==null||data.workPlace==''){
+            alert("工作地点不能为空");
+            return false;
+        }
+        if(data.age==null||data.age==''){
+            alert("年龄不能为空");
+            return false;
+        }
+        if(data.workAge==null||data.workAge==''){
+            alert("工龄不能为空");
+            return false;
+        }
+        if(data.edu==null||data.edu==''){
+            alert("学历不能为空");
+            return false;
+        }
+        if(data.status==null||data.status==''){
+            alert("招聘状态不能为空");
+            return false;
+        }
+        if(data.jobDetail==null||data.jobDetail==''){
+            alert("职位详情不能为空");
+            return false;
+        }
+        if(data.skill==null||data.skill==''){
+            alert("技能要求不能为空");
+            return false;
+        }
+        $.post('/api/issueJob/update',data,function (res) {
+            if(res.code==0){
+                alert(res.msg);
+                $("#enterprise",parent.document).attr("src","jobList.html");
+            }else{
+                alert(res.msg);
+            }
+        });
+
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            status:0,
+            enterpriseName:"",
+        },
+        created: function () {
+            var id=this.aquireParam("id");
+            if(id==null||id==undefined){
+//                $("#distpicker").distpicker({
+//                    province: "江西省",
+//                    city: "赣州市",
+//                    district: "章贡区"
+//                });
+			}else{
+                var data={};
+                data.id=id;
+                $.post("/api/issueJob/detail",data,function(res){
+                    $("#id").val(res.data[0].id);
+                    $("#contactName").val(res.data[0].contactName);
+                    $("#contactPhone").val(res.data[0].contactPhone);
+                    $("#jobName").val(res.data[0].jobName);
+                    $("#jobMoney").val(res.data[0].jobMoney);
+                    var workPlace=res.data[0].workPlace.split("-");
+                    $("#nowProvince").val(workPlace[0]);
+                    $("#nowCity").val(workPlace[1]);
+                    $("#nowArea").val(workPlace[2]);
+//                    $("#distpicker").distpicker({
+//                        province:workPlace[0],
+//                        city: workPlace[1],
+//                        district: workPlace[2]
+//                    });
+                    $("#age").val(res.data[0].age);
+                    $("#workAge").val(res.data[0].workAge);
+                    $("#edu").val(res.data[0].edu);
+                    $("#status").val(res.data[0].status);
+                    $("#jobDetail").val(res.data[0].jobDetail);
+                    $("#skill").val(res.data[0].skill);
+                });
+			}
+
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+
+    function jumpEnterprise() {
+        window.location.href="enterprise.html"
+    }
+</script>
+</body>
+</html>

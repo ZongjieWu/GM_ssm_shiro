@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>职位详情</title>
+    <link rel="stylesheet" href="css/commons.css"/>
+    <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+    <style>
+        .jobList:last-child{
+            margin-bottom: 60px;
+        }
+        .body-conter div:first-child{
+            margin-top: 45px;
+        }
+    </style>
+</head>
+<body>
+<div class="outdiv"  id="app">
+    <div class="head-top"> <!--表头开始  -->
+        <span class="bt">职位列表</span>
+        <div class="div-1"  onclick="goBack()">
+            <img src="img/fanhui-ioc.png"/>
+            <span>返回</span>
+        </div>
+        <template v-if="userName==''||userName==null">
+            <span class="dl-button" onclick="jumpLogin()">登录</span>
+        </template>
+        <template v-else>
+            <span class="dl-button" onclick="jumpUser()">{{userName}}</span>
+        </template>
+
+    </div> <!--表头结束  -->
+    <div class="body-conter" style="overflow: inherit;"><!--页面详情开始  -->
+        <div>
+            <div class="shousuo" style="position: fixed;margin-top:-10%;z-index:111;width: 94%"><!--搜索栏目开始    -->
+                <input name="txtKeyWord" id="txtKeyWord" placeholder=" 请输入关键字搜索" type="text">
+                <b>
+                    <a href="#" type="button" id="search" style="">搜索</a>
+                </b>
+            </div><!--搜索栏目结束    -->
+            <div style="clear: both;"></div>
+            <div class="jobList" v-for="issueJob in jobList" :key="issueJob.id">
+                <ul   :id="issueJob.id" onclick="jumpDetail(this)"><!--搜索出的内容开始   -->
+                    <li>
+                        <h1>{{issueJob.jobName}}</h1>
+                    </li>
+                    <li style="color: #0bb20c">
+                        <span>{{issueJob.enterpriseName}}</span><span style="margin-left: 3%;">在招</span>
+                    </li>
+                    <li>
+                        <span>年龄</span><span style="margin-left: 1%;">{{issueJob.age}}</span><span style="margin-left: 2%;">工龄</span><span  style="margin-left: 1%;">{{issueJob.workAge}}</span><span  style="margin-left: 2%;">学历</span><span  style="margin-left: 1%;">
+                        <template v-if="issueJob.edu==0">
+                            高中
+                        </template>
+                        <template v-if="issueJob.edu==1">
+                            大专
+                        </template>
+                        <template v-if="issueJob.edu==2">
+                            本科
+                        </template>
+                        <template v-if="issueJob.edu==3">
+                            研究生
+                        </template>
+                          <template v-if="issueJob.edu==3">
+                            博士
+                        </template>
+
+                    </span>
+                    </li>
+                    <li class="dm-lx">
+							<span style="float: left;">
+								<span>{{issueJob.workPlace}}</span>
+								<span>|</span>
+								<span>薪资:<span class="je">{{issueJob.jobMoney}}</span></span>
+							</span>
+                        <span style="float: right;">
+								<img class="detail"  src="img/qianjin-ioc.png"/>
+							</span>
+                    </li>
+                </ul><!--搜索出的内容结束   -->
+            </div>
+        </div>
+    </div><!--页面详情结束  -->
+
+</div>
+
+</body>
+<div id="test1" style="position: fixed;z-index: 111;bottom: 0;left: 15%;"></div>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+    var pageFindJob,laypage;
+    var app = new Vue({
+        el: '#app',
+        data: {
+            jobList: [],
+            jobListCount: 0,
+            userName: '',
+        },
+        created: function () {
+            if(JSON.parse((localStorage.getItem("user")))!=null){
+                this.userName=JSON.parse((localStorage.getItem("user"))).name;
+            }
+
+
+        /*  var wechatPublicOpenid=JSON.parse((localStorage.getItem("user"))).wechatPublicOpenid;
+            alert(wechatPublicOpenid);*/
+//            if(wechatPublicOpenid==null||wechatPublicOpenid==''||wechatPublicOpenid==undefined){
+//                var code=this.aquireParam("code");
+//                alert(code);
+//                if(code==null||code==""||code==undefined){
+//                    alert("else");
+//                    this.loginInit();
+//                }else{
+//                    alert("if");
+//                    var data={};
+//                    data.code=code;
+//                    data.id=JSON.parse(localStorage.getItem("user")).id;
+//                    $.post("/weixin/weChatPublic/aquireUserInfo",data,function(res){
+//                        console.log(res.data);
+//                        alert(res.data);
+//                        var user=JSON.parse(localStorage.getItem("user"));
+//                        user.wechatPublicOpenid=JSON.parse(res.data.openid);
+//                        localStorage.setItem("user",user);
+//                    })
+//
+//                }
+//            }
+
+            console.log(this.userName);
+            this.findJobList();
+        },
+        methods: {
+            loginInit: function () {
+                var data={};
+                data.id=JSON.parse(localStorage.getItem("user")).id;
+                $.post('/weixin/weChatPublic/loginInit',data,function(res){
+                    if(res.code==0){
+                        window.location.href=res.data;
+                    }
+                });
+            },
+            findJobList: function () {
+                var data={};
+                data.page=1;
+                data.limit=10;
+                var keywords=$("#txtKeyWord").val();
+                data.keywords=keywords;
+                var that=this;
+                $.post('/api/issueJob/paging',data,function(res){
+                    that.jobListCount=res.count;
+                });
+            },aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+    search();
+    $("#search").click(function(){
+        search();
+    })
+    function search() {
+        app.findJobList();
+        setTimeout(function(){
+            console.log("search=="+app.jobListCount);
+            layui.use('laypage', function () {
+                laypage = layui.laypage;
+                //执行一个laypage实例
+                pageFindJob = laypage.render({
+                    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+                    , limit: 10
+                    , groups: 1
+                    , count: app.jobListCount
+                    , layout: ['prev','page', 'next']
+                    , jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        console.log(obj.limit); //得到每页显示的条数
+
+                        //首次不执行
+                        if (!first) {
+                            //do something
+                        }
+
+                        var data = {};
+                        data.page = obj.curr;
+                        data.limit = obj.limit;
+                        var keywords=$("#txtKeyWord").val();
+                        data.keywords=keywords;
+                        $.post('/api/issueJob/paging', data, function (res) {
+                            obj.count = res.count;
+                            app.jobList = res.data;
+                        });
+                    }
+                });
+            });
+        },300);
+    }
+
+    function jumpUser() {
+        window.location.href="user.html";
+    }
+    function jumpDetail(data) {
+        window.location.href="./jobDetail.html?id="+data.id;
+    }
+    function jumpLogin(data) {
+        window.location.href="./login.html";
+    }
+    function jumpHome() {
+        document.addEventListener('WeixinJSBridgeReady', function(){ WeixinJSBridge.call('closeWindow'); }, false)
+        WeixinJSBridge.call('closeWindow');
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+
+</script>
+</html>

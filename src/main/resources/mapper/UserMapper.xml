@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzj.dao.mapper.UserMapper">
+  <resultMap id="BaseResultMap" type="com.wzj.model.User">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="wechat_public_openid" jdbcType="VARCHAR" property="wechatPublicOpenid" />
+    <result column="head_img" jdbcType="VARCHAR" property="headImg" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="we_chat" jdbcType="VARCHAR" property="weChat" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="id_card_reverse" jdbcType="VARCHAR" property="idCardReverse" />
+    <result column="teacher_certification" jdbcType="VARCHAR" property="teacherCertification" />
+    <result column="life_picture" jdbcType="VARCHAR" property="lifePicture" />
+    <result column="major" jdbcType="VARCHAR" property="major" />
+    <result column="find_job_status" jdbcType="INTEGER" property="findJobStatus" />
+    <result column="marriage_status" jdbcType="INTEGER" property="marriageStatus" />
+    <result column="work_experience" jdbcType="VARCHAR" property="workExperience" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="expect_money" jdbcType="VARCHAR" property="expectMoney" />
+    <result column="native_place" jdbcType="VARCHAR" property="nativePlace" />
+    <result column="job_position" jdbcType="VARCHAR" property="jobPosition" />
+    <result column="education" jdbcType="VARCHAR" property="education" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="area" jdbcType="VARCHAR" property="area" />
+    <result column="town" jdbcType="VARCHAR" property="town" />
+    <result column="detail_place" jdbcType="VARCHAR" property="detailPlace" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="abnormal_reason" jdbcType="VARCHAR" property="abnormalReason" />
+    <result column="authentication_status" jdbcType="INTEGER" property="authenticationStatus" />
+    <result column="authentication_time" jdbcType="VARCHAR" property="authenticationTime" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+  </resultMap>
+  <select id="login" resultType="java.util.HashMap">
+    select u.*,ur.id as userResumeId from user u left join user_resume ur on u.id=ur.user_id
+    <where>
+     u.phone=#{phone} and u.pwd=#{pwd}
+    </where>
+  </select>
+</mapper>

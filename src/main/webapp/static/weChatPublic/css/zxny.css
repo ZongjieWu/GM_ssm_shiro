@@ -1,0 +1,8 @@
+.body-conter .fenlei-nr ul li img{
+	width: 20px;
+	float: right;
+}
+.body-conter .fenlei-nr ul li{
+	border-bottom: 1px solid #d9d9d9;
+	padding: 1em 0px;
+}

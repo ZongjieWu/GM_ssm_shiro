@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>工作经历</title>
+		<link rel="stylesheet" href="css/commons.css" />
+		<link rel="stylesheet" href="css/lxfs.css" />
+		<link rel="stylesheet" href="css/dbdhys.css" />
+
+		<link rel="stylesheet" href="jqueryWeUI/css/weui.min.css">
+		<link rel="stylesheet" href="jqueryWeUI/css/jquery-weui.min.css">
+		<style>
+			textarea:focus{
+				outline: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="outdiv">
+			<div class="head-top" id="app"> <!--表头开始  -->
+				<span class="bt">工作经历</span>
+				<div class="div-1" onclick="goBack();">
+					<img src="img/fanhui-ioc.png" />
+					<span>返回</span>
+				</div>
+				<span class="dl-button" onclick="addWork();">+添加</span>
+			</div> <!--表头结束  -->
+			<div class="body-conter" style="bottom:42px; overflow:auto;"><!--页面详情开始  -->
+				<div class="fgx"></div>
+				<div class="zw-div">
+
+				</div>
+					<!--底部菜单开始                                                                                                      -->
+				<div style="clear: both;"></div>
+				<!--<div class="dbcd let" style="width: 100%;" >-->
+					<!--<div id="dbcd">-->
+						<!--<a href="#" class="bro">首页</a>-->
+						<!--<a href="#" class="bro">关于</a>-->
+						<!--<a href="#" class="bro">联系 </a>-->
+						<!--<a  href="#"style="border: none;" class="bro">反馈</a>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--底部菜单结束                                                                                                      -->
+			</div><!--页面详情结束   -->
+		</div>
+		<div class="dbxq" onclick="next();"><!--底部开始  -->
+				下一步
+	    </div><!--底部结束  -->
+	</body>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+
+	<script src="jqueryWeUI/js/jquery-weui.min.js"></script>
+<script>
+    var app;
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            userName:"sdfasdf",
+            id:0,
+            weList:[]
+        },
+        created: function () {
+            this.userId=JSON.parse(localStorage.getItem("user")).id;
+            this.userName=JSON.parse(localStorage.getItem("user")).name;
+            this.userResumeId=JSON.parse(localStorage.getItem("user")).userResumeId;
+            var data={};
+            data.userResumeId=this.userResumeId;
+            $.post('/api/workExperience/detailByUserResumeId',data,function (res) {
+                if(res.code==0){
+                   if(res.data==null||res.data.length==0){
+                       addWork();
+				   }else{
+                       showWork(res.data);
+				   }
+                }else{
+                }
+            });
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+
+            },
+
+        }
+    });
+	function next() {
+        var workArr=[];
+        var count=$(".zw-div>div").length;
+        var elesArr=$(".zw-div").children();
+        var userResumeId=app.userResumeId;
+        console.log(count);
+        for(var i=0;i<count;i++){
+            var edu={};
+            if(elesArr[i].getElementsByClassName("id")[0].value!=''){
+                edu.id=elesArr[i].getElementsByClassName("id")[0].value;
+            };
+            edu.enterpriseName=elesArr[i].getElementsByClassName("enterpriseName")[0].value;
+            edu.jobName=elesArr[i].getElementsByClassName("jobName")[0].value;
+            edu.startTime=elesArr[i].getElementsByClassName("startTime")[0].value;
+            edu.endTime=elesArr[i].getElementsByClassName("endTime")[0].value;
+            edu.workContent=elesArr[i].getElementsByClassName("workContent")[0].value;
+            edu.userResumeId=userResumeId;
+            workArr.push(edu);
+        }
+        var data={};
+        data.workStrList=JSON.stringify(workArr);
+        $.post("/api/workExperience/update",data,function (res) {
+			if(res.code==0){
+			    alert("保存"+res.msg);
+			    setTimeout(function (data) {
+                    window.location.href="userResumeEduExperience.html";
+                },300);
+			}else{
+                alert(res.msg);
+			}
+        });
+
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+    function addWork(){
+        var count=$(".zw-div>div").length;
+		var tags="";
+      	tags+="<div>";
+        tags+='<ul>';
+			tags+='<li class="lx-bt"  style="display:inline;width: 80%;">';
+			tags+='<span>基本信息</span>';
+			tags+='<i>l 必填  l</i>';
+			tags+='</li>';
+        	tags+='<span style="width: 20%;float: right;color: red" sindex="'+count+'"  class="delEdu">删除</span>';
+        tags+='</ul>';
+        tags+='<ul class="jtnr">';
+			tags+='<li>';
+			tags+='<span class="lie">公司名称</span>';
+			tags+='<input id="enterpriseName" name="enterpriseName" class="enterpriseName" value="" type="text" placeholder="请输入公司名称"/>';
+			tags+='<input name="id" class="id" type="hidden"/>';
+			tags+='</li>';
+			tags+='<li>';
+			tags+='<span class="lie">担任职位</span>';
+			tags+='<span class="dqs">';
+			tags+='<input id="jobName" name="jobName" class="jobName" type="text" placeholder="请输入担任职位"/>';
+			tags+='</span>';
+			tags+='</li>';
+			tags+='<li style="padding-bottom: 0px; border: none;">';
+			tags+='<span class="lie">';
+			tags+='<img src="img/dian.png" />';
+			tags+='开始时间';
+			tags+='</span>';
+			tags+='<span class="dqs">';
+			tags+='<input id="startTime" class="startTime time"  style="width: 100%;" type="text" placeholder="开始时间"/>';
+			tags+='</span>';
+			tags+='</li>';
+			tags+='<li style="border: none; padding: 0px;">';
+			tags+='<img class="lianxian" src="img/xian.png" />';
+			tags+='<div class="xian"></div>';
+			tags+='</li>';
+			tags+='<li style="padding-top: 0px;">';
+			tags+='<span class="lie">';
+			tags+='<img src="img/dian-huangse.png" />';
+			tags+='结束时间';
+			tags+='</span>';
+			tags+='<span class="dqs">';
+			tags+='<input id="endTime" class="endTime time" style="width:100%;" type="text" placeholder="结束时间"/>';
+			tags+='</span>';
+			tags+='</li>';
+			tags+='<li>';
+			tags+='<span class="lie">工作描述</span>';
+			tags+='<textarea id="workContent" class="workContent" style="height: 15em;" placeholder="请详细填写工作经历，不少于15字，以避免被系统当作不完整简历而无法投递！在这里可以描述负责的区域、医院、产品、业绩增长情况，完善的更多，被企业看重的机率越大，得到的面试机会更多！"  name="" rows="" cols="" ></textarea>';
+			tags+='</li>';
+        tags+='</ul>';
+        tags+="</div>";
+        $(".zw-div").append(tags);
+        $(".time").calendar({dateFormat:'yyyy-mm-dd'});
+	}
+    function showWork(workList) {
+        for(var i=0,count=workList.length;i<count;i++){
+            var tags="";
+            tags+="<div>";
+            tags+='<ul>';
+            tags+='<li class="lx-bt"  style="display:inline;width: 80%;">';
+            tags+='<span>基本信息</span>';
+            tags+='<i>l 必填  l</i>';
+            tags+='</li>';
+            tags+='<span style="width: 20%;float: right;color: red" sindex="'+i+'"  class="delEdu">删除</span>';
+            tags+='</ul>';
+            tags+='<ul class="jtnr">';
+            tags+='<li>';
+            tags+='<span class="lie">公司名称</span>';
+            tags+='<input id="enterpriseName" name="enterpriseName" class="enterpriseName" value="'+workList[i].enterpriseName+'" type="text" placeholder="请输入公司名称"/>';
+            tags+='<input name="id" class="id" value="'+workList[i].id+'" type="hidden"/>';
+            tags+='</li>';
+            tags+='<li>';
+            tags+='<span class="lie">担任职位</span>';
+            tags+='<span class="dqs">';
+            tags+='<input id="jobName" name="jobName" class="jobName" value="'+workList[i].jobName+'" type="text" placeholder="请输入担任职位"/>';
+            tags+='</span>';
+            tags+='</li>';
+            tags+='<li style="padding-bottom: 0px; border: none;">';
+            tags+='<span class="lie">';
+            tags+='<img src="img/dian.png" />';
+            tags+='开始时间';
+            tags+='</span>';
+            tags+='<span class="dqs">';
+            tags+='<input id="startTime" value="'+workList[i].startTime+'" class="startTime time"  style="width: 100%;" type="text" placeholder="开始时间"/>';
+            tags+='</span>';
+            tags+='</li>';
+            tags+='<li style="border: none; padding: 0px;">';
+            tags+='<img class="lianxian" src="img/xian.png" />';
+            tags+='<div class="xian"></div>';
+            tags+='</li>';
+            tags+='<li style="padding-top: 0px;">';
+            tags+='<span class="lie">';
+            tags+='<img src="img/dian-huangse.png" />';
+            tags+='结束时间';
+            tags+='</span>';
+            tags+='<span class="dqs">';
+            tags+='<input id="endTime" class="endTime time" value="'+workList[i].endTime+'" style="width:100%;" type="text" placeholder="结束时间"/>';
+            tags+='</span>';
+            tags+='</li>';
+            tags+='<li>';
+            tags+='<span class="lie">工作描述</span>';
+            tags+='<textarea id="workContent" class="workContent" style="height: 15em;" placeholder="请详细填写工作经历，不少于15字，以避免被系统当作不完整简历而无法投递！在这里可以描述负责的区域、医院、产品、业绩增长情况，完善的更多，被企业看重的机率越大，得到的面试机会更多！"  name="" rows="" cols="" >'+workList[i].workContent+'</textarea>';
+            tags+='</li>';
+            tags+='</ul>';
+            tags+="</div>";
+            $(".zw-div").append(tags);
+        }
+
+//        $(".zw-div").index(0).remove();
+        $(".time").calendar({dateFormat:'yyyy-mm-dd'});
+    }
+    $(document).on("click",'.delEdu',function(res){
+        var index=$(this).context.attributes.sindex.value;
+        var id=$(".zw-div").children()[index].getElementsByClassName("id")[0].value;
+        if (id == "") {
+            $(this).parent().parent().remove();
+        } else {
+            var flag = confirm("确定要删除吗?");
+            if (flag) {
+                var data = {};
+                data.id = id;
+                $.post("/api/workExperience/delete", data, function (res) {
+                    if (res.code == 0) {
+                        alert(res.msg);
+                        window.location.reload();
+                    } else {
+                        alert(res.msg);
+                    }
+                })
+            }
+
+        }
+    });
+    function jumpUser() {
+        window.location.href="user.html";
+    }
+</script>
+</html>

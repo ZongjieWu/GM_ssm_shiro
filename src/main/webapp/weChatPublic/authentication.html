@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>用户认证</title>
+	<link rel="stylesheet" href="css/commons.css" />
+	<link rel="stylesheet" href="css/lxfs.css" />
+	<link rel="stylesheet" href="css/zwyx.css" />
+	<link rel="stylesheet" href="css/dbdhys.css" />
+
+	<!--下拉选择框-->
+	<link rel="stylesheet" href="jqueryWeUI/css/weui.min.css">
+	<link rel="stylesheet" href="jqueryWeUI/css/jquery-weui.min.css">
+	<!--三级联动要用到的-->
+	<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+	<link rel="stylesheet" href="level3linkage/css/mpicker.css">
+
+	<link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+	<style>
+		textarea:focus{
+			outline: none;
+		}
+		.weui-uploader__input-box {
+			float: right;
+			bottom: 27px;
+		}
+		/*.body-conter div{*/
+			/*margin-right: 140px;*/
+		/*}*/
+	</style>
+</head>
+<body ontouchstart>
+<div class="outdiv"  id="app">
+	<div class="head-top"> <!--表头开始  -->
+		<span class="bt">用户认证</span>
+		<div class="div-1"  onclick="goBack();">
+			<img src="img/fanhui-ioc.png" />
+			<span>返回</span>
+		</div>
+		<!--<span class="dl-button" onclick="jumpEnterprise();">{{enterpriseName}}</span>-->
+	</div> <!--表头结束  -->
+	<div class="body-conter" style="bottom:42px; overflow:auto;"><!--页面详情开始  -->
+		<div class="fgx"></div>
+		<div class="zw-div">
+			<ul>
+				<li class="lx-bt">
+					<span>用户认证
+						<template v-if="authenticationStatus=='0'">
+							<font color="red">(未认证)</font>
+						</template>
+						<template v-else-if="authenticationStatus=='1'">
+							<font color="red">(等待审核)</font>
+						</template>
+						<template v-else-if="authenticationStatus=='2'">
+							<font color="red">(认证通过)</font>
+						</template>
+						<template v-else-if="authenticationStatus=='3'">
+							<font color="red">(认证不通过)</font>
+						</template>
+					</span>
+				</li>
+			</ul>
+			<ul class="jtnr">
+				<li>
+					<span class="lie">身份证(正面)</span>
+					<span class="layui-input-inline" id="test1" style="right: -157px;">
+						<span class="layui-upload-list">
+							<img class="layui-upload-img" id="idCard" style="width: 100px;height:100px;" src="/static/upload/image/blank.jpg">
+							<span id="demoText"></span>
+						</span>
+					</span>
+				</li>
+				<li>
+					<span class="lie">身份证(反面)</span>
+					<span class="layui-input-inline" id="test6" style="right: -157px;">
+						<span class="layui-upload-list">
+							<img class="layui-upload-img" id="idCardReverse" style="width: 100px;height:100px;" src="/static/upload/image/blank.jpg">
+							<span id="demoText6"></span>
+						</span>
+					</span>
+				</li>
+				<li>
+					<span class="lie">教师资格证</span>
+					<span class="layui-input-inline" id="test2" style="right:-129px;">
+						<span class="layui-upload-list">
+							<img class="layui-upload-img" id="teacherCertification" style="width: 100px;height:100px;" src="/static/upload/image/blank.jpg">
+							<span id="demoText2"></span>
+						</span>
+					</span>
+				</li>
+			</ul>
+		</div>
+	</div><!--页面详情结束  -->
+</div>
+<div class="dbxq" onclick="next();"><!--底部开始  -->
+	确定
+</div><!--底部结束  -->
+
+<div class="select_box select_box3"></div>
+
+</body>
+<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<!--下拉选择框-->
+<script src="jqueryWeUI/js/jquery-weui.min.js"></script>
+<script src="jqueryWeUI/js/fastclick.js"></script>
+<!--三级联动-->
+<!--三级联动要用到的-->
+<script src="level3linkage/js/json.js"></script>
+<script src="level3linkage/js/jsonExchange.js"></script>
+<script src="level3linkage/js/mPicker.min.js"></script>
+<script>
+    layui.use(['form','layer','upload'], function() {
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/user/IDCard"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#idCard').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#idCard').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+            }
+        });
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test6'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/user/IDCard"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#idCardReverse').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#idCardReverse').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+            }
+        });
+        //普通图片上传
+        var uploadInst2 = upload.render({
+            elem: '#test2'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/user/teacherCertification"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#teacherCertification').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#teacherCertification').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+            }
+        });
+        //普通图片上传
+        var uploadInst3 = upload.render({
+            elem: '#test3'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/enterprise/legalIdCard"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#legalIdCard').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#legalIdCard').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+
+            }
+        });
+        //普通图片上传
+        var uploadInst4 = upload.render({
+            elem: '#test4'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/enterprise/remitAuthentication"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#remitAuthentication').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#remitAuthentication').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+
+            }
+        });
+        //普通图片上传
+        var uploadInst5 = upload.render({
+            elem: '#test5'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/user/headImg"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#headImg').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#headImg').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+
+            }
+        });
+    });
+    var app;
+    function next() {
+        var data={};
+        data.id=JSON.parse(localStorage.getItem("user")).id;
+        data.idCard=$("#idCard").attr("src").substring(1,$("#idCard").attr("src").length);
+        data.idCardReverse=$("#idCardReverse").attr("src").substring(1,$("#idCardReverse").attr("src").length);
+        data.teacherCertification=$("#teacherCertification").attr("src").substring(1,$("#teacherCertification").attr("src").length);
+        data.authenticationStatus=1;
+        $.post('/api/user/authentication',data,function (res) {
+            if(res.code==0){
+                app.authenticationStatus=1;
+                alert("等待审核");
+//                setTimeout(function () {
+//                    window.location.href="user.html"
+//                },300);
+            }else{
+                alert(res.msg);
+            }
+        });
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            authenticationStatus:"",
+            enterpriseName:"",
+        },
+        created: function () {
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                var data={};
+                data.id=JSON.parse(localStorage.getItem("user")).id;
+                $.post("/api/user/detail",data,function (res) {
+                    if(res.code==0&&res.data){
+                        var user=res.data;
+                        console.log("1111111111222222222222")
+                        console.log(user);
+                        $("#id").val();
+                        $("#idCard").attr("src","/"+user.idCard);
+                        $("#idCardReverse").attr("src","/"+user.idCardReverse);
+                        $("#teacherCertification").attr("src","/"+user.teacherCertification);
+                        var authenticationStatus=user.authenticationStatus;
+                        if(authenticationStatus==undefined){
+                            app.authenticationStatus="";
+                        }else{
+                            app.authenticationStatus=user.authenticationStatus;
+                        }
+                        localStorage.setItem("user",JSON.stringify(res.data));
+                    }
+                });
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+
+    $("#edu").select({
+        title: "选择学历",
+        items: [
+            {
+                title: "高中",
+                value: "0",
+            },
+            {
+                title: "专科",
+                value: "1",
+            },
+            {
+                title: "本科",
+                value: "2",
+            },  {
+                title: "研究生",
+                value: "3",
+            },  {
+                title: "博士",
+                value: "4",
+            }
+        ],
+        onChange: function(d) {
+            app.edu=d.values;
+            $("#edu").attr("data-value",d.values);
+            console.log(this, d);
+        },
+        onClose: function(d) {
+            console.log("close");
+        },
+        onOpen: function(d) {
+            console.log("open");
+            console.log(d);
+
+        },
+    });
+    $("#status").select({
+        title: "选择招聘状态",
+        items: [
+            {
+                title: "在招",
+                value: "0",
+            },
+            {
+                title: "急招",
+                value: "1",
+            },
+            {
+                title: "停招",
+                value: "2",
+            }
+        ],
+        onChange: function(d) {
+            app.edu=d.values;
+            console.log(this, d);
+        },
+        onClose: function() {
+            console.log("close");
+        },
+        onOpen: function() {
+            console.log("open");
+        },
+    });
+    /**
+     * 联动的picker
+     * 三级
+     */
+    $('.select-value').mPicker({
+        level:3,
+        dataJson: city3,
+        Linkage:true,
+        rows:6,
+        idDefault:true,
+        splitStr:'-',
+        header:'<div class="mPicker-header">目标所在地</div>',
+        confirm:function(json){
+            console.info('当前选中json：',json);
+            console.info('【json里有不带value时】');
+            console.info('选中的id序号为：', json.ids);
+            console.info('选中的value为：', json.values);
+            // var id1= $('.select-value').data('id1');
+            // var id2 = $('.select-value').data('id2');
+            // var id3 = $('.select-value').data('id3');
+            // console.info('第一列json：',city3[id1]);
+            // console.info('第二列json：', city3[id1].child[id2]);
+            // console.info('第三列json：', city3[id1].child[id2].child[id3]);
+        },
+        cancel:function(json){
+            console.info('当前选中json：',json);
+        }
+    })
+    //获取mpicker实例
+    var method= $('.select-value').data('mPicker');
+    console.info('第一个mpicker的实例为：',method);
+    //mpicker方法
+    // method.showPicker();
+    // method.hidePicker(function(){
+    //     console.info(this)
+    // });
+
+//    document.getElementById('businessLicense').addEventListener('change', function (e) {
+//
+//		console.log("营业执照");
+//		console.log(e);
+//		console.log(e.target.files[0]);
+//        var filename = e.target.files[0].name;
+//        var endstr = filename.slice(filename.length - 3, filename.length);
+//
+//        if (endstr == "jpg" || endstr == "png") {
+//
+//        } else {
+//            alert("请上传JPG或者PNG格式的图片");
+//            return;
+//        }
+//        var file = e.target.files[0];
+//
+//        var startTime = new Date().getTime();
+//
+//        startTime = "Y520" + startTime + file.name;
+//
+//        if(file.size>1024*1024){
+//            layer.msg("文件的大小不能超过1M");
+//            return;
+//        }
+//        var storeAs = startTime;
+//
+//
+//    });
+
+
+    function edu(data) {
+        if(data==0){
+            return "高中";
+        }else if(data==1){
+            return "专科";
+        }else if(data==2){
+            return "本科";
+        }else if(data==3){
+            return "研究生";
+        }else if(data==4){
+            return "博士";
+        }
+    }
+    function status(data) {
+        if(data==0){
+            return "在招";
+        }else if(data==1){
+            return "急招";
+        }else if(data==2){
+            return "停招";
+        }
+    }
+    function jumpEnterprise() {
+        window.location.href="enterprise.html"
+    }
+
+</script>
+</html>

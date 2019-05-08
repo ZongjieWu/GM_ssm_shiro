@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>基本信息</title>
+		<link rel="stylesheet" href="css/commons.css" />
+		<link rel="stylesheet" href="css/date.css"/>
+		<link rel="stylesheet" href="css/lxfs.css" />
+		<link rel="stylesheet" href="css/xbtc.css" />
+		<link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+	</head>
+	<body>
+		<div class="outdiv" id="app">
+			<div class="head-top"> <!--表头开始  -->
+				<span class="bt">基本信息</span>
+				<div class="div-1"   onclick="goBack();">
+					<img src="img/fanhui-ioc.png"/>
+					<span>返回</span>
+				</div>
+				<template v-if="userName==''||userName==null">
+					<span class="dl-button" onclick="jumpLogin()">登录</span>
+				</template>
+				<template v-else>
+					<span class="dl-button" onclick="jumpUser()">{{userName}}</span>
+				</template>
+			</div> <!--表头结束  -->
+			<div class="body-conter" style="bottom:42px; overflow:auto;"><!--页面详情开始  -->
+				<div class="fgx"></div>
+				<div class="zw-div">
+					<ul>
+						<li class="lx-bt">
+							<span>基本信息</span>
+							<i>l 必填  l</i>
+						</li>
+					</ul>
+					<ul class="jtnr">
+						<li>
+							<span class="lie">真实姓名</span>
+							<input id="name" name="name" type="text" placeholder="请输入姓名"/>
+						</li>
+						<li class="xb-clik">
+							<span class="lie">性       别</span>
+							<!--<span class="dqs">-->
+								<!--男-->
+								<!--<img src="img/qianjin-ioc.png" />-->
+							<!--</span>-->
+							<select id="sex" style="float: right;width: 30%;">
+								<option value="0">男</option>
+								<option value="1">女</option>
+							</select>
+						</li>
+						<!--<li id="tanchu2">-->
+							<!--<span class="lie ">出生日期</span>-->
+							<!--<span class="dqs">-->
+								<!--<span class="tanchu">1978年7月28日</span>-->
+								<!--<img src="img/qianjin-ioc.png" />-->
+							<!--</span>-->
+						<!--</li>-->
+						<li class="hyzk-clik">
+							<span class="lie">婚姻状况</span>
+							<!--<span class="dqs">-->
+								<!--未婚-->
+								<!--<img src="img/qianjin-ioc.png" />-->
+							<!--</span>-->
+							<select id="marriageStatus"  style="float: right;width: 30%;">
+								<option value="0">未婚</option>
+								<option value="1">已婚</option>
+							</select>
+						</li>
+						<li>
+							<span class="lie">年       龄</span>
+							<input id="age" name="" type="text" placeholder="请输入年龄"/>
+						</li>
+						<li>
+							<span class="lie">民       族</span>
+							<input id="nation" name="" type="text" placeholder="请输入民族"/>
+						</li>
+						<li class="zgxl-clik">
+							<span class="lie">最高学历</span>
+							<!--<span class="dqs">-->
+								<!--本科-->
+								<!--<img src="img/qianjin-ioc.png" />-->
+							<!--</span>-->
+							<select id="education"  style="float: right;width: 30%;">
+								<option value="0">高中</option>
+								<option value="1">专科</option>
+								<option value="2">本科</option>
+								<option value="3">研究生</option>
+								<option value="4">博士</option>
+							</select>
+						</li>
+						<li>
+							<span class="lie">毕业学校</span>
+							<input id="graduateSchool" name="" type="text" placeholder="请输入学校"/>
+						</li>
+						<li>
+							<span class="lie">专       业</span>
+							<input id="major" name="" type="text" placeholder="请输入专 业"/>
+						</li>
+						<li>
+							<span class="lie">户       籍</span>
+							<input id="nativePlace" name="" type="text" placeholder="请输入户籍"/>
+						</li>
+
+						<!--<li class="yysp-clik">-->
+							<!--<span class="lie">英语水平</span>-->
+							<!--<span class="dqs">-->
+								<!--精通-->
+								<!--<img src="img/qianjin-ioc.png" />-->
+							<!--</span>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<span class="lie">英语证书</span>-->
+							<!--<input name="" type="text" placeholder="如：CET-4"/>-->
+						<!--</li>-->
+						<!--<li class="dnsp-clik">-->
+							<!--<span class="lie">电脑水平</span>-->
+							<!--<span class="dqs">-->
+								<!--精通-->
+								<!--<img src="img/qianjin-ioc.png" />-->
+							<!--</span>-->
+						<!--</li>-->
+						<!--<li>-->
+							<!--<span class="lie">电脑证书</span>-->
+							<!--<input name="" type="text" placeholder="如：计算机三级"/>-->
+						<!--</li>-->
+						<!--<li style="border: none;">-->
+							<!--<span class="lie">电脑证书</span>-->
+							<!--<input name="" type="text" placeholder="输入证书"/>-->
+						<!--</li>-->
+					</ul>
+				</div>
+				<!--底部菜单开始                                                                                                      -->
+				<!--<div style="clear: both;"></div>-->
+				<!--<div class="dbcd let" style="width: 100%;" >-->
+					<!--<div id="dbcd">-->
+						<!--<a href="#" class="bro" onclick="jumpJobList()">首页</a>-->
+						<!--<a href="#" class="bro">关于</a>-->
+						<!--<a href="#" class="bro">联系 </a>-->
+						<!--<a  href="#"style="border: none;" class="bro">反馈</a>-->
+					<!--</div>-->
+				<!--</div>-->
+				<!--底部菜单结束                                                                                                      -->
+			</div> <!--页面详情结束  -->
+		</div>
+		<div class="dbxq" onclick="next();"><!--底部开始  -->
+				下一步
+	    </div><!--底部结束  -->
+	</body>
+	<script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="js/vue.js"></script>
+	<script src="/static/layuiadmin/layui/layui.js"></script>、
+
+
+	<script type="text/javascript">
+        var app;
+        function next() {
+            var data={};
+            data.userId=app.userId;
+            data.name=$("#name").val();
+            data.age=$("#age").val();
+            data.sex=$("#sex").val();
+            data.marriageStatus=$("#marriageStatus").val();
+            data.major=$("#major").val();
+            data.nation=$("#nation").val();
+            data.education=$("#education").val();
+            data.graduateSchool=$("#graduateSchool").val();
+            data.nativePlace=$("#nativePlace").val();
+            $.ajaxSettings.async = false;
+            $.post('/api/userResume/update',data,function (res) {
+				if(res.code==0){
+				    alert("保存"+res.msg);
+                    var user=JSON.parse(localStorage.getItem("user"));
+                    user.userResumeId=res.data;
+                    localStorage.setItem("user",JSON.stringify(user));
+				}else{
+                    alert(res.msg);
+				}
+            });
+            $.ajaxSettings.async = true;
+            setTimeout(function(res){
+                window.location.href="userResumeContactWay.html"
+
+            },300);
+        }
+        function goBack() {
+            window.history.back(-1);
+        }
+
+        function jumpJobList() {
+            window.location.href="jobList.html";
+        }
+
+        app = new Vue({
+            el: '#app',
+            data: {
+                userId:0,
+                userName:"sdfasdf",
+            },
+            created: function () {
+                this.userId=JSON.parse(localStorage.getItem("user")).id;
+                this.userName=JSON.parse(localStorage.getItem("user")).name;
+                var data={};
+                data.userId=JSON.parse(localStorage.getItem("user")).id;
+                $.post('/api/userResume/detailByUserId',data,function (res) {
+                    if(res.code==0){
+                        console.log(res.data);
+                        var userResume=res.data;
+                        $("#name").val(userResume.name);
+                        $("#age").val(userResume.age);
+                        $("#sex").val(userResume.sex);
+                        $("#marriageStatus").val(userResume.marriageStatus);
+                        $("#major").val(userResume.major);
+                        $("#nation").val(userResume.nation);
+                        $("#education").val(userResume.education);
+                        $("#graduateSchool").val(userResume.graduateSchool);
+                        $("#nativePlace").val(userResume.nativePlace);
+                    }else{
+                    }
+                });
+                this.detail();
+            },
+            methods: {
+                detail: function () {
+
+                },
+
+            }
+        });
+        function jumpUser() {
+			window.location.href="user.html";
+        }
+        function jumpLogin() {
+			window.location.href="login.html";
+        }
+	</script>
+</html>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <title>投递记录</title>
+    <link rel="stylesheet" href="css/commons.css"/>
+    <link rel="stylesheet" href="css/tdjl.css"/>
+    <link rel="stylesheet" href="css/nav-tcc.css"/>
+    <script type="text/javascript" src="js/jquery-1.8.3.min.js"></script>
+
+    <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+    <style>
+        .body-conter:last-child{
+            bottom: 60px;
+        }
+    </style>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".cd-button").click(function () {
+                $(".youce-nav").show();
+                $(".zzc").show();
+            });
+            $(".zzc").click(function () {
+                $(".youce-nav").hide();
+                $(".zzc").hide();
+            });
+        })
+
+    </script>
+</head>
+<body style="background-color: #fff;">
+<div class="zzc"></div>
+<!--右侧菜单开始 ---------------------------------------------------------------------->
+<!--<ul class="youce-nav">-->
+    <!--<li>-->
+        <!--<div class="div-nr" onclick="jumpUser();">-->
+            <!--<img src="img/gr-ioc/iconfont-geren.png"/>-->
+            <!--<span>个人中心</span>-->
+        <!--</div>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<div class="div-nr" onclick="jumpUserResumeBaseInfo();">-->
+            <!--<img src="img/gr-ioc/bianji-caise.png"/>-->
+            <!--<span>简历编辑</span>-->
+        <!--</div>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<div class="div-nr" onclick="jumpUserResumePreview();">-->
+            <!--<img src="img/gr-ioc/yulan-baise.png"/>-->
+            <!--<span>简历预览</span>-->
+        <!--</div>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<div class="div-nr" onclick="jumpSendRecord();">-->
+            <!--<img src="img/gr-ioc/toudi-3-baise.png"/>-->
+            <!--<span>投递记录</span>-->
+        <!--</div>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<div class="div-nr" onclick="jumpInterViewNotify();">-->
+            <!--<img src="img/gr-ioc/toudi-3-baise.png"/>-->
+            <!--<span>面试通知</span>-->
+        <!--</div>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<div class="div-nr">-->
+            <!--<img src="img/gr-ioc/shouc-baise.png"/>-->
+            <!--<span>职位收藏</span>-->
+        <!--</div>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<div class="div-nr" onclick="jumpUpdatePwd();">-->
+            <!--<img src="img/gr-ioc/qiugai-baise.png"/>-->
+            <!--<span>修改密码</span>-->
+        <!--</div>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<div class="div-nr" onclick="jumpLogin();">-->
+            <!--<img src="img/gr-ioc/tuichu-baise.png"/>-->
+            <!--<span>退出登录</span>-->
+        <!--</div>-->
+    <!--</li>-->
+
+<!--</ul>-->
+
+<!--右侧菜单结束------------------------------------------------------------------------ -->
+<div class="outdiv" id="app">
+    <div class="head-top"> <!--表头开始  -->
+        <span class="bt">投递记录</span>
+        <div class="div-1" onclick="goBack();">
+            <img src="img/fanhui-ioc.png"/>
+            <span>返回</span>
+        </div>
+        <template v-if="userName==''||userName==null">
+            <span class="dl-button" onclick="jumpLogin()">登录</span>
+        </template>
+        <template v-else>
+            <span class="dl-button" onclick="jumpUser()">{{userName}}</span>
+        </template>
+    </div> <!--表头结束  -->
+    <div class="body-conter"><!--页面详情开始  -->
+
+       <template v-for="sendResume in jobList">
+           <ul  :id="sendResume.issueJobId"  onclick="jumpDetail(this)">
+               <li>
+                   <div class="fgxs"></div>
+               </li>
+               <li>
+                   <div class="zwmc">{{sendResume.jobName}}</div>
+                   <div class="sjtb">
+                       <span>{{sendResume.workAge}}</span>
+                       <img src="img/qianjin-ioc.png"/>
+                   </div>
+               </li>
+               <li>
+                   <div class="gsm">{{sendResume.enterpriseName}}</div>
+                   <!--<img class="scioc" src="img/gr-ioc/shouc-hs.png"/>-->
+               </li>
+               <li>
+                   <div class="dq">{{sendResume.workPlace}}</div>
+                   <div class="xz">{{sendResume.jobMoney}}</div>
+               </li>
+               <li style="width: 100%;">
+                   <div class="fgx"></div>
+               </li>
+           </ul>
+       </template>
+
+    </div> <!--页面详情结束  -->
+    <!--底部菜单开始                                                                                                      -->
+
+
+    <!--底部菜单结束                                                                                                      -->
+
+</div>
+
+</body>
+<div id="test1" style="position: fixed;z-index: 111;bottom: 0;left: 15%;"></div>
+<script type="text/javascript" src="js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+    var pageFindJob,laypage;
+    var app = new Vue({
+        el: '#app',
+        data: {
+            jobList: [],
+            jobListCount: 0,
+            userName: '',
+        },
+        created: function () {
+            if((localStorage.getItem("user"))==null){
+                window.location.href="login.html";
+            }else{
+                this.userName=JSON.parse((localStorage.getItem("user"))).name;
+            }
+            console.log(this.userName);
+            this.findJobList();
+        },
+        methods: {
+            findJobList: function () {
+                var data={};
+                data.uid=JSON.parse((localStorage.getItem("user"))).id;
+                data.page=1;
+                data.limit=10;
+                var keywords=$("#txtKeyWord").val();
+                data.keywords=keywords;
+                var that=this;
+                $.post('/api/sendResume/paging',data,function(res){
+                    that.jobListCount=res.count;
+                });
+            }
+        }
+    });
+    search();
+    $("#search").click(function(){
+        search();
+    })
+    function search() {
+        app.findJobList();
+        setTimeout(function(){
+            console.log("search=="+app.jobListCount);
+            layui.use('laypage', function () {
+                laypage = layui.laypage;
+                //执行一个laypage实例
+                pageFindJob = laypage.render({
+                    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+                    , limit: 10
+                    , groups: 1
+                    , count: app.jobListCount
+                    , layout: ['prev','page', 'next']
+                    , jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        console.log(obj.limit); //得到每页显示的条数
+
+                        //首次不执行
+                        if (!first) {
+                            //do something
+                        }
+
+                        var data = {};
+                        data.uid=JSON.parse((localStorage.getItem("user"))).id
+                        data.page = obj.curr;
+                        data.limit = obj.limit;
+                        var keywords=$("#txtKeyWord").val();
+                        data.keywords=keywords;
+                        $.post('/api/sendResume/paging', data, function (res) {
+                            obj.count = res.count;
+                            app.jobList = res.data;
+                            console.log(app.jobList);
+                        });
+                    }
+                });
+            });
+        },300);
+    }
+
+    function jumpDetail(data) {
+        window.location.href="./jobDetail.html?id="+data.id;
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+
+
+    function jumpUser() {
+        window.location.href="user.html";
+    }
+    function jumpUserResumeBaseInfo() {
+        window.location.href="userResumeBaseInfo.html"
+    }
+    function jumpUserResumePreview() {
+        window.location.href="yulan.html"
+    }
+    function jumpSendRecord() {
+        window.location.href="tdjl.html";
+    }
+    function jumpUpdatePwd() {
+        window.location.href="xgmm.html";
+    }
+    function jumpLogin() {
+        localStorage.removeItem("user");
+        window.location.href="login.html";
+    }
+    function jumpInterViewNotify() {
+        window.location.href="interviewNotify.html";
+    }
+</script>
+</html>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+    <bean id="defaultWebSessionManager"
+          class="com.wzj.web.shiro.MyWebSessionManager">
+        <!-- 3600000 = 1hour -->
+        <property name="globalSessionTimeout" value="3600000" />
+        <!--<property name="sessionDAO" ref="sessionDAO" />-->
+        <property name="sessionIdUrlRewritingEnabled" value="false" />
+        <property name="sessionIdCookie.name" value="jsid" />
+    </bean>
+    <bean id="sessionDAO"
+          class="org.apache.shiro.session.mgt.eis.EnterpriseCacheSessionDAO">
+        <property name="activeSessionsCacheName" value="shiro-activeSessionCache" />
+        <property name="cacheManager" ref="cacheManager" />
+    </bean>
+
+    <!-- 缓存器，用于缓存shiro相关的数据 -->
+    <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
+    <bean id="shiroRealm" class="com.wzj.web.shiro.ShiroRealm"></bean>
+
+    <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <!-- 我们自定义的realm -->
+        <property name="realm" ref="shiroRealm"/>
+        <!-- 缓存管理器 -->
+        <property name="cacheManager" ref="cacheManager"/>
+    </bean>
+
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+        <!-- 权限管理器 -->
+        <property name="securityManager" ref="securityManager"/>
+        <!-- 登录地址 -->
+        <property name="loginUrl" value="/admin/jumpLogin"/>
+        <!-- 错误页面 -->
+        <property name="unauthorizedUrl" value="/admin/jumpLogin"/>
+        <!-- 权限配置 -->
+        <property name="filterChainDefinitions">
+            <value>
+                /admin/jumpIndex = authc
+                /admin/jumpInfo = authc
+                /admin/logout = authc
+                /authentication/user/jumpPaging = authc
+                /authentication/enterprise/jumpPaging = authc
+                /authentication/remit/jumpPaging = authc
+                /user/jumpPaging = authc
+                /user/jumpUnPassPaging = authc
+                /user/jumpFrostPaging = authc
+                /enterprise/jumpPaging = authc
+                /enterprise/jumpUnPassPaging = authc
+                /enterprise/jumpFrostPaging = authc
+                /resume/userResume/jumpPaging = authc
+                /resume/sendResume/jumpPaging = authc
+                /invite/issueJob/jumpPaging = authc
+                /invite/interviewNotify/jumpPaging = authc
+                /remitRecord/jumpRecordPaging = authc
+                /remitRecord/jumpUnPassPaging = authc
+                /enterSet/jumpEnterSet = authc
+                /enterSet/jumpGatheringCodeUpdate = authc
+            </value>
+        </property>
+    </bean>
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
+</beans>

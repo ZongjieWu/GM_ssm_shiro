@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzj.dao.mapper.IssueJobMapper">
+  <resultMap id="BaseResultMap" type="com.wzj.model.IssueJob">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="enterprise_logo" jdbcType="BIGINT" property="enterpriseLogo" />
+    <result column="enterprise_id" jdbcType="BIGINT" property="enterpriseId" />
+    <result column="enterprise_name" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="contact_name" jdbcType="VARCHAR" property="contactName" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="contact_wechat" jdbcType="VARCHAR" property="contactWechat" />
+    <result column="contact_qq" jdbcType="VARCHAR" property="contactQq" />
+    <result column="contact_email" jdbcType="VARCHAR" property="contactEmail" />
+    <result column="job_name" jdbcType="VARCHAR" property="jobName" />
+    <result column="job_money" jdbcType="VARCHAR" property="jobMoney" />
+    <result column="work_place" jdbcType="VARCHAR" property="workPlace" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="work_age" jdbcType="VARCHAR" property="workAge" />
+    <result column="edu" jdbcType="VARCHAR" property="edu" />
+    <result column="job_detail" jdbcType="VARCHAR" property="jobDetail" />
+    <result column="skill" jdbcType="VARCHAR" property="skill" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+  </resultMap>
+  <select id="apiDetail" resultType="java.util.HashMap">
+    select ij.*,e.logo,e.intro from issue_job ij
+    join enterprise e on ij.enterprise_id=e.id
+    <where>
+      <if test="id!=null">
+        ij.id=#{id}
+      </if>
+    </where>
+  </select>
+</mapper>

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>企业注册</title>
+	<link rel="stylesheet" href="../css/commons.css" />
+	<link rel="stylesheet" href="../css/lxfs.css" />
+	<link rel="stylesheet" href="../css/zwyx.css" />
+	<link rel="stylesheet" href="../css/dbdhys.css" />
+
+	<!--下拉选择框-->
+	<link rel="stylesheet" href="../jqueryWeUI/css/weui.min.css">
+	<link rel="stylesheet" href="../jqueryWeUI/css/jquery-weui.min.css">
+	<!--三级联动要用到的-->
+	<link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
+	<link rel="stylesheet" href="../level3linkage/css/mpicker.css">
+
+	<link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+	<style>
+		textarea:focus{
+			outline: none;
+		}
+		.weui-uploader__input-box {
+			float: right;
+			bottom: 27px;
+		}
+		/*.body-conter div{*/
+			/*margin-right: 140px;*/
+		/*}*/
+	</style>
+</head>
+<body ontouchstart>
+<div class="outdiv">
+	<div class="head-top" id="app"> <!--表头开始  -->
+		<span class="bt">提交打款记录</span>
+		<div class="div-1"  onclick="goBack();">
+			<img src="../img/fanhui-ioc.png" />
+			<span>返回</span>
+		</div>
+		<span class="dl-button" onclick="jumpEnterprise();">{{enterpriseName}}</span>
+	</div> <!--表头结束  -->
+	<div class="body-conter" style="bottom:42px; overflow:auto;"><!--页面详情开始  -->
+		<div class="fgx"></div>
+		<div class="zw-div">
+			<ul>
+				<li class="lx-bt">
+					<span>提交打框记录</span>
+				</li>
+			</ul>
+			<ul class="jtnr">
+
+				<li>
+					<span class="lie">电话</span>
+					<span class="dqs">
+								<input id="phone" class="jobType" placeholder="电话" style="width:100%;" value=""  name="phone" type="text" />
+							</span>
+				</li>
+				<li>
+					<span class="lie">密码</span>
+					<span class="dqs">
+								<input id="pwd" class="jobType" placeholder="密码" style="width:100%;" value=""  name="pwd" type="password" />
+							</span>
+				</li>
+				<li>
+					<span class="lie">打款凭证</span>
+					<span class="layui-input-inline" id="test4" style="right:-143px;">
+						<span class="layui-upload-list">
+							<img class="layui-upload-img" id="remitAuthentication" style="width: 100px;height:100px;" src="/static/upload/image/blank.jpg">
+							<span id="demoText4"></span>
+						</span>
+					</span>
+				</li>
+
+			</ul>
+		</div>
+	</div><!--页面详情结束  -->
+</div>
+<div class="dbxq" onclick="next();"><!--底部开始  -->
+	确定
+</div><!--底部结束  -->
+
+<div class="select_box select_box3"></div>
+
+</body>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<!--下拉选择框-->
+<script src="../jqueryWeUI/js/jquery-weui.min.js"></script>
+<script src="../jqueryWeUI/js/fastclick.js"></script>
+<!--三级联动-->
+<!--三级联动要用到的-->
+<script src="../level3linkage/js/json.js"></script>
+<script src="../level3linkage/js/jsonExchange.js"></script>
+<script src="../level3linkage/js/mPicker.min.js"></script>
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+
+<script>
+    layui.use(['form','layer','upload'], function() {
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+        //普通图片上传
+        var uploadInst4 = upload.render({
+            elem: '#test4'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/enterprise/remitAuthentication"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#remitAuthentication').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#remitAuthentication').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+
+            }
+        });
+
+    });
+    var app;
+    function next() {
+        var data={};
+        data.id=$("#id").val();
+        data.phone=$("#phone").val();
+        data.pwd=$("#pwd").val();
+        data.remitAuthentication=$("#remitAuthentication").attr("src").substring(1,$("#remitAuthentication").attr("src").length);
+        console.log(data);
+        $.post('/api/remitRecord/add',data,function (res) {
+            if(res.code==0){
+                alert(res.msg);
+                window.location.href="dashboard.html";
+            }else{
+                alert(res.msg);
+            }
+        });
+
+    }
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            status:0,
+            enterpriseName:"",
+            enterpriseLogo:"",
+        },
+        created: function () {
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+                this.enterpriseLogo=JSON.parse(localStorage.getItem("enterprise")).logo;
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+    function jumpEnterprise() {
+        window.location.href="enterprise.html";
+    }
+    function goBack() {
+		window.history.back(-1);
+    }
+</script>
+</html>

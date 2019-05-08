@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+	<meta name="CreativeLayers" content="ATFN">
+	<!-- css file -->
+	<link rel="stylesheet" href="../css/bootstrap.min.css">
+	<link rel="stylesheet" href="../css/style.css">
+	<!-- Responsive stylesheet -->
+	<link rel="stylesheet" href="../css/responsive.css">
+	<!-- Title -->
+	<title>预览简历 - 华顿教师人才</title>
+	<!-- Favicon -->
+	<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+	<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
+
+	<style>
+		.our-dashbord:before {
+			background-color: #ffffff;
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper" id="app" style="margin-left: 25%;margin-top:-10%;">
+	<div class="preloader"></div>
+
+
+	<!-- Our Dashbord -->
+	<section class="our-dashbord dashbord">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<h4 class="fz20 mb20">简历</h4>
+				</div>
+
+				<div class="col-lg-12">
+					<div class="my_resume_skill mt20">
+						<h4 class="title">基本信息</h4>
+						<div class="form-group">
+							<div style="display: inline">
+								<label>姓名:</label>
+								<span>{{userResume.name}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>性别:</label>
+								<span>
+									<template v-if="userResume.sex==0">
+									男
+									</template>
+									<template v-if="userResume.sex==1">
+									女
+									</template>
+								</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>年龄:</label>
+								<span>{{userResume.age}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>民族:</label>
+								<span>{{userResume.nation}}</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div style="display: inline;">
+								<label>专业:</label>
+								<span>{{userResume.major}}</span>
+							</div>
+							<div  style="display: inline;margin-left: 3%;">
+								<label>婚姻状况:</label>
+								<span>
+									<template v-if="userResume.marriageStatus==0">
+									未婚
+									</template>
+									<template v-if="userResume.marriageStatus==1">
+									已婚
+									</template>
+								</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<div style="display: inline;">
+								<label>籍贯:</label>
+								<span>{{userResume.nativePlace}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>最高学历:</label>
+								<span>
+									<template v-if="userResume.education==0">
+										高中
+									</template>
+									<template v-if="userResume.education==1">
+										大专
+									</template>
+									<template v-if="userResume.education==2">
+										本科
+									</template>
+									<template v-if="userResume.education==3">
+										研究生
+									</template>
+									<template v-if="userResume.education==4">
+										博士
+									</template>
+								</span>
+							</div>
+
+							<div style="display: inline;margin-left: 3%;">
+								<label>毕业学校:</label>
+								<span>{{userResume.graduateSchool}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+
+
+				<div class="col-lg-12">
+					<div class="my_resume_skill mt20">
+						<h3 class="title">联系方式</h3>
+						<div class="form-group">
+							<label>所在地址:</label>
+							<span>{{userResume.nowProvince}}</span>
+							<span style="margin-left: 3%;">{{userResume.nowCity}}</span>
+							<span style="margin-left: 3%;">{{userResume.nowArea}}</span>
+						</div>
+						<div class="form-group">
+							<div style="display: inline;">
+								<label>联系电话:</label>
+								<span>{{userResume.phone}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>电子邮箱:</label>
+								<span>{{userResume.email}}</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>QQ:</label>
+								<span>{{userResume.qq}}</span>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="my_resume_skill mt20">
+						<h4 class="title">职业意向</h4>
+						<div class="form-group">
+							<div style="display: inline;">
+								<label>求职状态:</label>
+								<span>
+									<template v-if="userResume.findJobStatus==0">
+									离职-随时到岗
+									</template>
+									<template v-if="userResume.findJobStatus==1">
+										在职-月内到岗
+									</template>
+									<template v-if="userResume.findJobStatus==2">
+										在职-考虑机会
+									</template>
+									<template v-if="userResume.findJobStatus==3">
+										在职-暂不考虑
+									</template>
+								</span>
+							</div>
+							<div style="display: inline;margin-left: 3%;">
+								<label>目标职位:</label>
+								<span>{{userResume.jobType}}</span>
+							</div>
+							<div style="display:inline;margin-left: 3%;">
+								<label>期望工资:</label>
+								<!--<input id="expectMoney" type="text" style="width: 20%;display: inline;" class="form-control">-->
+								<span>{{userResume.expectMoney}}</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label>目标工作地:</label>
+							<!--<input id="province" type="text" style="width: 20%;display: inline;" class="form-control">-->
+							<!--<input id="city" type="text" style="width: 20%;display: inline;" class="form-control">-->
+							<!--<input id="area" type="text" style="width: 20%;display: inline;" class="form-control">-->
+							<span>{{userResume.province}}</span><span style="margin-left: 3%;">{{userResume.city}}</span><span style="margin-left: 3%;">{{userResume.area}}</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="my_resume_skill">
+						<h4 class="title">自我评价</h4>
+						<!--<input type="text" data-role="tagsinput" value="" placeholder="Add Skills">-->
+						<!--<textarea id="selfAppraise"  placeholder="请输入职业技能" style="width: 100%;" rows="5"></textarea>-->
+						<p>{{userResume.selfAppraise}}</p>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="my_resume_skill">
+						<h4 class="title">职业技能</h4>
+						<!--<input type="text" data-role="tagsinput" value="" placeholder="Add Skills">-->
+						<!--<textarea id="jobSkill"  placeholder="请输入职业技能" style="width: 100%;" rows="5"></textarea>-->
+						<p>{{userResume.jobSkill}}</p>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<h4 class="title">工作经验</h4>
+					<div id="workExperience" class="my_resume_eduarea">
+
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<h4 class="title">教育经历 </h4>
+					<div id="eduExperience" class="my_resume_eduarea">
+
+					</div>
+				</div>
+				<!--<div class="col-lg-12">-->
+					<!--<button type="submit" style="width: 70%;letter-spacing: 20px;" onclick="next();" class="btn btn-success">面试邀请</button>-->
+				<!--</div>-->
+
+			</div>
+		</div>
+	</section>
+
+	<script src="jumpPage.js"></script>
+	<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+<!-- Wrapper End -->
+<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="../js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../js/snackbar.min.js"></script>
+<script type="text/javascript" src="../js/simplebar.js"></script>
+<script type="text/javascript" src="../js/tagsinput.js"></script>
+<script type="text/javascript" src="../js/parallax.js"></script>
+<script type="text/javascript" src="../js/scrollto.js"></script>
+<script type="text/javascript" src="../js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="../js/jquery.counterup.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<script type="text/javascript" src="../js/progressbar.js"></script>
+<script type="text/javascript" src="../js/slider.js"></script>
+<script type="text/javascript" src="../js/timepicker.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="../js/script.js"></script>
+
+
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+
+<script>
+
+</script>
+<script>
+    var app;
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            userName:"",
+            id:0,
+            userResumeId:0,
+            userResume:{},
+            userResumeList:[],
+            issueJob:{}
+        },
+        created: function () {
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                var data = {};
+                data.id = this.aquireParam("id");
+                $.post('/api/userResume/detail',data,function (res) {
+                    if(res.code==0){
+                        console.log("1212121212312312");
+                        console.log(res.data);
+                        app.userResume=res.data.userResumeList[0];
+                        console.log(app.userResume)
+                        if(app.userResume.eduExperienceList==null||app.userResume.eduExperienceList.length==0){
+                        }else{
+                            showEdu(app.userResume.eduExperienceList);
+                        }
+                        if(app.userResume.workExperienceList==null||app.userResume.workExperienceList.length==0){
+                        }else{
+                            showWork(app.userResume.workExperienceList);
+                        }
+                    }
+                });
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+    function goBack() {
+        window.history.back(-1);
+    }
+    function interViewNotify(){
+        console.log(app);
+        var userId=app.userResumeList[0].userId;
+//            var userResumeId=app.userResumeList[0].userResumeId;
+        var issueJobId=app.aquireParam("issueJobId");
+        window.location.href="interview.html?userId="+userId+"&issueJobId="+issueJobId;
+    }
+
+	function next() {
+
+    }
+
+    function showEdu(eduList) {
+        console.log("showEdu");
+        console.log(eduList);
+        var ccount=$("#eduExperience>div").length;
+        for(var i=0,count=eduList.length;i<count;i++){
+            var htm='';
+            htm+='<div class="content">';
+            htm+='<div class="circle"></div>';
+            htm+='<ul class="edu_stats_list float-right">';
+//            htm+='<li class="delEdu list-inline-item" sindex="'+ccount+'"><a href="javascript:;" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>';
+            htm+='</ul>';
+            htm+='<input value="'+eduList[i].id+'" type="hidden" style="width: 20%;display: inline;" class="id form-control">';
+            htm+='<p class="edu_center">学校名称:'+eduList[i].name+'</p>';
+            htm+='<h4 class="edu_stats">专业:'+eduList[i].major;
+            htm+='<h4 class="edu_stats">开始时间:'+eduList[i].startTime;
+            htm+='<h4 class="edu_stats">结束时间:'+eduList[i].endTime;
+            htm+='</h4>';
+            htm+='</div>';
+            $("#eduExperience").append(htm);
+        }
+    }
+
+
+    function showWork(workList) {
+        console.log("showWork");
+        console.log(workList);
+        var ccount=$("#workExperience>div").length;
+        console.log("sindex"+ccount);
+        for(var i=0,count=workList.length;i<count;i++){
+            var htm='';
+            htm+='<div class="content">';
+            htm+='<div class="circle"></div>';
+            htm+='<ul class="edu_stats_list float-right">';
+//            htm+='<li class="list-inline-item delWork" sindex="'+ccount+'"><a href="javascript:;" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-rubbish-bin"></span></a></li>';
+            htm+='</ul>';
+            htm+='<input  value="'+workList[i].id+'" type="hidden" style="width: 20%;display: inline;" class="id form-control">';
+            htm+='<p class="edu_center">公司名称:'+workList[i].enterpriseName+'</p>';
+            htm+='<h4 class="edu_stats">担任职位:'+workList[i].jobName;
+            htm+='<h4 class="edu_stats">开始时间:'+workList[i].startTime;
+            htm+='<h4 class="edu_stats">结束时间:'+workList[i].endTime;
+            htm+='</h4>';
+            htm+='<h4>工作描述</h4>';
+            htm+=workList[i].workContent;
+            htm+='</div>';
+            $("#workExperience").append(htm);
+        }
+
+
+    }
+</script>
+
+
+</body>
+</html>

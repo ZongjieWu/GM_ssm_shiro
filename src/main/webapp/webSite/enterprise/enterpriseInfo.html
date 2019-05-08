@@ -1,0 +1,347 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+<meta name="CreativeLayers" content="ATFN">
+<!-- css file -->
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="../css/responsive.css">
+<!-- Title -->
+<title>企业认证 - 华顿教师人才</title>
+<!-- Favicon -->
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+	  <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+    <![endif]-->
+	<style>
+		.our-dashbord:before {
+			background-color: #ffffff;
+		}
+		.layui-upload-file {
+			width: 150px;
+			height: 89px;
+			margin-left: -155px;
+			margin-top: 36px;
+			z-index: 111;
+			opacity: -1.5;
+		}
+	</style>
+
+</head>
+<body>
+<div class="wrapper"  id="app" style="margin-left: 25%;margin-top:-5%;">
+	<div class="preloader"></div>
+
+	<!-- Our Dashbord -->
+	<section class="our-dashbord dashbord">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-8 col-xl-9">
+					<div class="my_profile_form_area">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="fz20 mb20">企业资料</h4>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_thumb_edit"></div>
+							</div>
+							<div class="col-md-6 col-lg-12">
+								<div class="my_profile_input form-group">
+									<label>企业logo</label>
+									<span class="layui-input-inline" id="test1" style="right:-171px;;">
+										<span class="layui-upload-list">
+											<img class="layui-upload-img" id="logo" style="width: 150px;height:150px;" src="/static/upload/image/blank.jpg">
+											<span id="demoText1"></span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>名称</label>
+									<input type="text" class="form-control"  value="名称" id="name" readonly>
+									<input type="hidden" class="form-control" id="id">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>电话</label>
+									<input type="text" class="form-control" id="phone" aria-describedby="phoneNumber" placeholder="电话" readonly>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>邮箱</label>
+									<input type="text" class="form-control" id="email" aria-describedby="phoneNumber" placeholder="电话">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>微信</label>
+									<input type="text" class="form-control" id="weChat" aria-describedby="phoneNumber" placeholder="电话">
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>qq</label>
+									<input type="text" class="form-control" id="qq" aria-describedby="phoneNumber" placeholder="电话">
+								</div>
+							</div>
+
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>简介</label>
+									<input type="text" class="form-control" id="intro" aria-describedby="phoneNumber" placeholder="电话">
+								</div>
+							</div>
+
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>上班时间</label>
+									<input type="text" class="form-control" id="workTime" aria-describedby="phoneNumber" placeholder="电话">
+								</div>
+							</div>
+
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>单双休</label>
+									<select class="form-control"  id="singleDoubleCease">
+										<option value="0">无休息</option>
+										<option value="1">单休</option>
+										<option value="2">双休</option>
+									</select>
+								</div>
+							</div>
+
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>企业类型</label>
+									<input type="text" class="form-control" id="enterpriseType" aria-describedby="phoneNumber" placeholder="电话">
+								</div>
+							</div>
+
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>企业规模</label>
+									<input type="text" class="form-control" id="scale" aria-describedby="phoneNumber" placeholder="电话">
+								</div>
+							</div>
+
+							<div class="col-md-6 col-lg-12">
+								<div class="my_profile_input form-group">
+									<label>地址</label>
+									<input type="text" style="display: inline;width: 31%;" class="form-control" id="province" placeholder="省份">
+									<input type="text" style="display: inline;width: 31%;" class="form-control" id="city" placeholder="市">
+									<input type="text" style="display: inline;width: 31%;" class="form-control" id="area" placeholder="区/县">
+								</div>
+							</div>
+
+							<div class="col-md-6 col-lg-12">
+								<div class="my_profile_input form-group">
+									<label>详细地址</label>
+									<input type="text" style="display: inline;width: 90%;" class="form-control" id="detailPlace" placeholder="详细地址">
+								</div>
+							</div>
+
+
+
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>营业执照</label>
+									<span class="layui-input-inline" id="test2a" style="right:-171px;;">
+										<span class="layui-upload-list">
+											<img class="layui-upload-img" id="businessLicense" style="width: 150px;height:150px;" src="/static/upload/image/blank.jpg">
+											<span id="demoText2"></span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>办学资质</label>
+									<span class="layui-input-inline" id="test3a" style="right:-171px;;">
+										<span class="layui-upload-list">
+											<img class="layui-upload-img" id="teacherAptitude" style="width: 150px;height:150px;" src="/static/upload/image/blank.jpg">
+											<span id="demoText3"></span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="offset-4 col-lg-4">
+								<div class="my_profile_input" onclick="next();">
+									<a class="btn btn-lg btn-thm" href="javascript:;">确定</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+<script src="jumpPage.js"></script>
+
+<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+<!-- Wrapper End -->
+<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="../js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../js/snackbar.min.js"></script>
+<script type="text/javascript" src="../js/simplebar.js"></script>
+<script type="text/javascript" src="../js/tagsinput.js"></script>
+<script type="text/javascript" src="../js/parallax.js"></script>
+<script type="text/javascript" src="../js/scrollto.js"></script>
+<script type="text/javascript" src="../js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="../js/jquery.counterup.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<script type="text/javascript" src="../js/progressbar.js"></script>
+<script type="text/javascript" src="../js/slider.js"></script>
+<script type="text/javascript" src="../js/timepicker.js"></script>
+<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyAAz77U5XQuEME6TpftaMdX0bBelQxXRlM&callback=initMap"type="text/javascript"></script>
+<script type="text/javascript" src="../js/googlemaps1.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="../js/script.js"></script>
+
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['form','layer','upload'], function() {
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst5 = upload.render({
+            elem: '#test1'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/enterprise/logo"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#logo').attr('src', "/"+result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#logo').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+				alert("上传失败");
+            }
+        });
+    });
+    var app;
+    function next() {
+        var data={};
+        data.id=$("#id").val();
+        data.logo=$("#logo").attr("src").substring(1,$("#logo").attr("src").length);
+        data.name=$("#name").val();
+        data.phone=$("#phone").val();
+        data.email=$("#email").val();
+        data.weChat=$("#weChat").val();
+        data.qq=$("#qq").val();
+        data.intro=$("#intro").val();
+        data.workTime=$("#workTime").val();
+        data.intro=$("#intro").val();
+        data.singleDoubleCease=$("#singleDoubleCease").val();
+        data.enterpriseType=$("#enterpriseType").val();
+        data.scale=$("#scale").val();
+        data.province=$("#province").val();
+        data.city=$("#city").val();
+        data.area=$("#area").val();
+        data.detailPlace=$("#detailPlace").val();
+//        data.businessLicense=$("#businessLicense").attr("src").substring(1,$("#businessLicense").attr("src").length);
+//        data.teacherAptitude=$("#teacherAptitude").attr("src").substring(1,$("#teacherAptitude").attr("src").length);
+
+        console.log(data);
+        $.post('/api/enterprise/update',data,function (res) {
+            if(res.code==0){
+                alert(res.msg);
+            }else{
+                alert(res.msg);
+            }
+        });
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            status:0,
+            enterpriseName:"",
+        },
+        created: function () {
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                var data={};
+                data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+				$.post("/api/enterprise/detail",data,function(res){
+				    if(res.code==0){
+				        $("#id").attr("value",res.data.id);
+				        $("#logo").attr("src","/"+res.data.logo);
+				        $("#name").attr("value",res.data.name);
+				        $("#phone").attr("value",res.data.phone);
+				        $("#email").attr("value",res.data.email);
+				        $("#weChat").attr("value",res.data.weChat);
+				        $("#qq").attr("value",res.data.qq);
+				        $("#intro").attr("value",res.data.intro);
+				        $("#workTime").attr("value",res.data.workTime);
+				        $("#singleDoubleCease").attr("value",res.data.singleDoubleCease);
+				        $("#enterpriseType").attr("value",res.data.enterpriseType);
+				        $("#scale").attr("value",res.data.scale);
+				        $("#province").attr("value",res.data.province);
+				        $("#city").attr("value",res.data.city);
+				        $("#area").attr("value",res.data.area);
+				        $("#detailPlace").attr("value",res.data.detailPlace);
+				        $("#businessLicense").attr("src","/"+res.data.businessLicense);
+				        $("#teacherAptitude").attr("src","/"+res.data.teacherAptitude);
+					}else{
+
+					}
+				});
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+
+
+    function jumpEnterprise() {
+        window.location.href="enterprise.html"
+    }
+</script>
+</body>
+</html>

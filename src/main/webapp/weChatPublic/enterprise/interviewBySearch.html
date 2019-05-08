@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title></title>
+    <link rel="stylesheet" href="../css/commons.css" />
+    <link rel="stylesheet" href="../css/denglv.css" />
+    <link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+    <style>
+        .body-conter .div-dl {
+            height: 23.6em;
+        }
+    </style>
+</head>
+<body>
+<div class="outdiv" id="app">
+    <div class="head-top"> <!--表头开始  -->
+        <span class="bt">发送邀请</span>
+        <div class="div-1" onclick="goBack()">
+            <img src="../img/fanhui-ioc.png"/>
+            <span>返回</span>
+        </div>
+        <template v-if="enterpriseName==null||enterpriseName==''">
+            <span class="dl-button" onclick="jumpLogin();">登入</span>
+        </template>
+        <template v-else>
+            <span class="dl-button" onclick="jumpEnterprise();">{{enterpriseName}}</span>
+        </template>
+    </div> <!--表头结束  -->
+    <div class="body-conter"><!--页面详情开始  -->
+        <div class="div-dl">
+            <ul>
+                <li class="yhm">
+                    <textarea placeholder="请输入内容" id="content" style="width: 98%;" rows="10" name="content" type="text"></textarea>
+                </li>
+
+            </ul>
+            <ul>
+                <li class="yhm">
+                    <input placeholder="请输入联系方式" id="concatPhone" name="concatPhone" type="text"  />
+                </li>
+            </ul>
+            <ul>
+                <li class="yhm">
+                    <input placeholder="请选择面试时间" id="interviewTime" name="interviewTime" type="text"  />
+                </li>
+            </ul>
+            <ul>
+                <li class="yhm">
+                   <select id="issueJobId" style="width: 100%;height: 34px;">
+
+                   </select>
+                </li>
+            </ul>
+        </div>
+        <div class="div-mmzd" style="margin-top: 10%;"  onclick="interview()">
+            <div class="dl-button"><a href="#" style="color:#fff;">发送邀请</a></div>
+        </div>
+
+    </div><!--页面详情结束  -->
+    <!--底部菜单开始                                                                                                      -->
+
+
+    <!--底部菜单结束                                                                                                      -->
+</div>
+</body>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use('laydate', function() {
+        var laydate = layui.laydate;
+        //日期时间范围
+        laydate.render({
+            elem: '#interviewTime'
+            ,type: 'datetime'
+        });
+    });
+    var app;
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            enterpriseName:"",
+            id:0,
+            userResumeId:0,
+            userResumeList:[],
+            issueJob:{},
+            issueJobList:[]
+        },
+        created: function () {
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+                var data = {};
+                data.id = aquireParam("id");
+                $.post('/api/userResume/detail',data,function (res) {
+                    if(res.code==0){
+                        console.log(res.data);
+                        app.userResumeList=res.data.userResumeList;
+                    }
+                });
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+    acquireIssueByEnterpriseId();
+    function acquireIssueByEnterpriseId() {
+        var returnData=[];
+        var data={};
+        data.id=JSON.parse(localStorage.getItem("enterprise")).id;;
+        $.ajaxSettings.async = false;
+        $.post("/api/issueJob/allByEnterpriseId",data,function (res) {
+            returnData=res.data;
+        });
+        $.ajaxSettings.async = true;
+        for(var i=0,count=returnData.length;i<count;i++){
+            $("#issueJobId").append("<option value='"+returnData[i].id+"'>"+returnData[i].jobName+"</option>");
+        }
+        return returnData;
+    }
+
+    function aquireParam(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
+    function interview() {
+        var data = {};
+        data.id = $("#issueJobId").val();
+        $.ajaxSettings.async = false;
+        $.post('/api/issueJob/detail',data,function (res) {
+            if(res.code==0){
+                app.issueJob=res.data;
+                console.log(app.issueJob);
+            }
+        });
+        $.ajaxSettings.async = true;
+        setTimeout(function(){
+            var interData={};
+            interData.userId=aquireParam("userId");
+            interData.issueJobId=app.issueJob[0].id;
+            interData.jobName=app.issueJob[0].jobName;
+            interData.enterpriseName=app.issueJob[0].enterpriseName;
+            interData.content=$("#content").val();
+            interData.concatPhone=$("#concatPhone").val();
+            interData.interviewTime=$("#interviewTime").val();
+
+            console.log(interData);
+            $.post('/api/interviewNotify/add',interData,function (res) {
+                if(res.code==0){
+                   alert("成功");
+                   setTimeout(function(res){
+                       window.location.href="receiveResume.html";
+                   })
+                }else{
+                    alert("失败");
+                }
+            });
+        },300);
+
+    }
+    function goBack() {
+        window.history.back(-1);
+    }
+    function jumpEnterprise() {
+        window.location.href="enterprise.html";
+    }
+    function jumpLogin() {
+        localStorage.removeItem("user");
+        window.location.href="login.html";
+    }
+</script>
+</html>

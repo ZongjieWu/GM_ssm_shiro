@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wzj.dao.mapper.SendResumeMapper">
+  <resultMap id="BaseResultMap" type="com.wzj.model.SendResume">
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="issue_job_id" jdbcType="BIGINT" property="issueJobId" />
+    <result column="user_resume_id" jdbcType="BIGINT" property="userResumeId" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="add_time" jdbcType="VARCHAR" property="addTime" />
+    <result column="modify_time" jdbcType="VARCHAR" property="modifyTime" />
+  </resultMap>
+  <select id="paging" resultType="java.util.HashMap">
+    select sr.id,sr.issue_job_id,sr.user_resume_id,sr.status,sr.add_time,sr.modify_time,
+    ur.user_id,ur.name,ur.phone,ur.age,ur.sex,ur.education,ur.expect_money,ur.find_job_status,
+    ij.enterprise_name,ij.job_name,ij.job_money,ij.work_place,
+    e.logo
+    from send_resume sr
+    join issue_job ij on sr.issue_job_id=ij.id
+    join user_resume ur on sr.user_resume_id=ur.id
+    join enterprise e on ij.enterprise_id=e.id
+    <where>
+      <if test="uid!=null">
+        and uid=#{uid}
+      </if>
+      <if test="keywords!=null and !keywords.equals('')">
+          and (ur.name like concat('%',#{keywords},'%') or ur.phone like concat('%',#{keywords},'%') or ij.enterprise_name like concat('%',#{keywords},'%') or ij.job_name like concat('%',#{keywords},'%'))
+      </if>
+    </where>
+  </select>
+  <select id="pagingByEnterpriseId" resultType="java.util.HashMap">
+    select sr.id,sr.issue_job_id,sr.user_resume_id,sr.status,sr.add_time,sr.modify_time,
+    ur.user_id,ur.name,ur.phone,ur.age,ur.sex,ur.education,ur.expect_money,ur.find_job_status,
+    ij.enterprise_name,ij.job_name,ij.job_money,ij.work_place
+    from send_resume sr
+    join issue_job ij on sr.issue_job_id=ij.id
+    join user_resume ur on sr.user_resume_id=ur.id
+    <where>
+      <if test="id!=null">
+        and ij.enterprise_id=#{id}
+      </if>
+      <if test="keywords!=null and !keywords.equals('')">
+        and (ur.name like concat('%',#{keywords},'%') or ur.phone like concat('%',#{keywords},'%') or ij.enterprise_name like concat('%',#{keywords},'%') or ij.job_name like concat('%',#{keywords},'%'))
+      </if>
+    </where>
+  </select>
+  <select id="queryLastSendTime" resultType="java.lang.String">
+    select add_time from send_resume where uid=#{uid} and issue_job_id=#{issueJobId} order by add_time desc limit 0,1
+  </select>
+</mapper>

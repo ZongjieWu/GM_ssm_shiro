@@ -1,0 +1,461 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+	<meta name="CreativeLayers" content="ATFN">
+	<!-- css file -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css">
+	<!-- Responsive stylesheet -->
+	<link rel="stylesheet" href="css/responsive.css">
+	<!-- Title -->
+	<title>个人认证 - 华顿教师人才</title>
+	<!-- Favicon -->
+	<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+	<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+	<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+	<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+	<link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+	<![endif]-->
+	<style>
+		.our-dashbord:before {
+			background-color: #ffffff;
+		}
+		.layui-upload-file {
+			width: 150px;
+			height: 89px;
+			margin-left: -155px;
+			margin-top: 36px;
+			z-index: 111;
+			opacity: -1.5;
+		}
+	</style>
+
+</head>
+<body>
+<div class="wrapper"  id="app" style="margin-left: 25%;">
+	<div class="preloader"></div>
+	<!-- Our Dashbord -->
+	<section class="our-dashbord dashbord">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-8 col-xl-9">
+					<div class="my_profile_form_area">
+						<div class="row" style="margin-top:3%;">
+							<div class="col-lg-12">
+								<h4 class="fz20 mb20" style="display: inline-block;width: 15%;">认证资料</h4>
+								<template v-if="authenticationStatus==0">
+									<font color="red">(未认证)</font>
+								</template>
+								<template v-else-if="authenticationStatus==1">
+									<font color="red">(等待认证)</font>
+								</template>
+								<template v-else-if="authenticationStatus==2">
+									<font color="red">(认证成功)</font>
+								</template>
+								<template v-else-if="authenticationStatus==3">
+									<font color="red">(认证失败)</font>
+								</template>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_thumb_edit"></div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>身份证(正面)</label>
+									<span class="layui-input-inline" id="test1" style="right:-171px;;">
+										<span class="layui-upload-list">
+											<img class="layui-upload-img" id="idCard" style="width: 150px;height:150px;" src="/static/upload/image/blank.jpg">
+											<span id="demoText1"></span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>身份证(反面)</label>
+									<span class="layui-input-inline" id="test6" style="right:-171px;;">
+										<span class="layui-upload-list">
+											<img class="layui-upload-img" id="idCardReverse" style="width: 150px;height:150px;" src="/static/upload/image/blank.jpg">
+											<span id="demoText6"></span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="col-md-6 col-lg-6">
+								<div class="my_profile_input form-group">
+									<label>教师资格证</label>
+									<span class="layui-input-inline" id="test2" style="right:-171px;;">
+										<span class="layui-upload-list">
+											<img class="layui-upload-img" id="teacherCertification" style="width: 150px;height:150px;" src="/static/upload/image/blank.jpg">
+											<span id="demoText2"></span>
+										</span>
+									</span>
+								</div>
+							</div>
+							<div class="offset-4 col-lg-4">
+								<div class="my_profile_input" onclick="next();">
+									<a class="btn btn-lg btn-thm" href="javascript:;">确定</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script src="jumpPage.js"></script>
+
+	<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+<!-- Wrapper End -->
+<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="js/popper.min.js"></script>
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+<script type="text/javascript" src="js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="js/snackbar.min.js"></script>
+<script type="text/javascript" src="js/simplebar.js"></script>
+<script type="text/javascript" src="js/tagsinput.js"></script>
+<script type="text/javascript" src="js/parallax.js"></script>
+<script type="text/javascript" src="js/scrollto.js"></script>
+<script type="text/javascript" src="js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="js/jquery.counterup.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/progressbar.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/timepicker.js"></script>
+<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyAAz77U5XQuEME6TpftaMdX0bBelQxXRlM&callback=initMap"type="text/javascript"></script>
+<script type="text/javascript" src="js/googlemaps1.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="js/script.js"></script>
+
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+<script>
+    layui.use(['form','layer','upload'], function() {
+        var form = layui.form;
+        var layer = layui.layer;
+        var upload = layui.upload;
+
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test1'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/user/IDCard"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#idCard').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#idCard').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+            }
+        });
+        //普通图片上传
+        var uploadInst = upload.render({
+            elem: '#test6'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/user/IDCard"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#idCardReverse').attr('src',"/"+ result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#idCardReverse').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+            }
+        });
+        //普通图片上传
+        var uploadInst2 = upload.render({
+            elem: '#test2'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/user/teacherCertification"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#teacherCertification').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#teacherCertification').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+            }
+        });
+        //普通图片上传
+        var uploadInst3 = upload.render({
+            elem: '#test3'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/enterprise/legalIdCard"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#legalIdCard').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#legalIdCard').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+
+            }
+        });
+        //普通图片上传
+        var uploadInst4 = upload.render({
+            elem: '#test4'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/enterprise/remitAuthentication"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#remitAuthentication').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#remitAuthentication').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+                //演示失败状态，并实现重传
+
+            }
+        });
+        //普通图片上传
+        var uploadInst5 = upload.render({
+            elem: '#test5'
+            , url: '/upload/image/uploadImg'
+            , data: {
+                baseCatalog: "/static/upload/image/user/headImg"
+            }
+            , before: function (obj) {
+                //预读本地文件示例，不支持ie8
+                obj.preview(function (index, file, result) {
+                    $('#headImg').attr('src', result); //图片链接（base64）
+                });
+            }
+            , done: function (res) {
+                //如果上传失败
+                if (res.code == 0) {
+                    $('#headImg').attr('src', "/"+res.data);
+                    return layer.msg('上传成功');
+                } else {
+                    return layer.msg('上传失败');
+                }
+                //上传成功
+            }
+            , error: function () {
+
+            }
+        });
+    });
+    var app;
+    function next() {
+        var data={};
+        data.id=JSON.parse(localStorage.getItem("user")).id;
+        data.idCard=$("#idCard").attr("src").substring(1,$("#idCard").attr("src").length);
+        data.idCardReverse=$("#idCardReverse").attr("src").substring(1,$("#idCardReverse").attr("src").length);
+        data.teacherCertification=$("#teacherCertification").attr("src").substring(1,$("#teacherCertification").attr("src").length);
+		data.authenticationStatus=1;
+        $.post('/api/user/update',data,function (res) {
+            if(res.code==0){
+                app.authenticationStatus=1;
+                alert("等待审核");
+            }else{
+                alert(res.msg);
+            }
+        });
+    }
+
+
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            status:0,
+            enterpriseName:"",
+            authenticationStatus:"",
+        },
+        created: function () {
+            var data={};
+            data.id=JSON.parse((localStorage.getItem("user"))).id;
+            $.post("/api/user/detail",data,function(res){
+				if(res.code==0){
+				    var user=res.data;
+                    $("#id").attr("value",user.id);
+                    $("#idCard").attr("src","/"+user.idCard);
+                    $("#idCardReverse").attr("src","/"+user.idCardReverse);
+                    $("#teacherCertification").attr("src","/"+user.teacherCertification);
+                    app.authenticationStatus=user.authenticationStatus;
+				}else{
+				}
+			});
+        },
+        methods: {
+            detail: function () {
+
+
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            }
+        }
+    });
+
+    $("#edu").select({
+        title: "选择学历",
+        items: [
+            {
+                title: "高中",
+                value: "0",
+            },
+            {
+                title: "专科",
+                value: "1",
+            },
+            {
+                title: "本科",
+                value: "2",
+            },  {
+                title: "研究生",
+                value: "3",
+            },  {
+                title: "博士",
+                value: "4",
+            }
+        ],
+        onChange: function(d) {
+            app.edu=d.values;
+            $("#edu").attr("data-value",d.values);
+            console.log(this, d);
+        },
+        onClose: function(d) {
+            console.log("close");
+        },
+        onOpen: function(d) {
+            console.log("open");
+            console.log(d);
+
+        },
+    });
+    $("#status").select({
+        title: "选择招聘状态",
+        items: [
+            {
+                title: "在招",
+                value: "0",
+            },
+            {
+                title: "急招",
+                value: "1",
+            },
+            {
+                title: "停招",
+                value: "2",
+            }
+        ],
+        onChange: function(d) {
+            app.edu=d.values;
+            console.log(this, d);
+        },
+        onClose: function() {
+            console.log("close");
+        },
+        onOpen: function() {
+            console.log("open");
+        },
+    });
+
+
+
+    function edu(data) {
+        if(data==0){
+            return "高中";
+        }else if(data==1){
+            return "专科";
+        }else if(data==2){
+            return "本科";
+        }else if(data==3){
+            return "研究生";
+        }else if(data==4){
+            return "博士";
+        }
+    }
+    function status(data) {
+        if(data==0){
+            return "在招";
+        }else if(data==1){
+            return "急招";
+        }else if(data==2){
+            return "停招";
+        }
+    }
+
+
+</script>
+</body>
+</html>

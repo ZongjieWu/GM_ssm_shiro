@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="screen-orientation" content="portrait"><!-- uc强制竖屏 -->
+		<meta name="x5-orientation" content="portrait"><!-- QQ强制竖屏 -->
+		<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>简历预览</title>
+		<link rel="stylesheet" href="../css/commons.css" />
+		<link rel="stylesheet" href="../css/jlyl.css" />
+		<link rel="stylesheet" href="../css/shachutanchu.css" />
+		<link rel="stylesheet" href="../css/shachutanchu.css" />
+		<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+
+
+		<script type="text/javascript">
+			$(function(){
+				$(".shanchu").click(function(){
+  					 $(".tanchu-ul").show();
+  					  $(".zzc").show();
+				});
+				$(".zzc").click(function(){
+  					 $(".tanchu-ul").hide();
+  					 $(".zzc").hide();
+				});
+			})
+		</script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$(".shanchuj").click(function(){
+  					 $(".tanchu-ulj").show();
+  					  $(".zzcj").show();
+				});
+				$(".zzcj").click(function(){
+  					 $(".tanchu-ulj").hide();
+  					 $(".zzcj").hide();
+				});
+			})
+		</script>
+	</head>
+	<body>
+		<div class="zzc"></div><!--弹出删除结束  -->
+		<div class="outdiv" id="app">
+			<div class="head-top"> <!--表头开始  -->
+				<span class="bt">简历预览</span>
+				<div class="div-1" onclick="goBack();">
+					<img src="../img/fanhui-ioc.png" />
+					<span>返回</span>
+				</div>
+				<template v-if="enterpriseName==null||enterpriseName==''">
+					<span class="dl-button" onclick="jumpLogin();">登入</span>
+				</template>
+				<template v-else>
+					<span class="dl-button" onclick="jumpEnterprise();">{{enterpriseName}}</span>
+				</template>
+			</div> <!--表头结束  -->
+			<div class="body-conter" v-for="ur in userResumeList" style="overflow:auto;"><!--页面详情开始  -->
+				<div class="fgx"></div>
+				<div class="jibenxinxi"><!--基本信息开始  -->
+					<ul>
+						<li>
+							<span class="jb">基本信息
+								<!--<img src="../img/gr-ioc/bianji-ico.png" />-->
+							</span>
+						</li>
+					</ul>
+					<ul class="zynr" >
+					    <li><span>姓<i></i>名</span>
+					    	<div class="xm">{{ur.name}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					     <li><span>性<i></i>别</span>
+					    	<div class="xm">
+								<template v-if="ur.sex==0">
+									男
+								</template>
+								<template v-else="ur.sex==1">
+									女
+								</template>
+							</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					     <li><span>年龄</span>
+					    	<div class="xm">{{ur.age}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>婚姻状况</span>
+					    	<div class="xm">
+								<template v-if="ur.marriageStatus==0">
+									未婚
+								</template>
+								<template v-if="ur.marriageStatus==1">
+									已婚
+								</template>
+							</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					     <li><span>民<i></i>族</span>
+					    	<div class="xm">{{ur.nation}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>最高学历</span>
+					    	<div class="xm">
+								<template v-if="ur.education==0">
+									高中
+								</template>
+								<template v-if="ur.education==1">
+									专科
+								</template>
+								<template v-if="ur.education==2">
+									本科
+								</template>
+								<template v-if="ur.education==3">
+									研究生
+								</template>
+								<template v-if="ur.education==4">
+									博士
+								</template>
+							</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>毕业学校</span>
+					    	<div class="xm">{{ur.graduateSchool}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					     <li><span>专<i></i>业</span>
+					    	<div class="xm">{{ur.major}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>户<i></i>籍</span>
+					    	<div class="xm">{{ur.nativePlace}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>目前地区</span>
+					    	<div class="xm">{{ur.nowProvince}}-{{ur.nowCity}}-{{ur.nowArea}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+
+					</ul>
+				</div><!--基本信息结束  -->
+				<div class="fgx"></div>
+				<div class="jibenxinxi"><!--联系方式开始  -->
+					<ul>
+						<li>
+							<span class="jb">联系方式
+								<!--<img src="../img/gr-ioc/bianji-ico.png" />-->
+							</span>
+						</li>
+					</ul>
+					<ul class="zynr">
+						<li><span>联系电话</span>
+					    	<div class="xm">{{ur.phone}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>电子邮箱</span>
+					    	<div class="xm">{{ur.email}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>Q<i style="padding-left: 2.3em;"></i>Q</span>
+					    	<div class="xm">{{ur.qq}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					</ul>
+				</div><!--联系方式结束  -->
+				<div class="fgx"></div>
+				<div class="jibenxinxi"><!--求职意向开始  -->
+					<ul>
+						<li>
+							<span class="jb">求职意向
+								<!--<img src="../img/gr-ioc/bianji-ico.png" />-->
+							</span>
+						</li>
+					</ul>
+					<ul class="zynr">
+					    <li><span>到岗时间</span>
+					    	<div class="xm">
+								<template v-if="ur.findJobStatus==0">
+									离职-随时到岗
+								</template>
+								<template v-if="ur.findJobStatus==1">
+									在职-月内到岗
+								</template>
+								<template v-if="ur.findJobStatus==2">
+									在职-考虑机会
+								</template>
+								<template v-if="ur.findJobStatus==3">
+									在职-暂不考虑
+								</template>
+							</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>意向职位</span>
+					    	<div class="xm">
+					    		<div>{{ur.jobType}}</div>
+					    	</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>工作地点</span>
+					    	<div class="xm">
+					    		<div>{{ur.province}}-{{ur.city}}-{{ur.area}}</div>
+					    	</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li><span>待遇要求</span>
+					    	<div class="xm">{{ur.expectMoney}}元/月</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					</ul>
+				</div><!--求职意向结束  -->
+				<div class="fgx"></div>
+				<div class="jibenxinxi"><!--自我评价开始  -->
+					<ul>
+						<li>
+							<span class="jb">自我评价
+								<!--<img src="../img/qianjinlv-ioc.png" />-->
+							</span>
+						</li>
+					</ul>
+					<ul class="zynr">
+						 <li>
+						 	<span>
+						 		{{ur.selfAppraise}}
+						 	</span>
+					    	<div style="clear: both;"></div>
+					    </li>
+					</ul>
+				</div><!--自我评价结束  -->
+				<div class="fgx"></div>
+				<div class="jibenxinxi"><!--工作经历开始  -->
+					<ul>
+						<li>
+							<span class="jb">工作经历
+								<!--<img src="../img/tianjia-ioc.png" />-->
+							</span>
+						</li>
+					</ul>
+					<ul class="tanchu-ul"><!--弹出删除开始  -->
+						<li>
+							<img class="tanchu" src="../img/gr-ioc/xiugaiai.png" />
+						</li>
+						<li>
+							<img class="tanchu shangyi" src="../img/gr-ioc/shanchuc.png" />
+						</li>
+					</ul>
+
+					<ul class="zynr" v-for="work in ur.workExperienceList">
+						<li>
+							<div class="gsmcv">
+								{{work.enterpriseName}}
+							</div>
+							<img class="shanchu" src="../img/shanchbu-ico.png" />
+							<div style="clear: both;"></div>
+						</li>
+						<li><span>担任职位</span>
+					    	<div class="xm sie">{{work.jobName}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li>
+					    	<span>
+					    		<img src="../img/dian.png" />
+					    		开始时间
+					    	</span>
+					    	<div style="padding-left: 0.5em;" class="xm sie">{{work.startTime}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li style="padding: 0px;">
+					    		<img src="../img/xian.png" />
+					    </li>
+					    <li style="padding-top: 0px;">
+					    	<span>
+					    		<img src="../img/dian-huangse.png" />
+					    		结束时间
+					    	</span>
+					    	<div style="padding-left: 0.5em;" class="xm sie">{{work.endTime}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li>
+					    	<span>工作描述</span>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li>
+						 	<span>
+						 		{{work.workContent}}
+						 	</span>
+					    	<div style="clear: both;"></div>
+					    </li>
+					</ul>
+				</div><!--工作经历结束  -->
+				<div class="fgx"></div>
+				<div class="jibenxinxi"><!--教育经历开始  -->
+					<ul>
+						<li>
+							<span class="jb">教育经历
+								<!--<img src="../img/tianjia-ioc.png" />-->
+							</span>
+						</li>
+					</ul>
+					<ul class="tanchu-ulj"><!--弹出删除开始  -->
+						<li>
+							<img class="tanchuj" src="../img/gr-ioc/xiugaiai.png" />
+						</li>
+						<li>
+							<img class="tanchuj shangyij" src="../img/gr-ioc/shanchuc.png" />
+						</li>
+					</ul>
+					<div class="zzcj"></div><!--弹出删除结束  -->
+					<ul class="zynr"  v-for="edu in ur.eduExperienceList">
+						<li>
+							<div class="gsmcv">
+								{{edu.name}}
+							</div>
+							<img class="shanchuj" src="../img/shanchbu-ico.png" />
+							<div style="clear: both;"></div>
+						</li>
+						<li><span>专<i></i>业</span>
+					    	<div class="xm sie">{{edu.major}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li>
+					    	<span>
+					    		<img src="../img/dian.png" />
+					    		开始时间
+					    	</span>
+					    	<div style="padding-left: 0.5em;" class="xm sie">{{edu.startTime}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					    <li style="padding: 0px;">
+					    		<img src="../img/xian.png" />
+					    </li>
+					    <li style="padding-top: 0px;">
+					    	<span>
+					    		<img src="../img/dian-huangse.png" />
+					    		结束时间
+					    	</span>
+					    	<div style="padding-left: 0.5em;" class="xm sie">{{edu.endTime}}</div>
+					    	<div style="clear: both;"></div>
+					    </li>
+					</ul>
+				</div><!--教育经历结束  -->
+				<div class="fgx"></div>
+				<div class="jibenxinxi"  style="margin-bottom: 60px;"><!--技能说明开始  -->
+					<ul>
+						<li>
+							<span class="jb">技能说明
+								<!--<img src="../img/qianjinlv-ioc.png" />-->
+							</span>
+						</li>
+					</ul>
+					<ul class="zynr">
+						 <li>
+						 	<span>
+						 		{{ur.jobSkill}}
+						 	</span>
+					    	<div style="clear: both;"></div>
+					    </li>
+					</ul>
+				</div><!--技能说明结束  -->
+				<div class="fgx"></div>
+				<!--底部菜单开始                                                                                                      -->
+				<div style="clear: both;"></div>
+				<div class="dbxq" style="width: 100%;" onclick="interViewNotify()"><!--底部开始  -->
+					面试邀请
+				</div><!--底部结束  --
+				<!--底部菜单结束                                                                                                      -->
+			</div> <!--页面详情结束  -->
+	    </div>
+	    <!--<div class="dbxq">&lt;!&ndash;底部开始  &ndash;&gt;-->
+				<!--投递简历-->
+			<!--</div>&lt;!&ndash;底部结束  &ndash;&gt;-->
+	</body>
+	<script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+	<script type="text/javascript" src="../js/vue.js"></script>
+	<script>
+        var app;
+        app = new Vue({
+            el: '#app',
+            data: {
+                userId:0,
+                enterpriseName:"",
+                id:0,
+                userResumeId:0,
+                userResumeList:[],
+                issueJob:{}
+            },
+            created: function () {
+                this.detail();
+            },
+            methods: {
+                detail: function () {
+                    this.enterpriseName=JSON.parse(localStorage.getItem("enterprise")).name;
+                    var data = {};
+                    data.id = this.aquireParam("id");
+                    $.post('/api/userResume/detail',data,function (res) {
+                        if(res.code==0){
+                            console.log(res.data);
+                            app.userResumeList=res.data.userResumeList;
+                        }
+                    });
+                },
+				aquireParam: function (name) {
+                    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                    var r = window.location.search.substr(1).match(reg);
+                    if (r != null) return unescape(r[2]);
+                    return null;
+                }
+            }
+        });
+        function goBack() {
+            window.history.back(-1);
+        }
+        function interViewNotify(){
+            var isAuthentication=false;
+            var isRenewMoney=false;
+            var errMsg="";
+            var authenticationStatus=0;
+            var data={};
+            data.id=JSON.parse(localStorage.getItem("enterprise")).id;
+            $.ajaxSettings.async = false;
+            $.post("/api/enterprise/detail",data,function(res){
+                console.log(res.data);
+                authenticationStatus=res.data.authenticationStatus;
+                //第一个认证的
+                if(res.data.authenticationStatus==0){
+                    errMsg="请认证";
+                    isAuthentication=false;
+                }else if(res.data.authenticationStatus==1){
+                    errMsg="请等待认证";
+                    isAuthentication=false;
+                }else if(res.data.authenticationStatus==2){
+                    Date.prototype.Format = function(fmt)
+                    { //author: meizz
+                        var o = {
+                            "M+" : this.getMonth()+1,                 //月份
+                            "d+" : this.getDate(),                    //日
+                            "h+" : this.getHours(),                   //小时
+                            "m+" : this.getMinutes(),                 //分
+                            "s+" : this.getSeconds(),                 //秒
+                            "q+" : Math.floor((this.getMonth()+3)/3), //季度
+                            "S"  : this.getMilliseconds()             //毫秒
+                        };
+                        if(/(y+)/.test(fmt))
+                            fmt=fmt.replace(RegExp.$1, (this.getFullYear()+"").substr(4 - RegExp.$1.length));
+                        for(var k in o)
+                            if(new RegExp("("+ k +")").test(fmt))
+                                fmt = fmt.replace(RegExp.$1, (RegExp.$1.length==1) ? (o[k]) : (("00"+ o[k]).substr((""+ o[k]).length)));
+                        return new Date(fmt);
+                    }
+
+                    var data=(new Date()).Format("yyyy-MM-dd");
+                    if(new Date(res.data.serviceEndTime)<new Date(data)){
+                        alert("请续费后重新登入");
+                        isRenewMoney=false;
+                        isAuthentication=true;
+                    }else{
+                        isRenewMoney=true;
+                        isAuthentication=true;
+                    }
+                }else if(res.data.authenticationStatus==3){
+                    errMsg="认证失败,请重新认证";
+                    isAuthentication=false;
+                }
+            });
+            $.ajaxSettings.async = true;
+            if(isAuthentication){
+                if(isRenewMoney){
+                    var userId=app.userResumeList[0].userId;
+                    window.location.href="interviewBySearch.html?userId="+userId;
+                }else{
+                    alert("跳转充值页面");
+                    window.location.href="authentication.html";
+                }
+            }else{
+                alert(errMsg);
+                if(authenticationStatus==0||authenticationStatus==3){
+                    window.location.href="authentication.html";
+                }
+            }
+		}
+        function jumpEnterprise() {
+            window.location.href="enterprise.html"
+        }
+        function jumpLogin() {
+            window.location.href="login.html";
+        }
+	</script>
+</html>

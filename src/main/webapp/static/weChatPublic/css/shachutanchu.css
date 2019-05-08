@@ -1,0 +1,17 @@
+.body-conter   .jibenxinxi .tanchu-ul,.body-conter   .jibenxinxi .tanchu-ulj{
+	display: none;
+	position: absolute;  right: 0px;
+  width: 85px;
+  z-index: 999999;
+}
+.body-conter   .jibenxinxi .tanchu-ul li .tanchu,.body-conter   .jibenxinxi .tanchu-ul li .tanchuj{
+	width: 70px;
+	
+}
+.shangyi,.shangyij{
+  position: relative;
+  top:-1em
+}
+.zzc,.zzcj{
+	display: none; z-index: 99; position: absolute; width: 100%; height: 100%;
+}

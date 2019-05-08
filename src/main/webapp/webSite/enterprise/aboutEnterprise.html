@@ -1,0 +1,285 @@
+﻿<!DOCTYPE html>
+<html dir="ltr" lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="candidates, career, employment, freelance, glassdoor, Human Resource Management, indeed, job board, job listing, job portal, job postings, jobs, listings, recruitment, resume">
+<meta name="CreativeLayers" content="ATFN">
+<!-- css file -->
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="../css/style.css">
+<!-- Responsive stylesheet -->
+<link rel="stylesheet" href="../css/responsive.css">
+<!-- Title -->
+<title>华顿教师人才</title>
+<!-- Favicon -->
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" type="image/x-icon" />
+<link href="/static/common/image/hdrc.jpg" sizes="128x128" rel="shortcut icon" />
+
+	<link rel="stylesheet" href="/static/layuiadmin/layui/css/layui.css" media="all">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+	<style>
+		.header_user_notif li:first-child span:last-child {
+			background-color:transparent;
+		}
+	</style>
+</head>
+<body>
+<div class="wrapper" id="app">
+	<div class="preloader"></div>
+
+	<script src="login_head.js"></script>
+
+	<!-- Candidate Personal Info-->
+	<section class="emplye_single_v2 mt70 mt50 pt50">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-9 col-xl-9">
+					<div class="candidate_personal_info style3">
+						<div class="thumb">
+							<img id="logo" class="img-fluid"  alt="cl1.jpg">
+							<div class="cpi_av_rating"><span>4.5</span></div>
+						</div>
+						<div class="details">
+							<h3><span id="name"></span></h3>
+							<p class="text-thm2">联系方式</p>
+							<ul class="address_list">
+								<li class="list-inline-item"><a href="#"><span class="flaticon-link text-thm"></span> www.themeforest.com</a></li>
+								<li class="list-inline-item"><a href="#"><span class="flaticon-phone-call text-thm"></span><span id="phone"></span></a></li>
+								<li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm"></span> <span class="__cf_email__" data-cfemail="c5a1a0a8aa85b1ada0a8a0a3aab7a0b6b1eba6aaa8"><span id="email"></span></span></a></li>
+								<li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm"></span> <span class="__cf_email__" data-cfemail="c5a1a0a8aa85b1ada0a8a0a3aab7a0b6b1eba6aaa8"><span id="weChat"></span></span></a></li>
+								<li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm"></span> <span class="__cf_email__" data-cfemail="c5a1a0a8aa85b1ada0a8a0a3aab7a0b6b1eba6aaa8"><span id="qq"></span></span></a></li>
+							</ul>
+							<p class="text-thm2">其他信息</p>
+							<ul class="address_list">
+								<li class="list-inline-item"><a href="#"><span class="flaticon-phone-call text-thm"></span><span>上班时间:</span><span id="workTime"></span></a></li>
+								<li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm"></span> <span class="__cf_email__" ><span>单双休:</span><span id="singleDoubleCease"></span></span></a></li>
+								<li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm"></span> <span class="__cf_email__" ><span>企业类型:</span><span id="enterpriseType">单双休</span></span></a></li>
+								<li class="list-inline-item"><a href="#"><span class="flaticon-mail text-thm"></span> <span class="__cf_email__" ><span>企业规模:</span><span id="scale"></span>单双休</span></a></li>
+							</ul>
+							<p class="text-thm2">办公地址</p>
+							<ul class="address_list">
+								<p><span id="province"></span><span id="city"></span><span id="area"></span><span id="detailPlace"></span></p>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Candidate Personal Info Details-->
+	<section class="bgc-fa employe_details">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-8">
+
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="candidate_about_info style2">
+								<h4 class="fz20 mb30">公司简介</h4>
+								<p><span id="intro"></span></p>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="my_resume_eduarea">
+								<h4 class="title mb30">空缺职位</h4>
+							</div>
+						</div>
+						<template v-for="issueJob in jobList" :key="issueJob.id">
+							<div class="col-lg-12"  :id="issueJob.id" onclick="jumpDetail(this)">
+								<div class="fj_post style2 one">
+									<div class="details">
+										<span>JAVA工程师</span>
+										<div class="thumb fn-smd">
+										<img class="img-fluid" style="margin-top: -18%;" src="../images/partners/1.jpg" alt="1.jpg">
+										</div>
+										<p><span class="job_chedule text-thm2">橙果</span><span style="margin-left: 3%;" class="job_chedule text-thm2">在招</span></p>
+										<p><span>年龄</span><span style="margin-left: 1%;">20</span><span style="margin-left: 3%;">工龄</span><span style="margin-left: 1%;">20</span><span style="margin-left: 3%;">学历</span><span style="margin-left: 1%;">20</span></p>
+										<ul class="featurej_post">
+											<li class="list-inline-item"><span class="flaticon-location-pin"></span> <a href="#"><span>{{issueJob.workPlace}}</span></a></li>
+											<li class="list-inline-item"><span class="flaticon-price pl20"></span> <a href="#"><span>{{issueJob.workAge}}</span></a></li>
+										</ul>
+									</div>
+									<a class="favorit" href="#"><span class="flaticon-favorites"></span></a>
+								</div>
+							</div>
+						</template>
+
+					</div>
+				</div>
+				<div class="col-xl-4">
+					<div class="map_sidebar_widget mb30">
+						<h4 class="fz20 mb30">工作地点</h4>
+						<div class="h300" id="map-canvas"></div>
+					</div>
+					<div class="candidate_social_widget">
+						<ul>
+							<li>Social Profiles</li>
+							<li><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li><a href="#"><i class="fa fa-google"></i></a></li>
+							<li><a href="#"><i class="fa fa-linkedin"></i></a></li>
+						</ul>
+					</div>
+				</div>
+				<div id="test1" style="text-align: center"></div>
+			</div>
+		</div>
+	</section>
+
+<script src="footer.js"></script>
+<script src="jumpPage.js"></script>
+<a class="scrollToHome text-thm" href="#"><i class="flaticon-rocket-launch"></i></a>
+</div>
+<!-- Wrapper End -->
+<script type="text/javascript" src="../js/jquery-3.3.1.js"></script>
+<script type="text/javascript" src="../js/jquery-migrate-3.0.0.min.js"></script>
+<script type="text/javascript" src="../js/popper.min.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/jquery.mmenu.all.js"></script>
+<script type="text/javascript" src="../js/ace-responsive-menu.js"></script>
+<script type="text/javascript" src="../js/bootstrap-select.min.js"></script>
+<script type="text/javascript" src="../js/snackbar.min.js"></script>
+<script type="text/javascript" src="../js/simplebar.js"></script>
+<script type="text/javascript" src="../js/parallax.js"></script>
+<script type="text/javascript" src="../js/scrollto.js"></script>
+<script type="text/javascript" src="../js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="../js/jquery.counterup.js"></script>
+<script type="text/javascript" src="../js/wow.min.js"></script>
+<script type="text/javascript" src="../js/progressbar.js"></script>
+<script type="text/javascript" src="../js/slider.js"></script>
+<script type="text/javascript" src="../js/timepicker.js"></script>
+<script src="http://ditu.google.cn/maps/api/js?key=AIzaSyAAz77U5XQuEME6TpftaMdX0bBelQxXRlM&callback=initMap"type="text/javascript"></script>
+<script type="text/javascript" src="../js/googlemaps1.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="../js/script.js"></script>
+
+<script type="text/javascript" src="/static/common/js/vue.js"></script>
+<script src="/static/layuiadmin/layui/layui.js"></script>
+</body>
+<script>
+    var app;
+    app = new Vue({
+        el: '#app',
+        data: {
+            userId:0,
+            edu:"",
+            status:0,
+            userName:"",
+            headImg:"",
+            enterprise:{},
+            jobList: [],
+            jobListCount: 0
+        },
+        created: function () {
+            this.userName=JSON.parse(localStorage.getItem("user")).name;
+            this.headImg=JSON.parse(localStorage.getItem("user")).headImg;
+            this.detail();
+        },
+        methods: {
+            detail: function () {
+                var data={};
+                data.id=this.aquireParam("id");
+                $.post("/api/enterprise/detail",data,function(res){
+                    var enterprise=res.data;
+                    $("#logo").attr("src","/"+enterprise.logo);
+                    $("#name").text(enterprise.name);
+                    $("#phone").text(enterprise.phone);
+                    $("#email").text(enterprise.email);
+                    $("#weChat").text(enterprise.weChat);
+                    $("#qq").text(enterprise.qq);
+                    $("#intro").text(enterprise.intro);
+                    $("#workTime").text(enterprise.workTime);
+                    $("#intro").text(enterprise.intro);
+                    $("#singleDoubleCease").text(enterprise.singleDoubleCease);
+                    $("#intro").text(enterprise.intro);
+                    $("#enterpriseType").text(enterprise.enterpriseType);
+                    $("#scale").text(enterprise.scale);
+                    $("#province").text(enterprise.province);
+                    $("#city").text(enterprise.city);
+                    $("#area").text(enterprise.area);
+                    $("#detailPlace").text(enterprise.detailPlace);
+                    $("#businessLicense").attr("src","/"+res.data.businessLicense);
+                    $("#teacherAptitude").attr("src","/"+res.data.teacherAptitude);
+                    console.log(enterprise.logo);
+                });
+            },
+            aquireParam: function (name) {
+                var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+                var r = window.location.search.substr(1).match(reg);
+                if (r != null) return unescape(r[2]);
+                return null;
+            },findJobList: function () {
+                var data={};
+                data.enterpriseId = JSON.parse(localStorage.getItem("enterprise")).id;
+                data.page=1;
+                data.limit=10;
+                var keywords=$("#txtKeyWord").val();
+                data.keywords=keywords;
+                var that=this;
+                $.post('/api/issueJob/paging',data,function(res){
+                    if(res.code==-1) {
+                        alert(res.msg);
+                        if (res.data != null && res.data == -1) {
+                            window.location.href = "login.html";
+                        }
+                    }
+                    that.jobListCount=res.count;
+                });
+            }
+        }
+    });
+    search();
+    function search() {
+        app.findJobList();
+        setTimeout(function(){
+            console.log("search=="+app.jobListCount);
+            layui.use('laypage', function () {
+                laypage = layui.laypage;
+                //执行一个laypage实例
+                pageFindJob = laypage.render({
+                    elem: 'test1' //注意，这里的 test1 是 ID，不用加 # 号
+                    , limit: 10
+                    , groups: 1
+                    , count: app.jobListCount
+                    , layout: ['prev','page', 'next']
+                    , jump: function (obj, first) {
+                        //obj包含了当前分页的所有参数，比如：
+                        console.log(obj.curr); //得到当前页，以便向服务端请求对应页的数据。
+                        console.log(obj.limit); //得到每页显示的条数
+
+                        //首次不执行
+                        if (!first) {
+                            //do something
+                        }
+
+                        var data = {};
+                        data.enterpriseId = JSON.parse(localStorage.getItem("enterprise")).id;
+                        data.page = obj.curr;
+                        data.limit = obj.limit;
+                        var keywords=$("#txtKeyWord").val();
+                        data.keywords=keywords;
+                        $.post('/api/issueJob/paging', data, function (res) {
+                            obj.count = res.count;
+                            app.jobList = res.data;
+                        });
+                    }
+                });
+            });
+        },300);
+    }
+    function jumpDetail(data) {
+        window.location.href="jobDetail.html?id="+data.id;
+    }
+
+</script>
+</body>
+</html>
