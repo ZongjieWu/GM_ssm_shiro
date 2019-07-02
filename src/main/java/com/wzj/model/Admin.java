@@ -10,10 +10,14 @@ public class Admin {
 
     private String phone;
 
+
+
     @Column(name="head_img")
     private String headImg;
 
     private String pwd;
+
+    private String salt;
 
 
     public Long getId() {
@@ -46,5 +50,13 @@ public class Admin {
 
     public void setPwd(String pwd) {
         this.pwd = pwd;
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 }

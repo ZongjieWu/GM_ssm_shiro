@@ -9,5 +9,6 @@
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="head_img" jdbcType="VARCHAR" property="headImg" />
     <result column="pwd" jdbcType="VARCHAR" property="pwd" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
   </resultMap>
 </mapper>

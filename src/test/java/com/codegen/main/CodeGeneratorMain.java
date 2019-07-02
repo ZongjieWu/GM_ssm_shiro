@@ -40,7 +40,7 @@ public class CodeGeneratorMain {
 //		cgm.genCodeWithSimpleName((String[])set.toArray());
 
 		//单表生成
-		cgm.genCodeWithSimpleName("remit_record");
+		cgm.genCodeWithSimpleName("sessions");
 
 
 //		cgm.genCodeWithDetailName(TABLES);

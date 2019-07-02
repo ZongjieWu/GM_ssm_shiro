@@ -6,6 +6,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.subject.Subject;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,23 +40,26 @@ public class AdminController {
     public Map<String,Object> login(@NotNull @NotEmpty String phone, @NotNull @NotEmpty  String pwd, HttpSession session){
         Subject subject = SecurityUtils.getSubject();
         subject.login(new UsernamePasswordToken(phone, pwd));
-        Map<String,Object> map=new HashMap<String,Object>();
-        Admin admin=new Admin();
-        admin.setPhone(phone);
-        admin.setPwd(pwd);
-        Admin a=adminService.findOne(admin);
-        if(a==null){
-            return Result.retrunFail();
-        }else{
-            session.setAttribute("admin",a);
-            return Result.retrunSucess();
-        }
+//        Admin admin=new Admin();
+//        admin.setPhone(phone);
+//        admin.setPwd(pwd);
+//        Admin a=adminService.findOne(admin);
+//        if(a==null){
+//            return Result.retrunFail();
+//        }else{
+//            session.setAttribute("admin",a);
+//            return Result.retrunSucess();
+//        }
+        return Result.retrunSucess();
     }
 
 
     @RequestMapping("add")
     public Map<String,Object> add(Admin admin) {
         try {
+            String salt = new SecureRandomNumberGenerator().nextBytes().toHex();
+            String pwd = new Sha256Hash(admin.getPwd(), salt, 6).toHex();
+            admin.setSalt(pwd);
             adminService.save(admin);
             return Result.retrunSucess();
         }catch (Exception e){

@@ -2,13 +2,14 @@ package com.wzj.web.shiro;
 
 import com.wzj.model.Admin;
 import com.wzj.service.service.AdminService;
-import org.apache.shiro.authc.AuthenticationException;
-import org.apache.shiro.authc.AuthenticationInfo;
-import org.apache.shiro.authc.AuthenticationToken;
-import org.apache.shiro.authc.SimpleAuthenticationInfo;
+import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
+import org.apache.shiro.crypto.SecureRandomNumberGenerator;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +34,14 @@ public class ShiroRealm extends AuthorizingRealm{
 //
 //    @Autowired
 //    HttpServletRequest request;
+//告诉shiro如何根据获取到的用户信息中的密码和盐值来校验密码
+    {
+        //设置用于匹配密码的CredentialsMatcher
+        HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
+        hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
+        hashMatcher.setHashIterations(6);
+        this.setCredentialsMatcher(hashMatcher);
+    }
 
 
      /*
@@ -41,17 +50,21 @@ public class ShiroRealm extends AuthorizingRealm{
     * @throws AuthenticationException
     * */
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authenticationToken) throws AuthenticationException {
-        String phone = (String)authenticationToken.getPrincipal();
-        String password = String.valueOf((char[])authenticationToken.getCredentials());
+//        String phone = (String)authenticationToken.getPrincipal();
+        UsernamePasswordToken upToken = (UsernamePasswordToken) authenticationToken;
+        String phone = upToken.getUsername();
+//        String password = String.valueOf((char[])authenticationToken.getCredentials());
         Admin a=new Admin();
         a.setPhone(phone);
-        a.setPwd(password);
-        //判断是否为后台登陆
+
         Admin admin=adminService.findOne(a);
+
         if(admin!=null){
-            return new SimpleAuthenticationInfo(authenticationToken.getPrincipal(),authenticationToken.getCredentials(),"myReam");
+            SimpleAuthenticationInfo sai=new SimpleAuthenticationInfo(admin,admin.getPwd(),ByteSource.Util.bytes(admin.getSalt()),getName());
+            return sai;
+        }else{
+            return null;
         }
-        return null;
     }
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
 //        System.out.println("AuthorizationInfoAuthorizationInfoAuthorizationInfo");
