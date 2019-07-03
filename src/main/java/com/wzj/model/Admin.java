@@ -59,4 +59,5 @@ public class Admin {
     public void setSalt(String salt) {
         this.salt = salt;
     }
+
 }

@@ -37,7 +37,19 @@
     <!-- 缓存器，用于缓存shiro相关的数据 -->
     <bean id="cacheManager" class="org.apache.shiro.cache.MemoryConstrainedCacheManager" />
 
-    <bean id="shiroRealm" class="com.wzj.web.shiro.ShiroRealm"></bean>
+    <bean id="shiroRealm" class="com.wzj.web.shiro.ShiroRealm">
+        <property name="credentialsMatcher" ref="credentialsMatcher"></property>
+    </bean>
+
+    <!-- 凭证匹配器,shiro加密时用到 -->
+    <bean id="credentialsMatcher" class="org.apache.shiro.authc.credential.HashedCredentialsMatcher">
+        <!-- 加密名称-->
+        <property name="hashAlgorithmName" value="SHA-256"></property>
+        <!-- 散列次数(加密次数)-->
+        <property name="hashIterations" value="6"></property>
+        <!--value="false"表明hash散列值用用Base64-encoded，value="true"存储指定Hash散列值使用Hex加密存储-->
+        <property name="storedCredentialsHexEncoded" value="false"></property>
+    </bean>
 
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <!-- 我们自定义的realm -->

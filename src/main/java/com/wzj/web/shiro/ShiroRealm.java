@@ -34,14 +34,14 @@ public class ShiroRealm extends AuthorizingRealm{
 //
 //    @Autowired
 //    HttpServletRequest request;
-//告诉shiro如何根据获取到的用户信息中的密码和盐值来校验密码
-    {
-        //设置用于匹配密码的CredentialsMatcher
-        HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
-        hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
-        hashMatcher.setHashIterations(6);
-        this.setCredentialsMatcher(hashMatcher);
-    }
+//告诉shiro如何根据获取到的用户信息中的密码和盐值来校验密码,此处注释已在配置文件中配置
+//    {
+//        //设置用于匹配密码的CredentialsMatcher
+//        HashedCredentialsMatcher hashMatcher = new HashedCredentialsMatcher();
+//        hashMatcher.setHashAlgorithmName(Sha256Hash.ALGORITHM_NAME);
+//        hashMatcher.setHashIterations(6);
+//        this.setCredentialsMatcher(hashMatcher);
+//    }
 
 
      /*
