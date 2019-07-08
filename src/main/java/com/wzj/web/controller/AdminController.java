@@ -87,9 +87,25 @@ public class AdminController {
     @RequestMapping("detail")
     public Map<String,Object> detail(@RequestParam Long id) {
         Admin admin = adminService.findById(id);
+        System.out.println("id===="+id);
+        System.out.println("```````````````````````daFADASDFSAAFD");
         return Result.retrunSucessMsgData(admin);
     }
-
+    @RequestMapping("detail222")
+    public Map<String,Object> detail222(@RequestParam Long id) {
+        Admin admin = adminService.findById(id);
+        return Result.retrunSucessMsgData(admin);
+    }
+    @RequestMapping("detail333")
+    public Map<String,Object> detail333(@RequestParam Long id) {
+        Admin admin = adminService.findById(id);
+        return Result.retrunSucessMsgData(admin);
+    }
+    @RequestMapping("detail444")
+    public Map<String,Object> detail444(@RequestParam Long id) {
+        Admin admin = adminService.findById(id);
+        return Result.retrunSucessMsgData(admin);
+    }
     @RequestMapping("paging")
     public Map<String,Object> list(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "0") Integer size) {
         PageHelper.startPage(page, size);
